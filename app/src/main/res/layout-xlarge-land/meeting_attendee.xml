@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/bottom_line">
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="0sp"
+        android:layout_weight=".5"
+        android:layout_height="wrap_content"
+        android:id="@+id/lincontainer_1"
+        >
+
+        <TextView
+            android:id="@+id/tv_attendeedate"
+            android:layout_width="0sp"
+            android:layout_height="match_parent"
+            android:layout_weight=".6"
+            android:text=""
+            android:gravity="start"
+            android:textSize="30sp"
+            android:layout_margin="15dp"
+            android:textStyle="bold"
+            />
+
+        <CheckBox
+            android:id="@+id/chk_attend1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".1"
+            android:text=""
+            android:enabled="false"/>
+
+        <Button
+            android:id="@+id/btn_swapcheck"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".2"
+            android:text="@string/checkin"
+            android:textSize="22sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="0sp"
+        android:layout_weight=".5"
+        android:layout_height="wrap_content"
+        android:id="@+id/lincontainer_2"
+        >
+
+        <TextView
+            android:id="@+id/tv_attendeedate2"
+            android:layout_width="0sp"
+            android:layout_height="match_parent"
+            android:layout_weight=".6"
+            android:text=""
+            android:gravity="start"
+            android:layout_margin="15dp"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            />
+
+        <CheckBox
+            android:id="@+id/chk_attend2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".1"
+            android:text=""
+            android:enabled="false"/>
+
+        <Button
+            android:id="@+id/btn_swapcheck2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".2"
+            android:textSize="22sp"
+            android:text="@string/checkin" />
+
+    </LinearLayout>
+
+</LinearLayout>

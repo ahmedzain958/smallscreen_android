@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.techsignage.techsignmeetings.MeetingsListActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0sp"
+            android:layout_weight=".2"
+            android:id="@+id/container1_lin"
+            android:padding="15dp"
+            android:background="@drawable/borderframe"
+            >
+
+
+            <TextView
+                android:text="Today's Meetings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/tv_UnitName"
+                android:textSize="48sp"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:gravity="start"
+
+                />
+            <TextView
+                android:text=""
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                android:id="@+id/tv_NowDate"
+                android:gravity="start"
+
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:textSize="25sp"
+                android:layout_below="@+id/tv_UnitName"
+                android:textColor="@android:color/black"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0sp"
+            android:layout_weight=".8"
+            android:layout_marginTop="2dp"
+            android:id="@+id/container2_lin">
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/header_lin"
+                >
+
+                <TextView
+                    android:id="@+id/tv_meetingdate"
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".25"
+                    android:text="Date/Time"
+                    android:padding="10dp"
+                    android:background="@color/dWhite"
+                    android:gravity="center"
+                    android:textSize="30sp"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_meetingtitle"
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".25"
+                    android:text="Meeting Title"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:padding="10dp"
+                    android:background="@color/dWhite"
+                    android:gravity="center"
+                    android:textSize="30sp"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_meetingorganizer"
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".25"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:text="Organizer"
+                    android:padding="10dp"
+                    android:background="@color/dWhite"
+                    android:gravity="center"
+                    android:textSize="30sp"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_meetingunit"
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".25"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
+                    android:text="Room"
+                    android:padding="10dp"
+                    android:background="@color/dWhite"
+                    android:gravity="center"
+                    android:textSize="30sp"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView android:id="@+id/meetings_list"
+                android:layout_marginTop="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/header_lin"
+                >
+
+            </android.support.v7.widget.RecyclerView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0sp"
+            android:layout_weight=".20"
+            android:padding="5dp"
+            android:id="@+id/container3_lin"
+            android:background="@drawable/borderframe"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.percent.PercentRelativeLayout
+                    android:layout_width="0sp"
+                    android:layout_weight=".65"
+                    android:layout_height="match_parent">
+                    <Button
+                        app:layout_widthPercent="21%"
+                        android:id="@+id/back_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+
+                        android:textSize="30sp"
+                        android:textStyle="bold"
+                        android:text="@string/back" />
+                </android.support.percent.PercentRelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0sp"
+                    android:layout_weight=".25"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <Button
+                            android:id="@+id/prev_btn"
+                            android:layout_width="0sp"
+                            android:layout_weight=".5"
+                            android:layout_height="match_parent"
+                            android:text="@string/previous"
+
+                            android:textSize="30sp"
+                            android:textStyle="bold"
+                            android:enabled="false"/>
+                        <Button
+                            android:id="@+id/next_btn"
+                            android:layout_width="0sp"
+                            android:layout_weight=".5"
+                            android:layout_height="match_parent"
+                            android:text="@string/next"
+                            android:enabled="false"
+
+                            android:textSize="30sp"
+                            android:textStyle="bold"
+                            />
+                    </LinearLayout>
+                </RelativeLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

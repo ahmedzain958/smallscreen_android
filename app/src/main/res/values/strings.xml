@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">TechSignMeetings</string>
+    <string name="room_name">Hall</string>
+    <string name="firstmeeting_title">No Meetings</string>
+    <string name="firstmeeting_date"> </string>
+    <string name="next">Next</string>
+    <string name="secondmeeting_title">No Meetings</string>
+    <string name="secondmeeting_date"> </string>
+    <string name="startmeeting">Start Meeting</string>
+    <string name="endmeeting">End Meeting</string>
+    <string name="processing">Processing</string>
+    <string name="meetingslist">Meetings List</string>
+    <string name="meeting_title">Meeting Title</string>
+    <string name="meeting_datetime">Date/Time</string>
+    <string name="meeting_organizer">Organizer</string>
+    <string name="meeting_attendees">Attendees</string>
+    <string name="checkin">Check In</string>
+    <string name="checkout">Check Out</string>
+    <string name="signin">Sign In</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="back">Back</string>
+    <string name="previous">Previous</string>
+    <string name="nopermission">No Permission</string>
+    <string name="selectrange">Select Time Range</string>
+    <string name="book">Book</string>
+    <string name="expired">Expired</string>
+    <string name="booked">Booked</string>
+    <string name="notstarted">Meeting has not started yet or has expired</string>
+    <string name="notcheckin">You have to check in as a first step</string>
+    <string name="terminalName">Terminal Name</string>
+    <string name="save">Save</string>
+    <string name="deviceidentifier">Device Identifier</string>
+    <string name="validate">Validate</string>
+    <string name="licenseinformation">License Information</string>
+    <string name="error_network_timeout">Network Connection Error</string>
+</resources>
