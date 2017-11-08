@@ -79,8 +79,11 @@ public class LoginActivity extends CoreActivity {
     @InjectView(R.id.txt_holder4)
     TextView txt_holder4;
 
+    @InjectView(R.id.progress_rel)
+    RelativeLayout progress_rel;
+
     //ProgressDialog dialog;
-    SweetAlertDialog sweetAlertDialog;
+    //SweetAlertDialog sweetAlertDialog;
     com.techsignage.techsignmeetings.Models.Interfaces.retrofitInterface retrofitInterface;
 
     final int flags = View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
@@ -94,6 +97,7 @@ public class LoginActivity extends CoreActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.inject(this);
+        progress_rel.setVisibility(View.GONE);
         //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         KeyboardUtils.addKeyboardToggleListener(this, new KeyboardUtils.SoftKeyboardToggleListener()
         {
@@ -161,8 +165,10 @@ public class LoginActivity extends CoreActivity {
                     return;
                 }
 
-                sweetAlertDialog = Utilities.showProgressPrettyDialog(LoginActivity.this, getResources().getString(R.string.processing));
-                sweetAlertDialog.show();
+                //sweetAlertDialog = Utilities.showProgressPrettyDialog(LoginActivity.this, getResources().getString(R.string.processing));
+                //sweetAlertDialog.show();
+                progress_rel.setVisibility(View.VISIBLE);
+
                 getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
                 UserModel userModel = new UserModel();
                 userModel.USERNAME = userName_txt.getText().toString();
@@ -192,18 +198,12 @@ public class LoginActivity extends CoreActivity {
                                             LoginActivity.this.getString(R.string.error_network_timeout),
                                             Toast.LENGTH_LONG).show();
                                 }
-                                if (sweetAlertDialog.isShowing())
-                                {
-                                    sweetAlertDialog.hide();
-                                }
+                                progress_rel.setVisibility(View.GONE);
                             }
 
                             @Override
                             public void onNext(AuthResponse authResponse) {
-                                if (sweetAlertDialog.isShowing())
-                                {
-                                    sweetAlertDialog.hide();
-                                }
+                                progress_rel.setVisibility(View.GONE);
 
                                 if (!authResponse.ResponseStatus)
                                 {

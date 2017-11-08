@@ -30,6 +30,7 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import butterknife.InjectView;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -38,7 +39,7 @@ import rx.schedulers.Schedulers;
 
 
 public class MeetingAttendees extends CoreActivity {
-    ProgressDialog dialog;
+    //ProgressDialog dialog;
     retrofitInterface retrofitInterface;
     private Subscription subscription;
     TextView tv_UnitName;
@@ -56,11 +57,14 @@ public class MeetingAttendees extends CoreActivity {
     AttendeesAdapter adapter;
     RecyclerView activerequestslist;
 
+    RelativeLayout progress_rel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meeting_attendees);
 
+        progress_rel.setVisibility(View.GONE);
         if (getIntent() != null)
         {
             if (getIntent().getExtras() != null)
@@ -85,6 +89,7 @@ public class MeetingAttendees extends CoreActivity {
                 next_btn = (Button) findViewById(R.id.next_btn);
                 prev_btn = (Button)findViewById(R.id.prev_btn);
                 back_btn = (Button)findViewById(R.id.back_btn);
+                progress_rel = (RelativeLayout) findViewById(R.id.progress_rel);
 
                 tv_UnitName.setText(UNIT_NAME);
                 Timer t = new Timer();
@@ -178,7 +183,8 @@ public class MeetingAttendees extends CoreActivity {
 
                 //tv_NowDate.setText(Globals.timeStamp);
                 tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy | HH:mm aaa").format(new Date()));
-                dialog = Utilities.showDialog(MeetingAttendees.this);
+                //dialog = Utilities.showDialog(MeetingAttendees.this);
+                progress_rel.setVisibility(View.VISIBLE);
 
                 VolleyRequest request = new VolleyRequest();
                 request.getString(new VolleyCallbackString() {
@@ -213,9 +219,8 @@ public class MeetingAttendees extends CoreActivity {
 
                                                               @Override
                                                               public void onNext(RoomMeetingsResponse serviceResponse) {
-                                                                  if (dialog.isShowing()) {
-                                                                      dialog.dismiss();
-                                                                  }
+                                                                  progress_rel.setVisibility(View.GONE);
+
                                                                   for (UserMeetingModel userMeetingModel : serviceResponse.RoomMeetings.MeetingsAll)
                                                                   {
                                                                       if (userMeetingModel.meeting.MEETING_ID.equals(MEETING_ID))
@@ -276,17 +281,13 @@ public class MeetingAttendees extends CoreActivity {
 
                                               }
                                           } catch (Exception ex) {
-                                              if (dialog.isShowing()) {
-                                                  dialog.dismiss();
-                                              }
+                                              progress_rel.setVisibility(View.GONE);
                                           }
                                       }
 
                                       @Override
                                       public void onError(String result) {
-                                          if (dialog.isShowing()) {
-                                              dialog.dismiss();
-                                          }
+                                          progress_rel.setVisibility(View.GONE);
                                       }
                                   }, MeetingAttendees.this, getApplicationContext(), Globals.tokenUrl, "",
                         String.format("grant_type=password&username=%s&password=%s", "Admin", "P@ssw0rd"), ContentTypes.FormEncoded.toString());

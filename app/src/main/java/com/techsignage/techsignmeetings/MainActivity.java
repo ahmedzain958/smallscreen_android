@@ -115,8 +115,11 @@ public class MainActivity extends CoreActivity {
     @InjectView(R.id.book_btn)
     Button book_btn;
 
+    @InjectView(R.id.progress_rel)
+    RelativeLayout progress_rel;
+
     //ProgressDialog dialog;
-    SweetAlertDialog sweetAlertDialog;
+    //SweetAlertDialog sweetAlertDialog;
     MeetingModel firstMeeting;
     MeetingModel secondMeeting;
     IConnector connector;
@@ -202,8 +205,9 @@ public class MainActivity extends CoreActivity {
         {
             if (!(Utilities.getSharedValue("licensed", this).equals("")))
             {
-                sweetAlertDialog = Utilities.showProgressPrettyDialog(this, getResources().getString(R.string.processing));
-                sweetAlertDialog.show();
+                progress_rel.setVisibility(View.VISIBLE);
+                //sweetAlertDialog = Utilities.showProgressPrettyDialog(this, getResources().getString(R.string.processing));
+                //sweetAlertDialog.show();
                 callWithToken();
             }
         }
@@ -224,8 +228,9 @@ public class MainActivity extends CoreActivity {
                     smdtManager.smdtSetExtrnalGpioValue (3,false);
                 }
 
-                sweetAlertDialog = Utilities.showProgressPrettyDialog(MainActivity.this, getResources().getString(R.string.processing));
-                sweetAlertDialog.show();
+                progress_rel.setVisibility(View.VISIBLE);
+                //sweetAlertDialog = Utilities.showProgressPrettyDialog(MainActivity.this, getResources().getString(R.string.processing));
+                //sweetAlertDialog.show();
                 MeetingModel meetingModel = new MeetingModel();
                 meetingModel.MEETING_ID = firstMeeting.MEETING_ID;
                 meetingModel.UNIT_ID = Globals.unitId;
@@ -260,7 +265,8 @@ public class MainActivity extends CoreActivity {
 
                                     getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
 
-                                    sweetAlertDialog.hide();
+                                    //sweetAlertDialog.hide();
+                                    progress_rel.setVisibility(View.GONE);
                                 }
                             });
             }
@@ -355,14 +361,17 @@ public class MainActivity extends CoreActivity {
                                               loadMeetings();
                                           }
                                       } catch (Exception ex) {
-                                          sweetAlertDialog.hide();
+                                          //sweetAlertDialog.hide();
+                                          progress_rel.setVisibility(View.GONE);
+
                                       }
                                   }
 
 
                                   @Override
                                   public void onError(String result) {
-                                      sweetAlertDialog.hide();
+                                      //sweetAlertDialog.hide();
+                                      progress_rel.setVisibility(View.GONE);
 
                                   }
                               }, MainActivity.this, getApplicationContext(), Globals.tokenUrl, "",
@@ -481,8 +490,8 @@ public class MainActivity extends CoreActivity {
 
                     @Override
                     public void onNext(RoomMeetingsResponse serviceResponse) {
-                        sweetAlertDialog.hide();
-
+                        //sweetAlertDialog.hide();
+                        progress_rel.setVisibility(View.GONE);
                         OngoingReactAsync(serviceResponse);
                     }
                 });

@@ -197,4 +197,6 @@
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
+
+    <include layout="@layout/custom_progressbar" />
 </RelativeLayout>

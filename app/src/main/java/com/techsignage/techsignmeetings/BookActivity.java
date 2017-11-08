@@ -75,10 +75,13 @@ public class BookActivity extends CoreActivity {
     @InjectView(R.id.lin2)
     LinearLayout lin2;
 
+    @InjectView(R.id.progress_rel)
+    RelativeLayout progress_rel;
+
     LinearLayoutManager llm;
 
     //ProgressDialog dialog;
-    SweetAlertDialog sweetAlertDialog;
+    //SweetAlertDialog sweetAlertDialog;
     com.techsignage.techsignmeetings.Models.Interfaces.retrofitInterface retrofitInterface;
 
     @InjectView(R.id.back_btn)
@@ -99,6 +102,7 @@ public class BookActivity extends CoreActivity {
         setContentView(R.layout.activity_book);
         //this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         ButterKnife.inject(this);
+        progress_rel.setVisibility(View.GONE);
 
         tv_MeetingTitle.setImeOptions(EditorInfo.IME_ACTION_DONE);
         //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
@@ -203,10 +207,7 @@ public class BookActivity extends CoreActivity {
 
                             @Override
                             public void onError(Throwable e) {
-                                if (sweetAlertDialog.isShowing())
-                                {
-                                    sweetAlertDialog.hide();
-                                }
+                                progress_rel.setVisibility(View.GONE);
                             }
 
                             @Override
@@ -326,8 +327,8 @@ public class BookActivity extends CoreActivity {
                     return;
                 }
 
-                sweetAlertDialog = Utilities.showProgressPrettyDialog(BookActivity.this, getResources().getString(R.string.processing));
-                sweetAlertDialog.show();
+                progress_rel.setVisibility(View.VISIBLE);
+
                 MeetingModel meetingModel = new MeetingModel();
                 meetingModel.UNIT_ID = Globals.unitId;
                 meetingModel.CREATE_USER = Globals.loggedUser.USER_ID;
@@ -353,14 +354,13 @@ public class BookActivity extends CoreActivity {
                             @Override
                             public void onError(Throwable e) {
                                 e.printStackTrace();
-                                if (sweetAlertDialog.isShowing())
-                                {
-                                    sweetAlertDialog.hide();
-                                }
+                                progress_rel.setVisibility(View.GONE);
                             }
 
                             @Override
                             public void onNext(CreateMeetingResponse authResponse) {
+                                progress_rel.setVisibility(View.GONE);
+
                                 Toast.makeText(BookActivity.this, authResponse.Message, Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(BookActivity.this, MainActivity.class);
                                 startActivity(intent);

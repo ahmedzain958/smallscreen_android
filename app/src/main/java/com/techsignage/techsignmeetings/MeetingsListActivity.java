@@ -71,6 +71,9 @@ public class MeetingsListActivity extends CoreActivity {
     @InjectView(R.id.container3_lin)
     RelativeLayout container3_lin;
 
+    @InjectView(R.id.progress_rel)
+    RelativeLayout progress_rel;
+
     Timer t;
     IConnector connector;
     MeetingsAdapter adapter;
@@ -82,7 +85,6 @@ public class MeetingsListActivity extends CoreActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meetings_list);
-
         ButterKnife.inject(this);
 
         VolleyRequest request = new VolleyRequest();
@@ -91,6 +93,7 @@ public class MeetingsListActivity extends CoreActivity {
             public void onSuccess(String result) {
                 try
                 {
+                    progress_rel.setVisibility(View.GONE);
                     JSONObject object = new JSONObject(result);
                     final String token = object.getString("access_token");
 
