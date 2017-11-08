@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/alpha_color"
+    android:id="@+id/progress_rel">
+
+
+    <TextView
+        android:id="@+id/tv_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:layout_centerVertical="true"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:text="@string/processing"
+        android:background="@drawable/two_sided_border"
+        android:shadowColor="@color/black"
+        android:shadowRadius="5"
+        android:shadowDy="6"
+        android:shadowDx="7"/>
+</RelativeLayout>
