@@ -69,7 +69,8 @@ public class MeetingAttendees extends CoreActivity {
                 final String UNIT_NAME = getIntent().getExtras().getString("UNIT_NAME");
                 final String UNIT_ID = getIntent().getExtras().getString("UNIT_ID");
                 final String activityName = getIntent().getExtras().getString("activityName");
-                final Boolean showbtns_check = activityName.equals("MeetingsListActivity");
+                //final Boolean showbtns_check = activityName.equals("MeetingsListActivity");
+                final Boolean showbtns_check = true;
                 //final Boolean Status = getIntent().getExtras().getBoolean("Status");
                 //final Boolean StatusOut = getIntent().getExtras().getBoolean("StatusOut");
 

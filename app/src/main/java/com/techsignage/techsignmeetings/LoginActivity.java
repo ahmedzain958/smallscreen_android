@@ -31,6 +31,7 @@ import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
 import rx.Subscriber;
@@ -66,7 +67,20 @@ public class LoginActivity extends CoreActivity {
     @InjectView(R.id.tv_UnitName)
     TextView tv_UnitName;
 
-    ProgressDialog dialog;
+    @InjectView(R.id.txt_holder1)
+    TextView txt_holder1;
+
+    @InjectView(R.id.txt_holder2)
+    TextView txt_holder2;
+
+    @InjectView(R.id.txt_holder3)
+    TextView txt_holder3;
+
+    @InjectView(R.id.txt_holder4)
+    TextView txt_holder4;
+
+    //ProgressDialog dialog;
+    SweetAlertDialog sweetAlertDialog;
     com.techsignage.techsignmeetings.Models.Interfaces.retrofitInterface retrofitInterface;
 
     final int flags = View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
@@ -80,7 +94,7 @@ public class LoginActivity extends CoreActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.inject(this);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         KeyboardUtils.addKeyboardToggleListener(this, new KeyboardUtils.SoftKeyboardToggleListener()
         {
             @Override
@@ -89,13 +103,22 @@ public class LoginActivity extends CoreActivity {
                 Log.d("keyboard", "keyboard visible: "+isVisible);
                 //Toast.makeText(LoginActivity.this, "keyboard visible: "+isVisible, Toast.LENGTH_SHORT).show();
                 //getWindow().getDecorView().getSystemUiVisibility()
+                getWindow().getDecorView().setSystemUiVisibility(flags2);
                 if (isVisible)
                 {
-                    getWindow().getDecorView().setSystemUiVisibility(flags);
+                    txt_holder1.setVisibility(View.VISIBLE);
+                    txt_holder2.setVisibility(View.VISIBLE);
+                    txt_holder3.setVisibility(View.VISIBLE);
+                    txt_holder4.setVisibility(View.VISIBLE);
+                    //getWindow().getDecorView().setSystemUiVisibility(flags);
                 }
                 else
                 {
-                    getWindow().getDecorView().setSystemUiVisibility(flags2);
+                    txt_holder1.setVisibility(View.GONE);
+                    txt_holder2.setVisibility(View.GONE);
+                    txt_holder3.setVisibility(View.GONE);
+                    txt_holder4.setVisibility(View.GONE);
+                    //getWindow().getDecorView().setSystemUiVisibility(flags2);
                 }
             }
         });
@@ -138,7 +161,9 @@ public class LoginActivity extends CoreActivity {
                     return;
                 }
 
-                dialog = Utilities.showDialog(LoginActivity.this);
+                sweetAlertDialog = Utilities.showProgressPrettyDialog(LoginActivity.this, getResources().getString(R.string.processing));
+                sweetAlertDialog.show();
+                getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
                 UserModel userModel = new UserModel();
                 userModel.USERNAME = userName_txt.getText().toString();
                 userModel.PASSWORD = password_txt.getText().toString();
@@ -167,17 +192,17 @@ public class LoginActivity extends CoreActivity {
                                             LoginActivity.this.getString(R.string.error_network_timeout),
                                             Toast.LENGTH_LONG).show();
                                 }
-                                if (dialog.isShowing())
+                                if (sweetAlertDialog.isShowing())
                                 {
-                                    dialog.hide();
+                                    sweetAlertDialog.hide();
                                 }
                             }
 
                             @Override
                             public void onNext(AuthResponse authResponse) {
-                                if (dialog.isShowing())
+                                if (sweetAlertDialog.isShowing())
                                 {
-                                    dialog.hide();
+                                    sweetAlertDialog.hide();
                                 }
 
                                 if (!authResponse.ResponseStatus)
@@ -245,17 +270,17 @@ public class LoginActivity extends CoreActivity {
 //        }
 //    }
 
-    void setLandscape()
-    {
-        container1_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .18f));
-        container2_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .64f));
-        container3_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .18f));
-    }
-
-    void setPortrait()
-    {
-        container1_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .15f));
-        container2_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .70f));
-        container3_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .15f));
-    }
+//    void setLandscape()
+//    {
+//        container1_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .18f));
+//        container2_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .64f));
+//        container3_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .18f));
+//    }
+//
+//    void setPortrait()
+//    {
+//        container1_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .15f));
+//        container2_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .70f));
+//        container3_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .15f));
+//    }
 }

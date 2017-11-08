@@ -38,6 +38,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -76,7 +77,8 @@ public class BookActivity extends CoreActivity {
 
     LinearLayoutManager llm;
 
-    ProgressDialog dialog;
+    //ProgressDialog dialog;
+    SweetAlertDialog sweetAlertDialog;
     com.techsignage.techsignmeetings.Models.Interfaces.retrofitInterface retrofitInterface;
 
     @InjectView(R.id.back_btn)
@@ -95,7 +97,7 @@ public class BookActivity extends CoreActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        //this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         ButterKnife.inject(this);
 
         tv_MeetingTitle.setImeOptions(EditorInfo.IME_ACTION_DONE);
@@ -107,14 +109,14 @@ public class BookActivity extends CoreActivity {
             {
                 Log.d("keyboard", "keyboard visible: "+isVisible);
                 //Toast.makeText(LoginActivity.this, "keyboard visible: "+isVisible, Toast.LENGTH_SHORT).show();
-
+                getWindow().getDecorView().setSystemUiVisibility(flags2);
                 if (isVisible)
                 {
-                    getWindow().getDecorView().setSystemUiVisibility(flags);
+                    //getWindow().getDecorView().setSystemUiVisibility(flags);
                 }
                 else
                 {
-                    getWindow().getDecorView().setSystemUiVisibility(flags2);
+                    //getWindow().getDecorView().setSystemUiVisibility(flags2);
                 }
             }
         });
@@ -201,9 +203,9 @@ public class BookActivity extends CoreActivity {
 
                             @Override
                             public void onError(Throwable e) {
-                                if (dialog.isShowing())
+                                if (sweetAlertDialog.isShowing())
                                 {
-                                    dialog.hide();
+                                    sweetAlertDialog.hide();
                                 }
                             }
 
@@ -324,7 +326,8 @@ public class BookActivity extends CoreActivity {
                     return;
                 }
 
-                dialog = Utilities.showDialog(BookActivity.this);
+                sweetAlertDialog = Utilities.showProgressPrettyDialog(BookActivity.this, getResources().getString(R.string.processing));
+                sweetAlertDialog.show();
                 MeetingModel meetingModel = new MeetingModel();
                 meetingModel.UNIT_ID = Globals.unitId;
                 meetingModel.CREATE_USER = Globals.loggedUser.USER_ID;
@@ -350,9 +353,9 @@ public class BookActivity extends CoreActivity {
                             @Override
                             public void onError(Throwable e) {
                                 e.printStackTrace();
-                                if (dialog.isShowing())
+                                if (sweetAlertDialog.isShowing())
                                 {
-                                    dialog.hide();
+                                    sweetAlertDialog.hide();
                                 }
                             }
 

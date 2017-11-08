@@ -8,7 +8,7 @@
     <TextView
         android:id="@+id/tv_meetingdate"
         android:layout_width="0sp"
-        android:textSize="30sp"
+        android:textSize="27sp"
         android:layout_height="wrap_content"
         android:layout_weight=".3"
         android:text=""
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_weight=".3"
         android:text=""
-        android:textSize="30sp"
+        android:textSize="27sp"
         android:layout_margin="15dp"
         android:gravity="start"
         android:textColor="@android:color/black"
@@ -36,7 +36,7 @@
         android:layout_weight=".3"
         android:text=""
         android:gravity="start"
-        android:textSize="30sp"
+        android:textSize="27sp"
         android:layout_margin="15dp"
         android:textColor="@android:color/black"
         />

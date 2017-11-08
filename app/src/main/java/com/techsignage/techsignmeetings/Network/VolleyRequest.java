@@ -96,7 +96,7 @@ public class VolleyRequest {
     }
 
 
-    public void getString(final VolleyCallbackString callback, final Activity con, final Context context, final String url, final String token, final String object,
+    public void getString(final VolleyCallbackString callback, final Context con, final Context context, final String url, final String token, final String object,
                           final String contentType) {
 
 //        if (con != null)

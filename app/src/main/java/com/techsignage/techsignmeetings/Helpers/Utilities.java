@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -48,6 +49,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -398,6 +400,14 @@ public class Utilities {
             Toast.makeText(context, "Not a valid license", Toast.LENGTH_LONG).show();
             return false;
         }
+    }
+
+    public static SweetAlertDialog showProgressPrettyDialog(Context context, String message) {
+        SweetAlertDialog pDialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setTitleText(message);
+        pDialog.setCancelable(false);
+        return pDialog;
     }
 
 }

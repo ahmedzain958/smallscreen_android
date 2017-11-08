@@ -14,7 +14,7 @@ import com.techsignage.techsignmeetings.Models.Injection.NetModule;
 
 public class TechApp extends Application {
 
-    private NetComponent mNetComponent;
+    public NetComponent mNetComponent;
 
     @Override
     public void onCreate() {
@@ -29,4 +29,14 @@ public class TechApp extends Application {
     public NetComponent getNetComponent() {
         return mNetComponent;
     }
+
+    public NetComponent setNetComponent() {
+        mNetComponent = DaggerNetComponent.builder()
+                .appModule(new AppModule(this)) // This also corresponds to the name of your module: %component_name%Module
+                .netModule(new NetModule(Utilities.getSharedValue("token", this)))
+                .build();
+
+        return mNetComponent;
+    }
+
 }

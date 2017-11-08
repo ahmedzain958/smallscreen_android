@@ -68,6 +68,7 @@ import java.util.TimerTask;
 import javax.inject.Inject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -114,12 +115,13 @@ public class MainActivity extends CoreActivity {
     @InjectView(R.id.book_btn)
     Button book_btn;
 
-    ProgressDialog dialog;
+    //ProgressDialog dialog;
+    SweetAlertDialog sweetAlertDialog;
     MeetingModel firstMeeting;
     MeetingModel secondMeeting;
     IConnector connector;
     Timer t;
-    SettingsDialog settingsDialog;
+    //SettingsDialog settingsDialog;
 
     private Handler handler = new Handler();
     private int value;
@@ -194,11 +196,16 @@ public class MainActivity extends CoreActivity {
             }
         });
 
-        dialog = Utilities.showDialog(MainActivity.this);
-
+        //dialog = Utilities.showDialog(MainActivity.this);
+        getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
         try
         {
-            callWithToken();
+            if (!(Utilities.getSharedValue("licensed", this).equals("")))
+            {
+                sweetAlertDialog = Utilities.showProgressPrettyDialog(this, getResources().getString(R.string.processing));
+                sweetAlertDialog.show();
+                callWithToken();
+            }
         }
         catch (Exception ex)
         {
@@ -209,6 +216,7 @@ public class MainActivity extends CoreActivity {
             @Override
             public void onClick(View view) {
 
+                getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
                 if(smdtManager != null)
                 {
                     smdtManager.smdtSetExtrnalGpioValue (1,false);
@@ -216,7 +224,8 @@ public class MainActivity extends CoreActivity {
                     smdtManager.smdtSetExtrnalGpioValue (3,false);
                 }
 
-                dialog = Utilities.showDialog(MainActivity.this);
+                sweetAlertDialog = Utilities.showProgressPrettyDialog(MainActivity.this, getResources().getString(R.string.processing));
+                sweetAlertDialog.show();
                 MeetingModel meetingModel = new MeetingModel();
                 meetingModel.MEETING_ID = firstMeeting.MEETING_ID;
                 meetingModel.UNIT_ID = Globals.unitId;
@@ -251,11 +260,7 @@ public class MainActivity extends CoreActivity {
 
                                     getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
 
-                                    if (dialog.isShowing())
-                                    {
-                                        dialog.hide();
-                                    }
-
+                                    sweetAlertDialog.hide();
                                 }
                             });
             }
@@ -276,7 +281,8 @@ public class MainActivity extends CoreActivity {
                 {
                     try
                     {
-                        callWithToken();
+                        if (!(Utilities.getSharedValue("licensed", MainActivity.this).equals("")))
+                            callWithToken();
                     }
                     catch (Exception ex)
                     {
@@ -334,93 +340,104 @@ public class MainActivity extends CoreActivity {
         if(t != null)
             t.cancel();
 
-        VolleyRequest request = new VolleyRequest();
-        request.getString(new VolleyCallbackString() {
-                              @Override
-                              public void onSuccess(String result) {
-                                  try {
-                                      if (result != null) {
-                                          JSONObject object = new JSONObject(result);
-                                          final String token = object.getString("access_token");
-                                          Utilities.setSharedValue("token", token, getApplicationContext());
-                                          Utilities.setSharedValue("username", "Admin", MainActivity.this);
-                                          //retrofitInterface = Utilities.liveAPI(token);
-                                          ((TechApp) getApplication()).getNetComponent().inject(MainActivity.this);
-                                          Observable<RoomsResponse> allRooms = retrofitInterface.allrooms();
-                                          subscription = allRooms.observeOn(AndroidSchedulers.mainThread())
-                                                  .subscribeOn(Schedulers.newThread())
-                                                  .subscribe(new Subscriber<RoomsResponse>() {
-                                                      @Override
-                                                      public void onCompleted() {
-
-                                                      }
-
-                                                      @Override
-                                                      public void onError(Throwable error) {
-                                                          error.printStackTrace();
-
-                                                          if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                                                              Toast.makeText(MainActivity.this,
-                                                                      MainActivity.this.getString(R.string.error_network_timeout),
-                                                                      Toast.LENGTH_LONG).show();
-                                                          } else if (error instanceof AuthFailureError) {
-                                                              //TODO
-                                                          } else if (error instanceof ServerError) {
-                                                              //TODO
-                                                          } else if (error instanceof NetworkError) {
-                                                              //TODO
-                                                              Toast.makeText(MainActivity.this,
-                                                                      MainActivity.this.getString(R.string.error_network_timeout),
-                                                                      Toast.LENGTH_LONG).show();
-                                                          } else if (error instanceof ParseError) {
-                                                              //TODO
-                                                          }
-
-                                                      }
-
-                                                      @Override
-                                                      public void onNext(final RoomsResponse roomsResponse) {
-                                                          //String ss = "";
-                                                            settingsDialog.setSpinner(roomsResponse.Rooms);
-                                                      }
-                                                  });
-
-
-                                          tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy | HH:mm aaa").format(new Date()));
-
-                                          t = new Timer();
-                                          t.scheduleAtFixedRate(new TimerTask() {
-
-                                                                    @Override
-                                                                    public void run() {
-                                                                        runOnUiThread(new Runnable() {
-                                                                            @Override
-                                                                            public void run() {
-                                                                                startChecking();
-                                                                            }
-                                                                        });
-
-                                                                    }
-
-                                                                },
-                                                  0,
-                                                  30000);
-                                      }
-                                  } catch (Exception ex) {
-                                      if (dialog.isShowing()) {
-                                          dialog.dismiss();
+        if (Utilities.getSharedValue("token", MainActivity.this).equals(""))
+        {
+            VolleyRequest request = new VolleyRequest();
+            request.getString(new VolleyCallbackString() {
+                                  @Override
+                                  public void onSuccess(String result) {
+                                      try {
+                                          if (result != null) {
+                                              JSONObject object = new JSONObject(result);
+                                              final String token = object.getString("access_token");
+                                              Utilities.setSharedValue("token", token, getApplicationContext());
+                                              Utilities.setSharedValue("username", "Admin", MainActivity.this);
+                                              loadMeetings();
+                                          }
+                                      } catch (Exception ex) {
+                                          sweetAlertDialog.hide();
                                       }
                                   }
-                              }
 
-                              @Override
-                              public void onError(String result) {
-                                  if (dialog.isShowing()) {
-                                      dialog.dismiss();
+
+                                  @Override
+                                  public void onError(String result) {
+                                      sweetAlertDialog.hide();
+
                                   }
-                              }
-                          }, MainActivity.this, getApplicationContext(), Globals.tokenUrl, "",
-                String.format("grant_type=password&username=%s&password=%s", "Admin", "P@ssw0rd"), ContentTypes.FormEncoded.toString());
+                              }, MainActivity.this, getApplicationContext(), Globals.tokenUrl, "",
+                    String.format("grant_type=password&username=%s&password=%s", "Admin", "P@ssw0rd"), ContentTypes.FormEncoded.toString());
+        }
+        else
+        {
+            loadMeetings();
+        }
+
+    }
+
+    private void loadMeetings() {
+        ((TechApp)getApplication()).setNetComponent();
+        ((TechApp) getApplication()).getNetComponent().inject(MainActivity.this);
+        Observable<RoomsResponse> allRooms = retrofitInterface.allrooms();
+        subscription = allRooms.observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.newThread())
+                .subscribe(new Subscriber<RoomsResponse>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable error) {
+                        error.printStackTrace();
+
+                        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                            Toast.makeText(MainActivity.this,
+                                    MainActivity.this.getString(R.string.error_network_timeout),
+                                    Toast.LENGTH_LONG).show();
+                        } else if (error instanceof AuthFailureError) {
+                            //TODO
+                        } else if (error instanceof ServerError) {
+                            //TODO
+                        } else if (error instanceof NetworkError) {
+                            //TODO
+                            Toast.makeText(MainActivity.this,
+                                    MainActivity.this.getString(R.string.error_network_timeout),
+                                    Toast.LENGTH_LONG).show();
+                        } else if (error instanceof ParseError) {
+                            //TODO
+                        }
+
+                    }
+
+                    @Override
+                    public void onNext(final RoomsResponse roomsResponse) {
+                        //String ss = "";
+                        //settingsDialog.setSpinner(roomsResponse.Rooms);
+                    }
+                });
+
+
+        tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy | HH:mm aaa").format(new Date()));
+
+        t = new Timer();
+        t.scheduleAtFixedRate(new TimerTask() {
+
+                                  @Override
+                                  public void run() {
+                                      runOnUiThread(new Runnable() {
+                                          @Override
+                                          public void run() {
+                                              if (!(Utilities.getSharedValue("licensed", MainActivity.this).equals("")))
+                                                  startChecking();
+                                          }
+                                      });
+
+                                  }
+
+                              },
+                0,
+                30000);
     }
 
     //set colors for china devices
@@ -464,9 +481,7 @@ public class MainActivity extends CoreActivity {
 
                     @Override
                     public void onNext(RoomMeetingsResponse serviceResponse) {
-                        if (dialog.isShowing()) {
-                            dialog.dismiss();
-                        }
+                        sweetAlertDialog.hide();
 
                         OngoingReactAsync(serviceResponse);
                     }

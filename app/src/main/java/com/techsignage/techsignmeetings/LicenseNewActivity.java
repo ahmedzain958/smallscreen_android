@@ -12,17 +12,38 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.techsignage.techsignmeetings.Activities.CoreActivity;
+import com.techsignage.techsignmeetings.Applications.TechApp;
 import com.techsignage.techsignmeetings.Helpers.Globals;
 import com.techsignage.techsignmeetings.Helpers.Utilities;
+import com.techsignage.techsignmeetings.Models.ServiceResponses.RoomsResponse;
+import com.techsignage.techsignmeetings.Network.ContentTypes;
 import com.techsignage.techsignmeetings.Network.HttpRequestWrapper;
+import com.techsignage.techsignmeetings.Network.VolleyCallbackString;
+import com.techsignage.techsignmeetings.Network.VolleyRequest;
 
+import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import ru.kolotnev.formattedittext.MaskedEditText;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class LicenseNewActivity extends CoreActivity {
     MaskedEditText license_Txt;
@@ -100,9 +121,33 @@ public class LicenseNewActivity extends CoreActivity {
                 {
                     Utilities.setSharedValue("licensed", "true", LicenseNewActivity.this);
 
-                    Intent intent = new Intent(LicenseNewActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                    VolleyRequest request = new VolleyRequest();
+                    request.getString(new VolleyCallbackString() {
+                                          @Override
+                                          public void onSuccess(String result) {
+                                              try {
+                                                  if (result != null) {
+                                                      JSONObject object = new JSONObject(result);
+                                                      final String token = object.getString("access_token");
+                                                      Utilities.setSharedValue("token", token, getApplicationContext());
+                                                      Utilities.setSharedValue("username", "Admin", LicenseNewActivity.this);
+
+                                                      Intent intent = new Intent(LicenseNewActivity.this, MainActivity.class);
+                                                      startActivity(intent);
+                                                      finish();
+                                                  }
+                                              } catch (Exception ex) {
+                                              }
+                                          }
+
+                                          @Override
+                                          public void onError(String result) {
+
+                                          }
+                                      }, LicenseNewActivity.this, getApplicationContext(), Globals.tokenUrl, "",
+                            String.format("grant_type=password&username=%s&password=%s", "Admin", "P@ssw0rd"), ContentTypes.FormEncoded.toString());
+
+
                     //getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
                 }
             }

@@ -17,7 +17,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0sp"
-            android:layout_weight=".11"
+            android:layout_weight=".115"
             android:id="@+id/container1_lin"
             android:padding="15dp"
             android:background="@drawable/borderframe"
@@ -58,7 +58,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0sp"
-            android:layout_weight=".79"
+            android:layout_weight=".785"
             android:layout_marginTop="2dp"
             android:id="@+id/container2_lin">
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

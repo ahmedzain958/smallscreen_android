@@ -290,17 +290,13 @@ public class AllListActivity extends CoreActivity {
 
 
 
-                        //First Step
-                        //activerequestslist.setVisibility(View.INVISIBLE);
+                        //First Step to get the actual height of the recycler view
                         List<UserMeetingModel> meetingModels = serviceResponse.RoomMeetings.MeetingsAll;
                         adapter.setLst(meetingModels);
-                        //adapter.setLst(serviceResponse.RoomMeetings.MeetingsAll);
                         activerequestslist.setAdapter(adapter);
                         activerequestslist.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-                        //int width = activerequestslist.getMeasuredWidth();
                         int height = activerequestslist.getMeasuredHeight();
                         pageSize = Math.ceil((double) height / (double)(adapter.getItemHeight() + 20));
-                        //String ss = "";
 
 
                         meetingModels = new ArrayList<>();
@@ -315,10 +311,9 @@ public class AllListActivity extends CoreActivity {
                             }
                         }
                         adapter.setLst(meetingModels);
-                        adapter.notifyDataSetChanged();
-                        //activerequestslist.setAdapter(adapter);
-                        //activerequestslist.notifyAll();
-                        //activerequestslist.setVisibility(View.VISIBLE);
+                        //adapter.notifyAll();
+                        //adapter.notifyDataSetChanged();
+                        activerequestslist.invalidate();
                         setButtons();
                     }
                 });
