@@ -144,7 +144,7 @@ public class LoginActivity extends CoreActivity {
         //this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         final String token = Utilities.getSharedValue("token", this);
         retrofitInterface = Utilities.liveAPI(token);
-        tv_UnitName.setText(Globals.loggedUnit.UNIT_NAME);
+        //tv_UnitName.setText(Globals.loggedUnit.UNIT_NAME);
 
         next_btn1.setOnClickListener(new View.OnClickListener() {
             @Override

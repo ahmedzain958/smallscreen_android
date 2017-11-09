@@ -64,7 +64,6 @@ public class MeetingAttendees extends CoreActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meeting_attendees);
 
-        progress_rel.setVisibility(View.GONE);
         if (getIntent() != null)
         {
             if (getIntent().getExtras() != null)

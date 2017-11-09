@@ -154,7 +154,7 @@
 
                 <android.support.percent.PercentRelativeLayout
                     android:layout_width="0sp"
-                    android:layout_weight=".52"
+                    android:layout_weight=".51"
                     android:layout_height="match_parent">
                     <Button
                         app:layout_widthPercent="30%"
@@ -169,7 +169,7 @@
 
                 <RelativeLayout
                     android:layout_width="0sp"
-                    android:layout_weight=".48"
+                    android:layout_weight=".49"
                     android:layout_height="match_parent">
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -177,20 +177,29 @@
                         <Button
                             android:id="@+id/prev_btn"
                             android:layout_width="0sp"
-                            android:layout_weight=".5"
+                            android:layout_weight=".3"
                             android:layout_height="match_parent"
                             android:text="@string/previous"
-                            android:textStyle="bold"
+                            android:textSize="12sp"
                             android:enabled="false"/>
                         <Button
                             android:id="@+id/next_btn"
                             android:layout_width="0sp"
-                            android:layout_weight=".5"
+                            android:layout_weight=".3"
                             android:layout_height="match_parent"
                             android:text="@string/next"
+                            android:textSize="12sp"
                             android:enabled="false"
-                            android:textStyle="bold"
                             />
+                        <Button
+                            android:text="@string/book"
+                            android:layout_width="0dp"
+                            android:layout_weight=".3"
+                            android:layout_height="match_parent"
+                            android:id="@+id/book_btn"
+                            android:textStyle="bold"
+
+                            android:layout_margin="2dp" />
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -198,6 +207,7 @@
         </RelativeLayout>
     </LinearLayout>
 
+    <include layout="@layout/custom_progressbar" />
 
 
 

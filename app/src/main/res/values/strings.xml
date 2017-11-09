@@ -33,4 +33,6 @@
     <string name="validate">Validate</string>
     <string name="licenseinformation">License Information</string>
     <string name="error_network_timeout">Network Connection Error</string>
+    <string name="todays">Today\'s Meetings</string>
+
 </resources>

@@ -1,5 +1,6 @@
 package com.techsignage.techsignmeetings;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -75,6 +76,12 @@ public class AllListActivity extends CoreActivity {
     @InjectView(R.id.container3_lin)
     RelativeLayout container3_lin;
 
+    @InjectView(R.id.book_btn)
+    Button book_btn;
+
+    @InjectView(R.id.progress_rel)
+    RelativeLayout progress_rel;
+
     Timer t;
     IConnector connector;
     MeetingsAdapter adapter;
@@ -99,6 +106,7 @@ public class AllListActivity extends CoreActivity {
                                       JSONObject object = new JSONObject(result);
                                       final String token = object.getString("access_token");
 
+                                      progress_rel.setVisibility(View.GONE);
                                       retrofitInterface = Utilities.liveAPI(token);
                                       tv_NowDate = (TextView)findViewById(R.id.tv_NowDate);
                                       tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy | HH:mm aaa").format(new Date()));
@@ -192,6 +200,14 @@ public class AllListActivity extends CoreActivity {
                 adapter.notifyDataSetChanged();
 
 
+            }
+        });
+
+        book_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AllListActivity.this, LoginActivity.class);
+                AllListActivity.this.startActivity(intent);
             }
         });
 

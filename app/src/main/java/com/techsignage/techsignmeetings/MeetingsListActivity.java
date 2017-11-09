@@ -32,6 +32,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -119,6 +121,22 @@ public class MeetingsListActivity extends CoreActivity {
                                           },
                             0,
                             30000);
+
+                    new Timer().schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            if(t != null)
+                                t.cancel();
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    finish();
+                                }
+                            });
+
+                        }
+                    }, 100000);
                 }
                 catch (Exception ex)
                 {
