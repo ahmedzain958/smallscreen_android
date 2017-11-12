@@ -17,7 +17,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0sp"
-            android:layout_weight=".115"
+            android:layout_weight=".145"
             android:id="@+id/container1_lin"
             android:padding="15dp"
             android:background="@drawable/borderframe"
@@ -58,7 +58,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0sp"
-            android:layout_weight=".785"
+            android:layout_weight=".765"
             android:layout_marginTop="2dp"
             android:id="@+id/container2_lin">
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -76,7 +76,7 @@
                     android:padding="10dp"
                     android:background="@color/dWhite"
                     android:gravity="center"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     android:textColor="@android:color/black"
                     android:textStyle="bold"
                     />
@@ -92,7 +92,7 @@
                     android:padding="10dp"
                     android:background="@color/dWhite"
                     android:gravity="center"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     android:textColor="@android:color/black"
                     android:textStyle="bold"
                     />
@@ -108,7 +108,7 @@
                     android:padding="10dp"
                     android:background="@color/dWhite"
                     android:gravity="center"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     android:textColor="@android:color/black"
                     android:textStyle="bold"
                     />
@@ -124,7 +124,7 @@
                     android:padding="10dp"
                     android:background="@color/dWhite"
                     android:gravity="center"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     android:textColor="@android:color/black"
                     android:textStyle="bold"
                     />
@@ -154,10 +154,10 @@
 
                 <android.support.percent.PercentRelativeLayout
                     android:layout_width="0sp"
-                    android:layout_weight=".49"
+                    android:layout_weight=".35"
                     android:layout_height="match_parent">
                     <Button
-                        app:layout_widthPercent="30%"
+                        app:layout_widthPercent="60%"
                         android:id="@+id/back_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -168,7 +168,7 @@
 
                 <RelativeLayout
                     android:layout_width="0sp"
-                    android:layout_weight=".51"
+                    android:layout_weight=".65"
                     android:layout_height="match_parent">
                     <LinearLayout
                         android:layout_width="match_parent"
