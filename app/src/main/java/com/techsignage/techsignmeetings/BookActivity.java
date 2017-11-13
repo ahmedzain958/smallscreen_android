@@ -363,6 +363,7 @@ public class BookActivity extends CoreActivity {
 
                                 Toast.makeText(BookActivity.this, authResponse.Message, Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(BookActivity.this, MainActivity.class);
+                                //Intent intent = new Intent(BookActivity.this, AllListActivity.class);
                                 startActivity(intent);
                                 finish();
                             }
