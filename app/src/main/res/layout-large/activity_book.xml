@@ -17,7 +17,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0sp"
-            android:layout_weight=".19"
+            android:layout_weight=".11"
             android:id="@+id/container1_lin"
             android:padding="5dp"
             android:background="@drawable/borderframe"
@@ -60,7 +60,7 @@
             android:id="@+id/container2_lin"
             android:layout_width="match_parent"
             android:layout_height="0sp"
-            android:layout_weight=".75"
+            android:layout_weight=".79"
             android:orientation="vertical"
             >
 
@@ -69,7 +69,7 @@
                 android:layout_height="0sp"
                 android:orientation="horizontal"
                 android:id="@+id/lin1"
-                android:layout_weight=".53">
+                android:layout_weight=".73">
                 <RelativeLayout
                     android:layout_width="0sp"
                     android:layout_weight=".6"
@@ -199,7 +199,7 @@
                 android:orientation="horizontal"
                 android:id="@+id/lin2"
                 android:paddingTop="30dp"
-                android:layout_weight=".47">
+                android:layout_weight=".27">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/book_list"
@@ -290,7 +290,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0sp"
-            android:layout_weight=".15"
+            android:layout_weight=".1"
             android:padding="5dp"
             android:id="@+id/container3_lin"
             >

@@ -105,6 +105,8 @@ public class AllListActivity extends CoreActivity {
                                   {
                                       JSONObject object = new JSONObject(result);
                                       final String token = object.getString("access_token");
+                                      Utilities.setSharedValue("token", token, getApplicationContext());
+                                      Utilities.setSharedValue("username", "Admin", AllListActivity.this);
 
                                       progress_rel.setVisibility(View.GONE);
                                       retrofitInterface = Utilities.liveAPI(token);

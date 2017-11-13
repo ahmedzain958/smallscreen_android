@@ -16,7 +16,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0sp"
-        android:layout_weight=".1"
+        android:layout_weight=".12"
         android:id="@+id/container1_lin"
         android:padding="5dp"
         android:background="@drawable/borderframe"
@@ -59,7 +59,7 @@
         android:id="@+id/container2_lin"
         android:layout_width="match_parent"
         android:layout_height="0sp"
-        android:layout_weight=".8">
+        android:layout_weight=".78">
 
         <TextView
             android:id="@+id/tv_Attendees"
@@ -91,7 +91,7 @@
                 android:layout_centerVertical="true"
                 android:fillViewport="true"
                 android:isScrollContainer="false"
-                app:layout_widthPercent="70%"
+                app:layout_widthPercent="80%"
                 >
 
                 <LinearLayout
@@ -119,7 +119,7 @@
                             android:id="@+id/textView2"
                             android:layout_width="0dp"
                             android:layout_weight=".3"
-                            android:textSize="18sp"
+                            android:textSize="15sp"
                             android:layout_height="match_parent"
                             android:text="User Name"
                             android:padding="5dp"
@@ -151,7 +151,7 @@
                             android:id="@+id/textView3"
                             android:layout_width="0dp"
                             android:layout_weight=".3"
-                            android:textSize="18sp"
+                            android:textSize="15sp"
                             android:layout_height="match_parent"
                             android:text="Password"
                             android:padding="5dp"
