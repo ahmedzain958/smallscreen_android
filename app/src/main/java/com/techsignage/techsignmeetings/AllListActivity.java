@@ -209,6 +209,7 @@ public class AllListActivity extends CoreActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AllListActivity.this, LoginActivity.class);
+                intent.putExtra("activityName", getClass().getSimpleName());
                 AllListActivity.this.startActivity(intent);
             }
         });

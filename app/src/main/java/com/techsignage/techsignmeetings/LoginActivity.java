@@ -98,6 +98,7 @@ public class LoginActivity extends CoreActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.inject(this);
         progress_rel.setVisibility(View.GONE);
+        final String activityName = getIntent().getExtras().getString("activityName");
         //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         KeyboardUtils.addKeyboardToggleListener(this, new KeyboardUtils.SoftKeyboardToggleListener()
         {
@@ -144,7 +145,8 @@ public class LoginActivity extends CoreActivity {
         //this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         final String token = Utilities.getSharedValue("token", this);
         retrofitInterface = Utilities.liveAPI(token);
-        //tv_UnitName.setText(Globals.loggedUnit.UNIT_NAME);
+        if (Globals.loggedUnit != null)
+            tv_UnitName.setText(Globals.loggedUnit.UNIT_NAME);
 
         next_btn1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -228,6 +230,7 @@ public class LoginActivity extends CoreActivity {
                                     Toast.makeText(LoginActivity.this, authResponse.Message, Toast.LENGTH_SHORT).show();
 
                                     Intent intent = new Intent(LoginActivity.this, BookActivity.class);
+                                    intent.putExtra("activityName", activityName);
                                     startActivity(intent);
                                 }
                                 else

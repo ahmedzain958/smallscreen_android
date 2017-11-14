@@ -17,7 +17,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0sp"
-            android:layout_weight=".12"
+            android:layout_weight=".13"
             android:id="@+id/container1_lin"
             android:padding="5dp"
             android:background="@drawable/borderframe"
@@ -60,7 +60,7 @@
             android:id="@+id/container2_lin"
             android:layout_width="match_parent"
             android:layout_height="0sp"
-            android:layout_weight=".78"
+            android:layout_weight=".77"
             android:orientation="vertical"
             >
 
@@ -161,10 +161,52 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="start"
-                                android:text="@string/room_name"
+                                android:text="@string/room"
                                 android:textColor="@android:color/black"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/container_lin3"
+                        android:layout_below="@+id/container_lin2"
+                        android:orientation="vertical"
+                        >
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_weight=".5"
+                            android:layout_height="0sp"
+                            android:padding="5dp"
+                            android:background="@color/dWhite"
+                            >
+                            <TextView
+                                android:text="@string/room"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:textColor="@android:color/black"
+                                android:gravity="start"
+                                />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0sp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight=".5"
+                            android:padding="5dp">
+
+                            <Spinner
+                                android:id="@+id/rooms_spinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:spinnerMode="dropdown"
+                                />
                         </RelativeLayout>
 
                     </LinearLayout>
@@ -190,6 +232,7 @@
                         >
                     </DatePicker>
                 </RelativeLayout>
+
             </LinearLayout>
 
             <LinearLayout

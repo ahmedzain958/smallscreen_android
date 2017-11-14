@@ -16,12 +16,14 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.techsignage.techsignmeetings.Activities.CoreActivity;
 import com.techsignage.techsignmeetings.Adapters.BookingAdapter;
+import com.techsignage.techsignmeetings.Adapters.RoomsAdapter;
 import com.techsignage.techsignmeetings.Helpers.Globals;
 import com.techsignage.techsignmeetings.Helpers.KeyboardUtils;
 import com.techsignage.techsignmeetings.Helpers.Utilities;
@@ -30,6 +32,8 @@ import com.techsignage.techsignmeetings.Models.ServiceResponses.CreateMeetingRes
 import com.techsignage.techsignmeetings.Models.HourModel;
 import com.techsignage.techsignmeetings.Models.MeetingModel;
 import com.techsignage.techsignmeetings.Models.Interfaces.hourCallback;
+import com.techsignage.techsignmeetings.Models.ServiceResponses.RoomsResponse;
+import com.techsignage.techsignmeetings.Models.UnitModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -41,6 +45,7 @@ import butterknife.InjectView;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import rx.Observable;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -78,6 +83,9 @@ public class BookActivity extends CoreActivity {
     @InjectView(R.id.progress_rel)
     RelativeLayout progress_rel;
 
+//    @InjectView(R.id.rooms_spinner)
+    Spinner rooms_spinner;
+
     LinearLayoutManager llm;
 
     //ProgressDialog dialog;
@@ -87,6 +95,7 @@ public class BookActivity extends CoreActivity {
     @InjectView(R.id.back_btn)
     Button back_btn;
 
+    Subscription subscription;
     HourModel hourModel;
     String firstHour;
     String lastHour;
@@ -103,7 +112,7 @@ public class BookActivity extends CoreActivity {
         //this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         ButterKnife.inject(this);
         progress_rel.setVisibility(View.GONE);
-
+        rooms_spinner = (Spinner)findViewById(R.id.rooms_spinner);
         tv_MeetingTitle.setImeOptions(EditorInfo.IME_ACTION_DONE);
         //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         KeyboardUtils.addKeyboardToggleListener(this, new KeyboardUtils.SoftKeyboardToggleListener()
@@ -124,6 +133,10 @@ public class BookActivity extends CoreActivity {
                 }
             }
         });
+
+        //final String activityName = getIntent().getExtras().getString("activityName");
+        //final Boolean show_spinner = activityName.equals("AllListActivity");
+
         final RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.book_list);
         final hourCallback callback = new hourCallback() {
             @Override
@@ -176,6 +189,28 @@ public class BookActivity extends CoreActivity {
         selectedDate = Calendar.getInstance();
         tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy | HH:mm aaa").format(new Date()));
         tv_MeetingDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(selectedDate.getTime()));
+
+        Observable<RoomsResponse> allRooms = retrofitInterface.allrooms();
+        subscription = allRooms.observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.newThread())
+                .subscribe(new Subscriber<RoomsResponse>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onNext(final RoomsResponse roomsResponse) {
+                        RoomsAdapter roomsAdapter = new RoomsAdapter(BookActivity.this, R.layout.spinner_item, roomsResponse.Rooms);
+                        rooms_spinner.setAdapter(roomsAdapter);
+                    }
+                });
+
 
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
@@ -287,28 +322,28 @@ public class BookActivity extends CoreActivity {
 //        });
 
         //final LinearLayout layout = (LinearLayout)findViewById(R.id.lin2);
-        ViewTreeObserver vto = lin2.getViewTreeObserver();
-        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                    lin2.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                } else {
-                    lin2.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                }
-                int height = lin2.getMeasuredHeight();
-                int width  = lin2.getMeasuredWidth();
-
-//                if (height>100)
-//                {
-//                    LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(width,100);
-//                    lin2.setLayoutParams(parms);
-//
-//                    //lin2.getLayoutParams().height = 100;
-//                    //lin2.requestLayout();
+//        ViewTreeObserver vto = lin2.getViewTreeObserver();
+//        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//            @Override
+//            public void onGlobalLayout() {
+//                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+//                    lin2.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+//                } else {
+//                    lin2.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 //                }
-            }
-        });
+//                int height = lin2.getMeasuredHeight();
+//                int width  = lin2.getMeasuredWidth();
+//
+////                if (height>100)
+////                {
+////                    LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(width,100);
+////                    lin2.setLayoutParams(parms);
+////
+////                    //lin2.getLayoutParams().height = 100;
+////                    //lin2.requestLayout();
+////                }
+//            }
+//        });
 
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -326,11 +361,21 @@ public class BookActivity extends CoreActivity {
                     Toast.makeText(BookActivity.this, R.string.selectrange, Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (rooms_spinner != null)
+                {
+                    if (rooms_spinner.getSelectedItem() == null)
+                    {
+                        Toast.makeText(BookActivity.this, "Choose Room", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                }
 
                 progress_rel.setVisibility(View.VISIBLE);
 
                 MeetingModel meetingModel = new MeetingModel();
                 meetingModel.UNIT_ID = Globals.unitId;
+                if (rooms_spinner != null)
+                    meetingModel.UNIT_ID = ((UnitModel)rooms_spinner.getSelectedItem()).UNIT_ID;
                 meetingModel.CREATE_USER = Globals.loggedUser.USER_ID;
                 meetingModel.MEETING_TITLE = title;
                 meetingModel.RECURRENCE_TYPE = "Single";

@@ -276,6 +276,7 @@ public class MainActivity extends CoreActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                intent.putExtra("activityName", getClass().getSimpleName());
                 MainActivity.this.startActivity(intent);
             }
         });
