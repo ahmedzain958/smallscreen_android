@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
@@ -99,12 +100,15 @@ public class BookActivity extends CoreActivity {
     HourModel hourModel;
     String firstHour;
     String lastHour;
+
     final int flags = View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
     final int flags2 = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
             | View.SYSTEM_UI_FLAG_FULLSCREEN
             | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
             | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,6 +117,7 @@ public class BookActivity extends CoreActivity {
         ButterKnife.inject(this);
         progress_rel.setVisibility(View.GONE);
         rooms_spinner = (Spinner)findViewById(R.id.rooms_spinner);
+
         tv_MeetingTitle.setImeOptions(EditorInfo.IME_ACTION_DONE);
         //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         KeyboardUtils.addKeyboardToggleListener(this, new KeyboardUtils.SoftKeyboardToggleListener()
@@ -123,14 +128,14 @@ public class BookActivity extends CoreActivity {
                 Log.d("keyboard", "keyboard visible: "+isVisible);
                 //Toast.makeText(LoginActivity.this, "keyboard visible: "+isVisible, Toast.LENGTH_SHORT).show();
                 getWindow().getDecorView().setSystemUiVisibility(flags2);
-                if (isVisible)
-                {
-                    //getWindow().getDecorView().setSystemUiVisibility(flags);
-                }
-                else
-                {
-                    //getWindow().getDecorView().setSystemUiVisibility(flags2);
-                }
+//                if (isVisible)
+//                {
+//                    //getWindow().getDecorView().setSystemUiVisibility(flags);
+//                }
+//                else
+//                {
+//                    //getWindow().getDecorView().setSystemUiVisibility(flags2);
+//                }
             }
         });
 
@@ -169,7 +174,27 @@ public class BookActivity extends CoreActivity {
 
             }
         };
-        tv_UnitName.setText(Globals.loggedUnit.UNIT_NAME);
+        if (rooms_spinner != null)
+        {
+            rooms_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    MeetingModel meetingModel = new MeetingModel();
+                    meetingModel.TheDate = new SimpleDateFormat("dd/MM/yyyy").format(selectedDate.getTime());
+                    meetingModel.UNIT_ID = ((UnitModel)rooms_spinner.getSelectedItem()).UNIT_ID;
+                    structCalendar(callback, mRecyclerView, meetingModel);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        }
+        else
+        {
+            tv_UnitName.setText(Globals.loggedUnit.UNIT_NAME);
+        }
 
         BookingAdapter adapter = new BookingAdapter(BookActivity.this, callback);
         for (HourModel hourModel : Globals.hours)
@@ -208,6 +233,14 @@ public class BookActivity extends CoreActivity {
                     public void onNext(final RoomsResponse roomsResponse) {
                         RoomsAdapter roomsAdapter = new RoomsAdapter(BookActivity.this, R.layout.spinner_item, roomsResponse.Rooms);
                         rooms_spinner.setAdapter(roomsAdapter);
+
+                        if (rooms_spinner != null)
+                        {
+                            MeetingModel meetingModel = new MeetingModel();
+                            meetingModel.TheDate = new SimpleDateFormat("dd/MM/yyyy").format(selectedDate.getTime());
+                            meetingModel.UNIT_ID = roomsResponse.Rooms.get(0).UNIT_ID;
+                            structCalendar(callback, mRecyclerView, meetingModel);
+                        }
                     }
                 });
 
@@ -227,40 +260,11 @@ public class BookActivity extends CoreActivity {
                 selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 tv_MeetingDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(selectedDate.getTime()));
 
-                //dialog = Utilities.showDialog(BookActivity.this);
                 MeetingModel meetingModel = new MeetingModel();
                 meetingModel.TheDate = new SimpleDateFormat("dd/MM/yyyy").format(selectedDate.getTime());
                 meetingModel.UNIT_ID = Globals.unitId;
-                Observable<AuthResponse> call = retrofitInterface.roomblocks(meetingModel);
-                call.subscribeOn(Schedulers.newThread())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Subscriber<AuthResponse>() {
-                            @Override
-                            public void onCompleted() {
+                structCalendar(callback, mRecyclerView, meetingModel);
 
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                progress_rel.setVisibility(View.GONE);
-                            }
-
-                            @Override
-                            public void onNext(AuthResponse authResponse) {
-//                                if (dialog.isShowing())
-//                                {
-//                                    dialog.hide();
-//                                }
-                                Globals.hours = authResponse.authElements.hours;
-                                for (HourModel hourModel : Globals.hours)
-                                {
-                                    hourModel.IsSelected = false;
-                                }
-                                BookingAdapter adapter = new BookingAdapter(BookActivity.this, callback);
-                                adapter.setLst(authResponse.authElements.hours);
-                                mRecyclerView.setAdapter(adapter);
-                            }
-                        });
             }
         });
 
@@ -302,6 +306,8 @@ public class BookActivity extends CoreActivity {
                 }
             }
         });
+
+
 
 //        tv_leftbtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -407,7 +413,15 @@ public class BookActivity extends CoreActivity {
                                 progress_rel.setVisibility(View.GONE);
 
                                 Toast.makeText(BookActivity.this, authResponse.Message, Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(BookActivity.this, MainActivity.class);
+                                Intent intent = null;
+                                if (rooms_spinner == null)
+                                {
+                                    intent = new Intent(BookActivity.this, MainActivity.class);
+                                }
+                                else
+                                {
+                                    intent = new Intent(BookActivity.this, AllListActivity.class);
+                                }
                                 //Intent intent = new Intent(BookActivity.this, AllListActivity.class);
                                 startActivity(intent);
                                 finish();
@@ -423,5 +437,43 @@ public class BookActivity extends CoreActivity {
             }
         });
 
+    }
+
+    private void structCalendar(final hourCallback callback, final RecyclerView mRecyclerView
+    , MeetingModel meetingModel) {
+        //dialog = Utilities.showDialog(BookActivity.this);
+//        MeetingModel meetingModel = new MeetingModel();
+//        meetingModel.TheDate = new SimpleDateFormat("dd/MM/yyyy").format(selectedDate.getTime());
+//        meetingModel.UNIT_ID = Globals.unitId;
+        Observable<AuthResponse> call = retrofitInterface.roomblocks(meetingModel);
+        call.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<AuthResponse>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        progress_rel.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onNext(AuthResponse authResponse) {
+//                                if (dialog.isShowing())
+//                                {
+//                                    dialog.hide();
+//                                }
+                        Globals.hours = authResponse.authElements.hours;
+                        for (HourModel hourModel : Globals.hours)
+                        {
+                            hourModel.IsSelected = false;
+                        }
+                        BookingAdapter adapter = new BookingAdapter(BookActivity.this, callback);
+                        adapter.setLst(authResponse.authElements.hours);
+                        mRecyclerView.setAdapter(adapter);
+                    }
+                });
     }
 }

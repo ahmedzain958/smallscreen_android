@@ -29,7 +29,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:id="@+id/tv_UnitName"
-            android:textSize="35sp"
+            android:textSize="34sp"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
             android:textStyle="bold"
