@@ -225,17 +225,26 @@ public class LoginActivity extends CoreActivity {
                                         break;
                                     }
                                 }
-                                if (loggedCheck)
+                                if (activityName.equals("MainActivity"))
                                 {
-                                    Toast.makeText(LoginActivity.this, authResponse.Message, Toast.LENGTH_SHORT).show();
+                                    if (loggedCheck)
+                                    {
+                                        Toast.makeText(LoginActivity.this, authResponse.Message, Toast.LENGTH_SHORT).show();
 
-                                    Intent intent = new Intent(LoginActivity.this, BookActivity.class);
-                                    intent.putExtra("activityName", activityName);
-                                    startActivity(intent);
+                                        Intent intent = new Intent(LoginActivity.this, BookActivity.class);
+                                        intent.putExtra("activityName", activityName);
+                                        startActivity(intent);
+                                    }
+                                    else
+                                    {
+                                        Toast.makeText(LoginActivity.this, R.string.nopermission, Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                                 else
                                 {
-                                    Toast.makeText(LoginActivity.this, R.string.nopermission, Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(LoginActivity.this, BookActivity.class);
+                                    intent.putExtra("activityName", activityName);
+                                    startActivity(intent);
                                 }
                             }
                         });

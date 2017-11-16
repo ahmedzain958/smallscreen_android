@@ -28,6 +28,7 @@ import com.techsignage.techsignmeetings.Network.ContentTypes;
 import com.techsignage.techsignmeetings.Network.IConnector;
 import com.techsignage.techsignmeetings.Network.VolleyCallbackString;
 import com.techsignage.techsignmeetings.Network.VolleyRequest;
+import com.techsignage.techsignmeetings.Tasks.LiscenceTask;
 
 import org.json.JSONObject;
 
@@ -94,6 +95,15 @@ public class AllListActivity extends CoreActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_list);
         if (checkConfigurationFile()) return;
+        new LiscenceTask(this).execute(Utilities.getSharedValue("licensekey", getApplicationContext()));
+
+        if (Utilities.getSharedValue("licensed", this).equals(""))
+        {
+            Intent intent = new Intent(AllListActivity.this, LicenseNewActivity.class);
+            intent.putExtra("activityName", "AllListActivity");
+            startActivity(intent);
+            finish();
+        }
 
         ButterKnife.inject(this);
 
@@ -209,7 +219,8 @@ public class AllListActivity extends CoreActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AllListActivity.this, LoginActivity.class);
-                intent.putExtra("activityName", getClass().getSimpleName());
+                //intent.putExtra("activityName", getClass().getSimpleName());
+                intent.putExtra("activityName", "AllListActivity");
                 AllListActivity.this.startActivity(intent);
             }
         });

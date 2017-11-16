@@ -19,4 +19,7 @@ public class UnitModel {
     @SerializedName("FLOOR_ID")
     public String FLOOR_ID;
 
+    @SerializedName("TSF_Themes")
+    public ThemeModel Theme;
+
 }

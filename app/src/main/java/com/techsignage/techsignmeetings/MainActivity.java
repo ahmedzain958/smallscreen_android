@@ -178,6 +178,7 @@ public class MainActivity extends CoreActivity {
         if (Utilities.getSharedValue("licensed", this).equals(""))
         {
             Intent intent = new Intent(MainActivity.this, LicenseNewActivity.class);
+            intent.putExtra("activityName", "MainActivity");
             startActivity(intent);
             finish();
         }
@@ -276,7 +277,7 @@ public class MainActivity extends CoreActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                intent.putExtra("activityName", getClass().getSimpleName());
+                intent.putExtra("activityName", "MainActivity");
                 MainActivity.this.startActivity(intent);
             }
         });
