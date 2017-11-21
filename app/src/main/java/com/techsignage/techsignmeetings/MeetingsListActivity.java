@@ -1,5 +1,6 @@
 package com.techsignage.techsignmeetings;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -131,12 +132,15 @@ public class MeetingsListActivity extends CoreActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    //finish();
+                                    Intent intent = new Intent(MeetingsListActivity.this, MainActivity.class);
+                                    startActivity(intent);
                                     finish();
                                 }
                             });
 
                         }
-                    }, 100000);
+                    }, 65000);
                 }
                 catch (Exception ex)
                 {

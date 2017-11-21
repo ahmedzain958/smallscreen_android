@@ -28,6 +28,8 @@ import com.techsignage.techsignmeetings.Models.UserModel;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -257,6 +259,23 @@ public class LoginActivity extends CoreActivity {
                 finish();
             }
         });
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //finish();
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+
+            }
+        }, 65000);
     }
 
 //

@@ -13,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -167,13 +168,90 @@ public class MainActivity extends CoreActivity {
         super.onCreate(savedInstanceState);
         //Toast.makeText(this, "onCreateAct", Toast.LENGTH_LONG).show();
         setContentView(R.layout.activity_main);
+
+//        value = 1;
+//        gpio_num = 42;
+//        handler.post(task);
+//
+//        value = 1;
+//        gpio_num = 43;
+//        handler.post(task);
+//
+//        value = 0;
+//        gpio_num = 42;
+//        handler.post(task);
+//
+//        final Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                value = 1;
+//                gpio_num = 42;
+//                handler.post(task);
+//
+//                value = 1;
+//                gpio_num = 43;
+//                handler.post(task);
+//
+//                value = 1;
+//                gpio_num = 42;
+//                handler.post(task);
+//            }
+//        }, 3000);
+
+//        value = 0;
+//        gpio_num = 42;
+//        handler.post(task);
+//
+//        value = 0;
+//        gpio_num = 43;
+//        handler.post(task);
+//
+//        value = 1;
+//        gpio_num = 42;
+//        handler.post(task);
+
+//        value = 1;
+//        gpio_num = 43;
+//        handler.post(task);
+//
+//        value = 0;
+//        gpio_num = 42;
+//        handler.post(task);
+//
+//        value = 0;
+//        gpio_num = 43;
+//        handler.post(task);
+//
+//        value = 0;
+//        gpio_num = 42;
+//        handler.post(task);
+
+//        value = 0;
+//        gpio_num = 42;
+//        handler.post(task);
+
+
+
+        //setOn();
+        setRed();
+        //setOff();
+        //setGreen();
+
         ButterKnife.inject(this);
         getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
 
         if (checkConfigurationFile()) return;
 
         //new LiscenceTask(this).execute("AGKA0S0H00AXNGZ78XM35J1I4M");
-        new LiscenceTask(this).execute(Utilities.getSharedValue("licensekey", getApplicationContext()));
+        try
+        {
+            new LiscenceTask(this).execute(Utilities.getSharedValue("licensekey", getApplicationContext()));
+        }
+        catch(Exception ex)
+        {
+
+        }
 
         if (Utilities.getSharedValue("licensed", this).equals(""))
         {
@@ -228,6 +306,7 @@ public class MainActivity extends CoreActivity {
                     smdtManager.smdtSetExtrnalGpioValue (2,false);
                     smdtManager.smdtSetExtrnalGpioValue (3,false);
                 }
+                //setGreen();
 
                 progress_rel.setVisibility(View.VISIBLE);
                 //sweetAlertDialog = Utilities.showProgressPrettyDialog(MainActivity.this, getResources().getString(R.string.processing));
@@ -532,17 +611,7 @@ public class MainActivity extends CoreActivity {
 
                     if (firstMeeting.ACTUAL_START_DATETIME != null)
                     {
-                        value = 1;
-                        gpio_num = 42;
-                        handler.post(task);
-
-                        value = 1;
-                        gpio_num = 43;
-                        handler.post(task);
-
-                        value = 0;
-                        gpio_num = 42;
-                        handler.post(task);
+                        //setRed();
 
                         container2_lin.setBackgroundColor(Color.RED);
                         startmeeting_btn.setText(R.string.endmeeting);
@@ -550,13 +619,7 @@ public class MainActivity extends CoreActivity {
 
                     }
                     else {
-                        value = 1;
-                        gpio_num = 42;
-                        handler.post(task);
-
-                        value = 1;
-                        gpio_num = 43;
-                        handler.post(task);
+                        //setGreen();
 
                         startmeeting_btn.setText(R.string.startmeeting);
                         container2_lin.setBackgroundColor(Color.WHITE);
@@ -567,17 +630,7 @@ public class MainActivity extends CoreActivity {
                     }
                 }
                 else {
-                    value = 1;
-                    gpio_num = 43;
-                    handler.post(task);
-
-                    value = 1;
-                    gpio_num = 42;
-                    handler.post(task);
-
-                    value = 0;
-                    gpio_num = 43;
-                    handler.post(task);
+                    //setRed();
 
                     //inMeeting = false;
                     container2_lin.setBackgroundColor(getResources().getColor(R.color.green));
@@ -614,22 +667,62 @@ public class MainActivity extends CoreActivity {
         }
         if(serviceResponse.RoomMeetings.Meetings.size() == 0)
         {
-            value = 1;
-            gpio_num = 42;
-            handler.post(task);
-
-            value = 1;
-            gpio_num = 43;
-            handler.post(task);
-
-            value = 0;
-            gpio_num = 43;
-            handler.post(task);
+            //setRed();
 
             container2_lin.setBackgroundColor(getResources().getColor(R.color.green));
             setChinaColor(2);
 
         }
+    }
+
+    private void setOff()
+    {
+        value = 1;
+        gpio_num = 42;
+        handler.post(task);
+
+        value = 1;
+        gpio_num = 43;
+        handler.post(task);
+    }
+
+    private void setOn()
+    {
+        value = 0;
+        gpio_num = 42;
+        handler.post(task);
+
+        value = 0;
+        gpio_num = 43;
+        handler.post(task);
+    }
+
+    private void setRed() {
+        value = 0;
+        gpio_num = 42;
+        handler.post(task);
+
+        value = 0;
+        gpio_num = 43;
+        handler.post(task);
+
+        value = 1;
+        gpio_num = 43;
+        handler.post(task);
+    }
+
+    private void setGreen() {
+        value = 0;
+        gpio_num = 42;
+        handler.post(task);
+
+        value = 0;
+        gpio_num = 43;
+        handler.post(task);
+
+        value = 1;
+        gpio_num = 42;
+        handler.post(task);
     }
 
     //get difference between two dates

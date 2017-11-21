@@ -34,13 +34,13 @@ dependencies {
 
     compile files(
             'libs/xmlsec-1.5.3.jar')
-    compile 'com.jakewharton:butterknife:6.1.0'
+    //compile 'com.jakewharton:butterknife:6.1.0'
 
     compile 'com.jakewharton:butterknife:6.1.0'
     compile 'com.android.volley:volley:1.0.0'
-    compile 'com.android.support:appcompat-v7:25.1.1'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
     compile 'com.squareup.okhttp:okhttp:2.5.0'
-    compile 'com.android.support:design:25.1.1'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
@@ -49,7 +49,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.3.3'
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.2.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:percent:22.2.0'
+    compile 'com.android.support:percent:25.3.1'
     compile 'joda-time:joda-time:2.1'
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
     compile 'com.google.dagger:dagger:2.7'
