@@ -125,7 +125,7 @@ public class MainActivity extends CoreActivity {
     MeetingModel secondMeeting;
     IConnector connector;
     Timer t;
-    Boolean isRed = false;
+    //Boolean isRed = false;
     //SettingsDialog settingsDialog;
 
     private Handler handler = new Handler();
@@ -170,6 +170,7 @@ public class MainActivity extends CoreActivity {
         //Toast.makeText(this, "onCreateAct", Toast.LENGTH_LONG).show();
         setContentView(R.layout.activity_main);
 
+
         ButterKnife.inject(this);
         getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
 
@@ -192,10 +193,38 @@ public class MainActivity extends CoreActivity {
             finish();
         }
 
-        setRedOn();
-        setRedOff();
+//        setRedOn();
+//        setRedOff();
+//        setGreenOn();
+//        setGreenOff();
+
         setGreenOn();
-        setGreenOff();
+//        final Handler handler1 = new Handler();
+//        handler1.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                setGreenOff();
+//                setRedOff();
+//            }
+//        }, 7500);
+//
+//        final Handler handler2 = new Handler();
+//        handler2.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                setRedOn();
+//            }
+//        }, 8500);
+//
+//        final Handler handler3 = new Handler();
+//        handler3.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                setRedOff();
+//                //setRedOff();
+//                //setGreenOff();
+//            }
+//        }, 9500);
 
         smdtManager = SmdtManager.create(this);
 
@@ -242,11 +271,12 @@ public class MainActivity extends CoreActivity {
                     smdtManager.smdtSetExtrnalGpioValue (2,false);
                     smdtManager.smdtSetExtrnalGpioValue (3,false);
                 }
-                if (isRed)
-                    setRedOff();
-                else
-                    setGreenOff();
-                setGreenOn();
+
+//                if (isRed)
+//                    setRedOff();
+//                else
+//                    setGreenOff();
+//                setGreenOn();
 
                 progress_rel.setVisibility(View.VISIBLE);
                 //sweetAlertDialog = Utilities.showProgressPrettyDialog(MainActivity.this, getResources().getString(R.string.processing));
@@ -257,21 +287,19 @@ public class MainActivity extends CoreActivity {
 
                 if (startmeeting_btn.getText().toString().equals(getResources().getString(R.string.startmeeting)))
                 {
-                    meetingModel.IsStarting = 1;
-                    if (isRed)
-                        setRedOff();
-                    else
-                        setGreenOff();
                     setRedOn();
+                    meetingModel.IsStarting = 1;
+                    //setRedOn();
+                    //setGreenOff();
+
                 }
-                else
-                {
+                else {
+                    setRedOff();
                     meetingModel.IsStarting = 0;
-                    if (isRed)
-                        setRedOff();
-                    else
-                        setGreenOff();
-                    setGreenOn();
+                    //setGreenOff();
+                    //setRedOff();
+                    //setRedOff();
+                    //setGreenOn();
                 }
 
                 Observable<RoomMeetingsResponse> callforstart = retrofitInterface.startmeeting(meetingModel);
@@ -295,7 +323,6 @@ public class MainActivity extends CoreActivity {
 
                                     getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
 
-                                    //sweetAlertDialog.hide();
                                     progress_rel.setVisibility(View.GONE);
                                 }
                             });
@@ -308,6 +335,7 @@ public class MainActivity extends CoreActivity {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 intent.putExtra("activityName", "MainActivity");
                 MainActivity.this.startActivity(intent);
+                //setRedOff();
             }
         });
 
@@ -532,11 +560,11 @@ public class MainActivity extends CoreActivity {
     private void OngoingReactAsync(RoomMeetingsResponse serviceResponse) {
         Globals.loggedUnit = serviceResponse.RoomMeetings.Room;
 
-        if (isRed)
-            setRedOff();
-        else
-            setGreenOff();
-        setGreenOn();
+//        if (isRed)
+//            setRedOff();
+//        else
+//            setGreenOff();
+//        setGreenOn();
 
         tv_MeetingDate.setText("");
         tv_MeetingName.setText(getResources().getString(R.string.firstmeeting_title));
@@ -567,10 +595,15 @@ public class MainActivity extends CoreActivity {
 
                     if (firstMeeting.ACTUAL_START_DATETIME != null && firstMeeting.ACTUAL_END_DATETIME == null)
                     {
-                        if (isRed)
-                            setRedOff();
-                        else
-                            setGreenOff();
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+////                                //setRedOff();
+////                                setGreenOff();
+////                                setRedOn();
+//                            }
+//                        });
+
                         setRedOn();
 
                         container2_lin.setBackgroundColor(Color.RED);
@@ -579,11 +612,15 @@ public class MainActivity extends CoreActivity {
 
                     }
                     else if (firstMeeting.ACTUAL_START_DATETIME == null){
-                        if (isRed)
-                            setRedOff();
-                        else
-                            setGreenOff();
-                        setGreenOn();
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+////                                setRedOff();
+////                                //setGreenOff();
+////                                setGreenOn();
+//                            }
+//                        });
+                        setRedOff();
 
                         startmeeting_btn.setText(R.string.startmeeting);
                         container2_lin.setBackgroundColor(Color.WHITE);
@@ -594,12 +631,12 @@ public class MainActivity extends CoreActivity {
                     }
                 }
                 else {
-                    if (isRed)
-                        setRedOff();
-                    else
-                        setGreenOff();
-                    setGreenOn();
-                    //inMeeting = false;
+//                    if (isRed)
+//                        setRedOff();
+//                    else
+//                        setGreenOff();
+//                    setGreenOn();
+
                     container2_lin.setBackgroundColor(getResources().getColor(R.color.green));
                     String MeetingDate2 = String.format("%s - %s", Globals.format1.format(startdate), Globals.format1.format(enddate));
                     tv_nextMeetingDate.setText(MeetingDate2);
@@ -639,6 +676,15 @@ public class MainActivity extends CoreActivity {
             container2_lin.setBackgroundColor(getResources().getColor(R.color.green));
             setChinaColor(2);
 
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+//                    setRedOff();
+//                    //setGreenOff();
+//                    setGreenOn();
+                }
+            });
+
         }
     }
 
@@ -647,7 +693,7 @@ public class MainActivity extends CoreActivity {
         value = 0;
         gpio_num = 42;
         handler.post(task);
-        isRed = true;
+        //isRed = true;
     }
 
     private void setRedOff() {
@@ -660,7 +706,7 @@ public class MainActivity extends CoreActivity {
         value = 0;
         gpio_num = 43;
         handler.post(task);
-        isRed = false;
+        //isRed = false;
     }
 
     private void setGreenOff() {

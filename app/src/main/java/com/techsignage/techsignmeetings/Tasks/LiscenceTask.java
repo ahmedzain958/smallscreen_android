@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import com.techsignage.techsignmeetings.Helpers.Globals;
 import com.techsignage.techsignmeetings.Helpers.Utilities;
@@ -74,8 +75,8 @@ public class LiscenceTask extends AsyncTask<String, Void, String>
 //        if (dialog.isShowing()) {
 //            dialog.dismiss();
 //        }
-        Document doc = Utilities.LoadDocument(xmlResult);
         try {
+            Document doc = Utilities.LoadDocument(xmlResult);
             if(Utilities.vaidateLicense(doc, activity))
             {
                 Utilities.setSharedValue("licensed", "true", activity);

@@ -234,17 +234,18 @@ public class Utilities {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setNamespaceAware(true);
         DocumentBuilder db = null;
-
+        InputSource inStream = new InputSource();
         try {
             db = factory.newDocumentBuilder();
+            //InputSource inStream = new InputSource();
+            inStream.setCharacterStream(new StringReader(xmlFragment));
+
         } catch (ParserConfigurationException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        InputSource inStream = new InputSource();
-        inStream.setCharacterStream(new StringReader(xmlFragment));
-        Document doc = null;
 
+        Document doc = null;
         try {
             doc = db.parse(inStream);
         } catch (SAXException e) {
