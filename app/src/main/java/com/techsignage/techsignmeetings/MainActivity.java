@@ -289,17 +289,11 @@ public class MainActivity extends CoreActivity {
                 {
                     setRedOn();
                     meetingModel.IsStarting = 1;
-                    //setRedOn();
-                    //setGreenOff();
 
                 }
                 else {
                     setRedOff();
                     meetingModel.IsStarting = 0;
-                    //setGreenOff();
-                    //setRedOff();
-                    //setRedOff();
-                    //setGreenOn();
                 }
 
                 Observable<RoomMeetingsResponse> callforstart = retrofitInterface.startmeeting(meetingModel);
@@ -593,33 +587,16 @@ public class MainActivity extends CoreActivity {
                     tv_MeetingName.setText(firstMeeting.MEETING_TITLE);
                     //inMeeting = false;
 
-                    if (firstMeeting.ACTUAL_START_DATETIME != null && firstMeeting.ACTUAL_END_DATETIME == null)
+                    if (firstMeeting.ACTUAL_START_DATETIME != null)
                     {
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-////                                //setRedOff();
-////                                setGreenOff();
-////                                setRedOn();
-//                            }
-//                        });
-
                         setRedOn();
 
                         container2_lin.setBackgroundColor(Color.RED);
                         startmeeting_btn.setText(R.string.endmeeting);
                         setChinaColor(3);
-
                     }
-                    else if (firstMeeting.ACTUAL_START_DATETIME == null){
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-////                                setRedOff();
-////                                //setGreenOff();
-////                                setGreenOn();
-//                            }
-//                        });
+                    else
+                    {
                         setRedOff();
 
                         startmeeting_btn.setText(R.string.startmeeting);
@@ -631,11 +608,8 @@ public class MainActivity extends CoreActivity {
                     }
                 }
                 else {
-//                    if (isRed)
-//                        setRedOff();
-//                    else
-//                        setGreenOff();
-//                    setGreenOn();
+
+                    setRedOff();
 
                     container2_lin.setBackgroundColor(getResources().getColor(R.color.green));
                     String MeetingDate2 = String.format("%s - %s", Globals.format1.format(startdate), Globals.format1.format(enddate));
@@ -671,20 +645,9 @@ public class MainActivity extends CoreActivity {
         }
         if(serviceResponse.RoomMeetings.Meetings.size() == 0)
         {
-            //setRed();
-
             container2_lin.setBackgroundColor(getResources().getColor(R.color.green));
             setChinaColor(2);
-
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-//                    setRedOff();
-//                    //setGreenOff();
-//                    setGreenOn();
-                }
-            });
-
+            setRedOff();
         }
     }
 
