@@ -1,35 +1,30 @@
 package com.techsignage.techsignmeetings.Activities;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.techsignage.techsignmeetings.Network.CustomReceiver;
+import com.techsignage.techsignmeetings.R;
 
 /**
- * Created by heat on 4/10/2017.
+ * Created by heat on 11/29/2017.
  */
 
-public class CoreActivity extends AppCompatActivity  {
+public class CoreActivityNew extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Toast.makeText(this, "onCreate", Toast.LENGTH_LONG).show();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
+        getWindow().setBackgroundDrawableResource(R.drawable.mainpage_bg);
 //        Intent intent = new Intent("com.android.action.hide_navigationbar");
 //        sendBroadcast(intent);
 

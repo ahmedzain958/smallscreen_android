@@ -1,6 +1,7 @@
 package com.techsignage.techsignmeetings.Applications;
 
 import android.app.Application;
+import android.content.Intent;
 
 import com.techsignage.techsignmeetings.Helpers.Utilities;
 import com.techsignage.techsignmeetings.Models.Injection.AppModule;
@@ -19,7 +20,8 @@ public class TechApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        Intent intent = new Intent("com.android.action.hide_navigationbar");
+        sendBroadcast(intent);
         mNetComponent = DaggerNetComponent.builder()
                 .appModule(new AppModule(this)) // This also corresponds to the name of your module: %component_name%Module
                 .netModule(new NetModule(Utilities.getSharedValue("token", this)))
