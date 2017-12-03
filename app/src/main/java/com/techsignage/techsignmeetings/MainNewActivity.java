@@ -3,7 +3,9 @@ package com.techsignage.techsignmeetings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainNewActivity extends AppCompatActivity {
+import com.techsignage.techsignmeetings.Activities.CoreActivityNew;
+
+public class MainNewActivity extends CoreActivityNew {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
