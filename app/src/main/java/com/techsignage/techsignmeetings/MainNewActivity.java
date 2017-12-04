@@ -11,5 +11,6 @@ public class MainNewActivity extends CoreActivityNew {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_new);
+        //getWindow().setBackgroundDrawableResource(R.drawable.mainpage_bggreen);
     }
 }
