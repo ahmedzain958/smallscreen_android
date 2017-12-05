@@ -3,6 +3,7 @@
     <string name="room_name">Hall</string>
     <string name="firstmeeting_title">No Meetings</string>
     <string name="firstmeeting_date"> </string>
+    <string name="firstmeeting_datenew">12:45 &#8211; 13:45</string>
     <string name="next">Next</string>
     <string name="secondmeeting_title">No Meetings</string>
     <string name="secondmeeting_date"> </string>
@@ -35,4 +36,5 @@
     <string name="error_network_timeout">Network Connection Error</string>
     <string name="todays">Today\'s Meetings</string>
     <string name="room">Room</string>
+    <string name="list">Meeting List</string>
 </resources>

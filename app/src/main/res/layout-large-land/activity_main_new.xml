@@ -24,16 +24,16 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@id/lin1"
             >
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/container2_lin"
+                android:id="@+id/lin1_rel1"
                 android:paddingTop="60dp"
                 >
                 <TextView
-
                     android:text="@string/firstmeeting_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -47,19 +47,163 @@
                     android:layout_alignParentEnd="true" />
 
                 <TextView
-                    android:text="@string/firstmeeting_date"
+                    android:text="@string/firstmeeting_datenew"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:gravity="center"
                     android:layout_marginTop="10dp"
-                    android:textSize="45sp"
-                    android:textColor="@android:color/black"
+                    android:textSize="35sp"
+                    android:textColor="@android:color/white"
                     android:id="@+id/tv_MeetingDate"
                     android:layout_below="@+id/tv_MeetingName"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
             </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@id/lin2"
+            android:layout_marginTop="50dp"
+            android:layout_below="@id/lin1"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/lin2_rel1"
+
+                >
+               <LinearLayout
+                   android:layout_width="230dp"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal"
+                   android:background="@drawable/rounded_corner"
+                   android:padding="10dp"
+                   android:layout_centerHorizontal="true"
+                   android:gravity="center">
+
+                   <ImageView
+                       android:id="@+id/imageView"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       app:srcCompat="@drawable/play"
+                       android:padding="2dp" />
+                   <TextView
+                       android:text="@string/startmeeting"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:textStyle="bold"
+                       android:gravity="center"
+                       android:textSize="25sp"
+                       android:textColor="@android:color/white"
+                       android:id="@+id/tv_startMeeting"
+                       android:padding="2dp"/>
+
+               </LinearLayout>
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rel3"
+            android:layout_marginTop="120dp"
+            android:layout_below="@id/lin2"
+            android:orientation="horizontal"
+            >
+
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rel3lin1"
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rel3lin3_rel1"
+
+                    >
+                    <LinearLayout
+                        android:layout_width="230dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@drawable/rounded_corner"
+                        android:padding="10dp"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/bookIv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@drawable/list"
+                            android:padding="2dp" />
+                        <TextView
+                            android:text="@string/list"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:textSize="25sp"
+                            android:textColor="@android:color/white"
+                            android:id="@+id/tv_mettingList"
+                            android:padding="2dp"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rel3lin2"
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lin3_rel1"
+                    >
+                    <LinearLayout
+                        android:layout_width="230dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@drawable/rounded_corner"
+                        android:padding="10dp"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/listIv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@drawable/book"
+                            android:padding="2dp" />
+                        <TextView
+                            android:text="@string/book"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:textSize="25sp"
+                            android:textColor="@android:color/white"
+                            android:id="@+id/tv_book"
+                            android:padding="2dp"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+
         </LinearLayout>
 
     </RelativeLayout>
