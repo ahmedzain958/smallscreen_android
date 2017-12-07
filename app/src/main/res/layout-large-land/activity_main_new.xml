@@ -13,15 +13,75 @@
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="wrap_content" android:text="alo4" />-->
     <TextView
-        android:text="@string/list"
+        android:text="@string/orangeroom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
         android:gravity="center"
         android:textSize="25sp"
-        android:textColor="@android:color/white"
+        android:textColor="@color/grey1"
         android:id="@+id/tv_roomName"
         android:padding="2dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_roomName"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:orientation="vertical">
+        <TextView
+            android:text="@string/meetingdatenew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="75sp"
+            android:textColor="@color/grey1"
+            android:id="@+id/tv_Hour"
+            android:padding="2dp"/>
+
+        <TextView
+            android:text="@string/meetingfulldatenew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:textColor="@color/grey1"
+            android:id="@+id/tv_meetingFullDate"
+            android:padding="2dp"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_alignParentBottom="true">
+        <TextView
+        android:text="@string/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:textColor="@color/grey1"
+        android:id="@+id/tv_next"
+        android:padding="2dp"/>
+        <TextView
+            android:text="@string/meeting_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="22sp"
+            android:textColor="@color/grey1"
+            android:id="@+id/tv_nextmeetingName"
+            android:layout_below="@+id/tv_next"
+            android:padding="2dp"
+            android:layout_marginTop="30dp"/>
+        <TextView
+            android:text="@string/meetingfulldatenew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="22sp"
+            android:textColor="@color/grey1"
+            android:id="@+id/tv_nextmeetingDate"
+            android:layout_below="@+id/tv_nextmeetingName"
+            android:padding="2dp"/>
+    </RelativeLayout>
 </RelativeLayout>
     <RelativeLayout
         android:layout_width="0dp"
@@ -121,96 +181,130 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/rel3"
-            android:layout_marginTop="120dp"
+            android:layout_marginBottom="20dp"
             android:layout_below="@id/lin2"
             android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
             >
 
 
+
+            <!--<LinearLayout-->
+                <!--android:orientation="vertical"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/rel3lin1"-->
+                <!--&gt;-->
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/rel3lin3_rel1"-->
+
+                    <!--&gt;-->
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="230dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:orientation="horizontal"-->
+                        <!--android:background="@drawable/rounded_corner"-->
+                        <!--android:padding="10dp"-->
+                        <!--android:layout_centerHorizontal="true"-->
+                        <!--android:gravity="center">-->
+
+                        <!--<ImageView-->
+                            <!--android:id="@+id/bookIv"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--app:srcCompat="@drawable/list"-->
+                            <!--android:padding="2dp" />-->
+                        <!--<TextView-->
+                            <!--android:text="@string/list"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:textStyle="bold"-->
+                            <!--android:gravity="center"-->
+                            <!--android:textSize="25sp"-->
+                            <!--android:textColor="@android:color/white"-->
+                            <!--android:id="@+id/tv_mettingList"-->
+                            <!--android:padding="2dp"/>-->
+
+                    <!--</LinearLayout>-->
+
+                <!--</RelativeLayout>-->
+            <!--</LinearLayout>-->
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/rel3lin1"
+                android:id="@+id/rel3lin2"
+                android:gravity="center"
+                android:layout_margin="15dp"
                 >
-                <RelativeLayout
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/rel3lin3_rel1"
+                    android:orientation="horizontal"
+                    android:background="@drawable/rounded_corner"
+                    android:padding="10dp"
+                    android:gravity="center">
 
-                    >
-                    <LinearLayout
-                        android:layout_width="230dp"
+                    <ImageView
+                        android:id="@+id/listIv"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:background="@drawable/rounded_corner"
-                        android:padding="10dp"
-                        android:layout_centerHorizontal="true"
-                        android:gravity="center">
+                        app:srcCompat="@drawable/list"
+                        android:padding="2dp" />
+                    <TextView
+                        android:text="@string/meetingslist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textSize="25sp"
+                        android:textColor="@android:color/white"
+                        android:id="@+id/tv_meetingList"
+                        android:padding="2dp"/>
 
-                        <ImageView
-                            android:id="@+id/bookIv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/list"
-                            android:padding="2dp" />
-                        <TextView
-                            android:text="@string/list"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:textSize="25sp"
-                            android:textColor="@android:color/white"
-                            android:id="@+id/tv_mettingList"
-                            android:padding="2dp"/>
+                </LinearLayout>
 
-                    </LinearLayout>
-
-                </RelativeLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/rel3lin2"
+                android:id="@+id/rel3lin3"
+                android:gravity="center"
+                android:layout_margin="15dp"
                 >
-                <RelativeLayout
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="230dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/lin3_rel1"
-                    >
-                    <LinearLayout
-                        android:layout_width="230dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/rounded_corner"
+                    android:padding="10dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/listIv2"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:background="@drawable/rounded_corner"
-                        android:padding="10dp"
-                        android:layout_centerHorizontal="true"
-                        android:gravity="center">
+                        app:srcCompat="@drawable/book"
+                        android:padding="2dp" />
+                    <TextView
+                        android:text="@string/book"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textSize="25sp"
+                        android:textColor="@android:color/white"
+                        android:id="@+id/tv_book2"
+                        android:padding="2dp"/>
 
-                        <ImageView
-                            android:id="@+id/listIv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/book"
-                            android:padding="2dp" />
-                        <TextView
-                            android:text="@string/book"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:textSize="25sp"
-                            android:textColor="@android:color/white"
-                            android:id="@+id/tv_book"
-                            android:padding="2dp"/>
+                </LinearLayout>
 
-                    </LinearLayout>
-
-                </RelativeLayout>
             </LinearLayout>
 
 

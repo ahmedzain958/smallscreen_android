@@ -37,4 +37,7 @@
     <string name="todays">Today\'s Meetings</string>
     <string name="room">Room</string>
     <string name="list">Meeting List</string>
+    <string name="orangeroom">Orange Room</string>
+    <string name="meetingdatenew">12:45</string>
+    <string name="meetingfulldatenew">Wed, 15/11/2017</string>
 </resources>
