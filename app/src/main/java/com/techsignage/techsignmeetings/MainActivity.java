@@ -174,7 +174,7 @@ public class MainActivity extends CoreActivity {
         ButterKnife.inject(this);
         getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
 
-        if (checkConfigurationFile()) return;
+        if (Utilities.checkConfigurationFile(this)) return;
 
         try
         {
@@ -358,42 +358,42 @@ public class MainActivity extends CoreActivity {
         super.networkStateReceiver.setConnector(connector);
     }
 
-    private boolean checkConfigurationFile() {
-        //File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_ALARMS);
-        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-        File file = new File(dir, Globals.filename + ".txt");
-        if (!file.exists())
-        {
-            Log.v("file", "non existing");
-            NotAuthorizedDialog dialog = new NotAuthorizedDialog();
-            dialog.setCancelable(false);
-            dialog.show(getSupportFragmentManager(), "NotAuth_Dialog");
-            return true;
-        }
-        else
-        {
-            try
-            {
-                BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-                String line;
-                StringBuilder stringBuilder = new StringBuilder();
-                while ((line = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(line);
-                    //text.append('\n');
-                }
-                bufferedReader.close();
-                JSONObject jsonObject = new JSONObject(stringBuilder.toString());
-                Globals.unitId = jsonObject.get("UNIT_ID").toString();
-                Globals.coreUrl = jsonObject.get("IP").toString();
-                Globals.tokenUrl = String.format("%s/token", jsonObject.get("IP").toString());
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
-        return false;
-    }
+//    private boolean checkConfigurationFile() {
+//        //File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_ALARMS);
+//        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+//        File file = new File(dir, Globals.filename + ".txt");
+//        if (!file.exists())
+//        {
+//            Log.v("file", "non existing");
+//            NotAuthorizedDialog dialog = new NotAuthorizedDialog();
+//            dialog.setCancelable(false);
+//            dialog.show(getSupportFragmentManager(), "NotAuth_Dialog");
+//            return true;
+//        }
+//        else
+//        {
+//            try
+//            {
+//                BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+//                String line;
+//                StringBuilder stringBuilder = new StringBuilder();
+//                while ((line = bufferedReader.readLine()) != null) {
+//                    stringBuilder.append(line);
+//                    //text.append('\n');
+//                }
+//                bufferedReader.close();
+//                JSONObject jsonObject = new JSONObject(stringBuilder.toString());
+//                Globals.unitId = jsonObject.get("UNIT_ID").toString();
+//                Globals.coreUrl = jsonObject.get("IP").toString();
+//                Globals.tokenUrl = String.format("%s/token", jsonObject.get("IP").toString());
+//            }
+//            catch (Exception ex)
+//            {
+//
+//            }
+//        }
+//        return false;
+//    }
 
     private void callWithToken() {
         if(t != null)

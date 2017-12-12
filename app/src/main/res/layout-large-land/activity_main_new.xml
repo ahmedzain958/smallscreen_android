@@ -312,4 +312,5 @@
         </LinearLayout>
 
     </RelativeLayout>
+    <include layout="@layout/custom_progressbar" />
 </LinearLayout>

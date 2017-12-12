@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:baselineAligned="false"
     tools:context="com.techsignage.techsignmeetings.MainNewActivity">
-<RelativeLayout
+    <RelativeLayout
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_weight=".32" android:padding="10dp">
@@ -312,4 +312,7 @@
         </LinearLayout>
 
     </RelativeLayout>
+
+    <include layout="@layout/custom_progressbar" />
+
 </LinearLayout>

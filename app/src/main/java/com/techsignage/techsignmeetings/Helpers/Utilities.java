@@ -10,8 +10,10 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -20,11 +22,13 @@ import android.view.animation.ScaleAnimation;
 import android.widget.Toast;
 
 import com.techsignage.techsignmeetings.Activities.CoreActivity;
+import com.techsignage.techsignmeetings.Dialogs.NotAuthorizedDialog;
 import com.techsignage.techsignmeetings.License.QlmLicense;
 import com.techsignage.techsignmeetings.LicenseNewActivity;
 import com.techsignage.techsignmeetings.Models.Interfaces.retrofitInterface;
 import com.techsignage.techsignmeetings.R;
 
+import org.json.JSONObject;
 import org.w3c.dom.CharacterData;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -33,10 +37,12 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
@@ -227,6 +233,43 @@ public class Utilities {
 
         }
         return sb.toString();
+    }
+
+    public static boolean checkConfigurationFile(AppCompatActivity coreActivity) {
+        //File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_ALARMS);
+        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+        File file = new File(dir, Globals.filename + ".txt");
+        if (!file.exists())
+        {
+            Log.v("file", "non existing");
+            NotAuthorizedDialog dialog = new NotAuthorizedDialog();
+            dialog.setCancelable(false);
+            dialog.show(coreActivity.getSupportFragmentManager(), "NotAuth_Dialog");
+            return true;
+        }
+        else
+        {
+            try
+            {
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+                String line;
+                StringBuilder stringBuilder = new StringBuilder();
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(line);
+                    //text.append('\n');
+                }
+                bufferedReader.close();
+                JSONObject jsonObject = new JSONObject(stringBuilder.toString());
+                Globals.unitId = jsonObject.get("UNIT_ID").toString();
+                Globals.coreUrl = jsonObject.get("IP").toString();
+                Globals.tokenUrl = String.format("%s/token", jsonObject.get("IP").toString());
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        return false;
     }
 
     public static Document LoadDocument(String xmlFragment)
