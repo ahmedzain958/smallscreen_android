@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -74,6 +75,9 @@ public class MainNewActivity extends CoreActivityNew {
 
     @InjectView(R.id.tv_UnitName)
     TextView tv_UnitName;
+
+    @InjectView(R.id.startmeeting_btn)
+    TextView startmeeting_btn;
 
     private Handler handler = new Handler();
     private int value;
@@ -347,7 +351,7 @@ public class MainNewActivity extends CoreActivityNew {
         tv_MeetingName.setText(getResources().getString(R.string.firstmeeting_title));
         tv_nextMeetingDate.setText("");
         tv_nextMeeting.setText("");
-        //startmeeting_btn.setEnabled(false);
+        startmeeting_btn.setEnabled(false);
         tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy | HH:mm aaa").format(new Date()));
 
 
@@ -363,7 +367,7 @@ public class MainNewActivity extends CoreActivityNew {
                 chkfirst_diff = getDifference(new Date(), startdate);
                 if(chkfirst_diff <= 1)
                 {
-                    //startmeeting_btn.setEnabled(true);
+                    startmeeting_btn.setEnabled(true);
                     String MeetingDate = String.format("%s - %s", Globals.format1.format(startdate), Globals.format1.format(enddate));
                     tv_MeetingDate.setText(MeetingDate);
                     tv_MeetingName.setText(firstMeeting.MEETING_TITLE);
@@ -373,14 +377,14 @@ public class MainNewActivity extends CoreActivityNew {
                         setRedOn();
 
                         //container2_lin.setBackgroundColor(Color.RED);
-                        //startmeeting_btn.setText(R.string.endmeeting);
+                        startmeeting_btn.setText(R.string.endmeeting);
                         setChinaColor(3);
                     }
                     else
                     {
                         setRedOff();
 
-                        //startmeeting_btn.setText(R.string.startmeeting);
+                        startmeeting_btn.setText(R.string.startmeeting);
                         //container2_lin.setBackgroundColor(Color.WHITE);
 
                         if (chkfirst_diff < -4)

@@ -40,7 +40,7 @@ public class TestBlankActivity extends AppCompatActivity {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                webview.loadUrl(String.format("http://192.168.1.8:760/index.html?poi=%s", txt1.getText().toString()));
+                webview.loadUrl(String.format("http://192.168.1.8:782/main.html?poi=%s", txt1.getText().toString()));
             }
         });
     }
