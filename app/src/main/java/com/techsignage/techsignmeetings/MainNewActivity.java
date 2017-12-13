@@ -79,6 +79,9 @@ public class MainNewActivity extends CoreActivityNew {
     @InjectView(R.id.startmeeting_btn)
     TextView startmeeting_btn;
 
+    @InjectView(R.id.tv_Hour)
+    TextView tv_Hour;
+
     private Handler handler = new Handler();
     private int value;
     private int gpio_num;
@@ -285,7 +288,8 @@ public class MainNewActivity extends CoreActivityNew {
                 });
 
 
-        //tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy | HH:mm aaa").format(new Date()));
+        tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy").format(new Date()));
+        tv_Hour.setText(new SimpleDateFormat("HH:mm").format(new Date()));
 
         t = new Timer();
         t.scheduleAtFixedRate(new TimerTask() {
@@ -348,12 +352,13 @@ public class MainNewActivity extends CoreActivityNew {
 //        setGreenOn();
 
         tv_MeetingDate.setText("");
+        tv_Hour.setText("");
         tv_MeetingName.setText(getResources().getString(R.string.firstmeeting_title));
         tv_nextMeetingDate.setText("");
         tv_nextMeeting.setText("");
         startmeeting_btn.setEnabled(false);
-        tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy | HH:mm aaa").format(new Date()));
-
+        tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy").format(new Date()));
+        tv_Hour.setText(new SimpleDateFormat("HH:mm").format(new Date()));
 
         tv_UnitName.setText(serviceResponse.RoomMeetings.Room.UNIT_NAME);
         long chkfirst_diff = 0;
@@ -370,6 +375,8 @@ public class MainNewActivity extends CoreActivityNew {
                     startmeeting_btn.setEnabled(true);
                     String MeetingDate = String.format("%s - %s", Globals.format1.format(startdate), Globals.format1.format(enddate));
                     tv_MeetingDate.setText(MeetingDate);
+                    //tv_Hour.setText(MeetingDate);
+
                     tv_MeetingName.setText(firstMeeting.MEETING_TITLE);
 
                     if (firstMeeting.ACTUAL_START_DATETIME != null)
@@ -377,6 +384,7 @@ public class MainNewActivity extends CoreActivityNew {
                         setRedOn();
 
                         //container2_lin.setBackgroundColor(Color.RED);
+                        getWindow().setBackgroundDrawableResource(R.drawable.mainpage_bgred);
                         startmeeting_btn.setText(R.string.endmeeting);
                         setChinaColor(3);
                     }
@@ -386,6 +394,7 @@ public class MainNewActivity extends CoreActivityNew {
 
                         startmeeting_btn.setText(R.string.startmeeting);
                         //container2_lin.setBackgroundColor(Color.WHITE);
+                        getWindow().setBackgroundDrawableResource(R.drawable.mainpage_bg);
 
                         if (chkfirst_diff < -4)
                             tv_MeetingDate.setText(String.format(("Delayed\n%s"), MeetingDate));
@@ -397,6 +406,7 @@ public class MainNewActivity extends CoreActivityNew {
                     setRedOff();
 
                     //container2_lin.setBackgroundColor(getResources().getColor(R.color.green));
+                    getWindow().setBackgroundDrawableResource(R.drawable.mainpage_bggreen);
                     String MeetingDate2 = String.format("%s - %s", Globals.format1.format(startdate), Globals.format1.format(enddate));
                     tv_nextMeetingDate.setText(MeetingDate2);
                     tv_nextMeeting.setText(firstMeeting.MEETING_TITLE);
@@ -431,6 +441,7 @@ public class MainNewActivity extends CoreActivityNew {
         if(serviceResponse.RoomMeetings.Meetings.size() == 0)
         {
             //container2_lin.setBackgroundColor(getResources().getColor(R.color.green));
+            getWindow().setBackgroundDrawableResource(R.drawable.mainpage_bggreen);
             setChinaColor(2);
             setRedOff();
         }
