@@ -399,41 +399,70 @@ public class MainActivity extends CoreActivity {
         if(t != null)
             t.cancel();
 
-        if (Utilities.getSharedValue("token", MainActivity.this).equals(""))
-        {
-            VolleyRequest request = new VolleyRequest();
-            request.getString(new VolleyCallbackString() {
-                                  @Override
-                                  public void onSuccess(String result) {
-                                      try {
-                                          if (result != null) {
-                                              JSONObject object = new JSONObject(result);
-                                              final String token = object.getString("access_token");
-                                              Utilities.setSharedValue("token", token, getApplicationContext());
-                                              Utilities.setSharedValue("username", "Admin", MainActivity.this);
-                                              loadMeetings();
-                                          }
-                                      } catch (Exception ex) {
-                                          //sweetAlertDialog.hide();
-                                          progress_rel.setVisibility(View.GONE);
+//        if (Utilities.getSharedValue("token", MainActivity.this).equals(""))
+//        {
+//            VolleyRequest request = new VolleyRequest();
+//            request.getString(new VolleyCallbackString() {
+//                                  @Override
+//                                  public void onSuccess(String result) {
+//                                      try {
+//                                          if (result != null) {
+//                                              JSONObject object = new JSONObject(result);
+//                                              final String token = object.getString("access_token");
+//                                              Utilities.setSharedValue("token", token, getApplicationContext());
+//                                              Utilities.setSharedValue("username", "Admin", MainActivity.this);
+//                                              loadMeetings();
+//                                          }
+//                                      } catch (Exception ex) {
+//                                          //sweetAlertDialog.hide();
+//                                          progress_rel.setVisibility(View.GONE);
+//
+//                                      }
+//                                  }
+//
+//
+//                                  @Override
+//                                  public void onError(String result) {
+//                                      //sweetAlertDialog.hide();
+//                                      progress_rel.setVisibility(View.GONE);
+//
+//                                  }
+//                              }, MainActivity.this, getApplicationContext(), Globals.tokenUrl, "",
+//                    String.format("grant_type=password&username=%s&password=%s", "Admin", "P@ssw0rd"), ContentTypes.FormEncoded.toString());
+//        }
+//        else
+//        {
+//            loadMeetings();
+//        }
 
+        VolleyRequest request = new VolleyRequest();
+        request.getString(new VolleyCallbackString() {
+                              @Override
+                              public void onSuccess(String result) {
+                                  try {
+                                      if (result != null) {
+                                          JSONObject object = new JSONObject(result);
+                                          final String token = object.getString("access_token");
+                                          Utilities.setSharedValue("token", token, getApplicationContext());
+                                          Utilities.setSharedValue("username", "Admin", MainActivity.this);
+                                          loadMeetings();
                                       }
-                                  }
-
-
-                                  @Override
-                                  public void onError(String result) {
+                                  } catch (Exception ex) {
                                       //sweetAlertDialog.hide();
                                       progress_rel.setVisibility(View.GONE);
 
                                   }
-                              }, MainActivity.this, getApplicationContext(), Globals.tokenUrl, "",
-                    String.format("grant_type=password&username=%s&password=%s", "Admin", "P@ssw0rd"), ContentTypes.FormEncoded.toString());
-        }
-        else
-        {
-            loadMeetings();
-        }
+                              }
+
+
+                              @Override
+                              public void onError(String result) {
+                                  //sweetAlertDialog.hide();
+                                  progress_rel.setVisibility(View.GONE);
+
+                              }
+                          }, MainActivity.this, getApplicationContext(), Globals.tokenUrl, "",
+                String.format("grant_type=password&username=%s&password=%s", "Admin", "P@ssw0rd"), ContentTypes.FormEncoded.toString());
 
     }
 
