@@ -123,7 +123,7 @@ public class MeetingAttendees extends CoreActivity {
                             @Override
                             public void run() {
                                 //finish();
-                                Intent intent = new Intent(MeetingAttendees.this, MainActivity.class);
+                                Intent intent = new Intent(MeetingAttendees.this, MainNewActivity.class);
                                 startActivity(intent);
                                 finish();
                             }

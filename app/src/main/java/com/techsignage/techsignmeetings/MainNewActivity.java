@@ -82,6 +82,12 @@ public class MainNewActivity extends CoreActivityNew {
     @InjectView(R.id.tv_Hour)
     TextView tv_Hour;
 
+    @InjectView(R.id.meetingslist_btn)
+    TextView meetingslist_btn;
+
+    @InjectView(R.id.book_btn)
+    TextView book_btn;
+
     private Handler handler = new Handler();
     private int value;
     private int gpio_num;
@@ -161,7 +167,14 @@ public class MainNewActivity extends CoreActivityNew {
             smdtManager.smdtSetExtrnalGpioValue (1,true);
         }
 
-        //dialog = Utilities.showDialog(MainActivity.this);
+        meetingslist_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainNewActivity.this, MeetingsListActivity.class);
+                MainNewActivity.this.startActivity(intent);
+            }
+        });
+
         getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
         try
         {
@@ -175,6 +188,78 @@ public class MainNewActivity extends CoreActivityNew {
         {
 
         }
+
+        startmeeting_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
+                if(smdtManager != null)
+                {
+                    smdtManager.smdtSetExtrnalGpioValue (1,false);
+                    smdtManager.smdtSetExtrnalGpioValue (2,false);
+                    smdtManager.smdtSetExtrnalGpioValue (3,false);
+                }
+
+//                if (isRed)
+//                    setRedOff();
+//                else
+//                    setGreenOff();
+//                setGreenOn();
+
+                progress_rel.setVisibility(View.VISIBLE);
+                //sweetAlertDialog = Utilities.showProgressPrettyDialog(MainActivity.this, getResources().getString(R.string.processing));
+                //sweetAlertDialog.show();
+                MeetingModel meetingModel = new MeetingModel();
+                meetingModel.MEETING_ID = firstMeeting.MEETING_ID;
+                meetingModel.UNIT_ID = Globals.unitId;
+
+                if (startmeeting_btn.getText().toString().equals(getResources().getString(R.string.startmeeting)))
+                {
+                    setRedOn();
+                    meetingModel.IsStarting = 1;
+
+                }
+                else {
+                    setRedOff();
+                    meetingModel.IsStarting = 0;
+                }
+
+                Observable<RoomMeetingsResponse> callforstart = retrofitInterface.startmeeting(meetingModel);
+                subscription = callforstart.observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.newThread())
+                        .subscribe(new Subscriber<RoomMeetingsResponse>() {
+                            @Override
+                            public void onCompleted() {
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                e.printStackTrace();
+                            }
+
+                            @Override
+                            public void onNext(final RoomMeetingsResponse serviceResponse) {
+
+                                OngoingReactAsync(serviceResponse);
+
+                                getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
+
+                                progress_rel.setVisibility(View.GONE);
+                            }
+                        });
+            }
+        });
+
+        book_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainNewActivity.this, LoginActivity.class);
+                intent.putExtra("activityName", "MainActivity");
+                MainNewActivity.this.startActivity(intent);
+            }
+        });
     }
 
     private void callWithToken() {
@@ -375,7 +460,6 @@ public class MainNewActivity extends CoreActivityNew {
                     startmeeting_btn.setEnabled(true);
                     String MeetingDate = String.format("%s - %s", Globals.format1.format(startdate), Globals.format1.format(enddate));
                     tv_MeetingDate.setText(MeetingDate);
-                    //tv_Hour.setText(MeetingDate);
 
                     tv_MeetingName.setText(firstMeeting.MEETING_TITLE);
 

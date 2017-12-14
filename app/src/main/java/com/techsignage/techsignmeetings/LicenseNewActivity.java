@@ -140,7 +140,7 @@ public class LicenseNewActivity extends CoreActivity {
                                                       }
                                                       else
                                                       {
-                                                          Intent intent = new Intent(LicenseNewActivity.this, MainActivity.class);
+                                                          Intent intent = new Intent(LicenseNewActivity.this, MainNewActivity.class);
                                                           startActivity(intent);
                                                           finish();
                                                       }

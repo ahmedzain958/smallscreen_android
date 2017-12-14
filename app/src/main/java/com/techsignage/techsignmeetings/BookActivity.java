@@ -418,7 +418,7 @@ public class BookActivity extends CoreActivity {
                                 Intent intent = null;
                                 if (rooms_spinner == null)
                                 {
-                                    intent = new Intent(BookActivity.this, MainActivity.class);
+                                    intent = new Intent(BookActivity.this, MainNewActivity.class);
                                 }
                                 else
                                 {
@@ -447,7 +447,7 @@ public class BookActivity extends CoreActivity {
                     @Override
                     public void run() {
                         //finish();
-                        Intent intent = new Intent(BookActivity.this, MainActivity.class);
+                        Intent intent = new Intent(BookActivity.this, MainNewActivity.class);
                         startActivity(intent);
                         finish();
                     }
