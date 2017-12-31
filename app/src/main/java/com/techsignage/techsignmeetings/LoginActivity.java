@@ -42,6 +42,8 @@ import rx.schedulers.Schedulers;
 
 public class LoginActivity extends CoreActivity {
 
+    Timer tclose;
+
     @InjectView(R.id.container1_lin)
     RelativeLayout container1_lin;
 
@@ -260,7 +262,8 @@ public class LoginActivity extends CoreActivity {
             }
         });
 
-        new Timer().schedule(new TimerTask() {
+        tclose = new Timer();
+        tclose.schedule(new TimerTask() {
             @Override
             public void run() {
 
@@ -275,10 +278,22 @@ public class LoginActivity extends CoreActivity {
                 });
 
             }
-        }, 65000);
+        }, 180000);
     }
 
-//
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (tclose != null)
+            tclose.cancel();
+    }
+
+    //
 //    @Override
 //    public void onConfigurationChanged(Configuration newConfig) {
 //        super.onConfigurationChanged(newConfig);

@@ -102,6 +102,7 @@ public class BookActivity extends CoreActivity {
     HourModel hourModel;
     String firstHour;
     String lastHour;
+    Timer tclose;
 
     final int flags = View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
     final int flags2 = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -439,7 +440,25 @@ public class BookActivity extends CoreActivity {
             }
         });
 
-        new Timer().schedule(new TimerTask() {
+//        new Timer().schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        //finish();
+//                        Intent intent = new Intent(BookActivity.this, MainNewActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                    }
+//                });
+//
+//            }
+//        }, 65000);
+
+        tclose = new Timer();
+        tclose.schedule(new TimerTask() {
             @Override
             public void run() {
 
@@ -454,8 +473,7 @@ public class BookActivity extends CoreActivity {
                 });
 
             }
-        }, 65000);
-
+        }, 180000);
     }
 
     private void structCalendar(final hourCallback callback, final RecyclerView mRecyclerView
@@ -494,5 +512,12 @@ public class BookActivity extends CoreActivity {
                         mRecyclerView.setAdapter(adapter);
                     }
                 });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (tclose != null)
+            tclose.cancel();
     }
 }

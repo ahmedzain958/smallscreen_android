@@ -436,7 +436,7 @@ public class Utilities {
         int val = Integer.valueOf(nodes.item(0).getChildNodes().item(0).getNodeValue());
         if (val == 2 || val == 4)
         {
-            Toast.makeText(context, "Valid license", Toast.LENGTH_LONG).show();
+            //Toast.makeText(context, "Valid license", Toast.LENGTH_LONG).show();
             return true;
         }
         else

@@ -69,7 +69,7 @@ public class AllListActivity extends CoreActivity {
     RecyclerView activerequestslist;
 
     @InjectView(R.id.container1_lin)
-    RelativeLayout container1_lin;
+    LinearLayout container1_lin;
 
     @InjectView(R.id.container2_lin)
     RelativeLayout container2_lin;

@@ -60,6 +60,7 @@ public class MeetingAttendees extends CoreActivity {
 
     RelativeLayout progress_rel;
     Timer t;
+    Timer tclose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,11 +114,29 @@ public class MeetingAttendees extends CoreActivity {
                         0,
                         30000);
 
-                new Timer().schedule(new TimerTask() {
+//                new Timer().schedule(new TimerTask() {
+//                    @Override
+//                    public void run() {
+//                        if(t != null)
+//                            t.cancel();
+//
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                //finish();
+//                                Intent intent = new Intent(MeetingAttendees.this, MainNewActivity.class);
+//                                startActivity(intent);
+//                                finish();
+//                            }
+//                        });
+//
+//                    }
+//                }, 65000);
+
+                tclose = new Timer();
+                tclose.schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        if(t != null)
-                            t.cancel();
 
                         runOnUiThread(new Runnable() {
                             @Override
@@ -130,7 +149,7 @@ public class MeetingAttendees extends CoreActivity {
                         });
 
                     }
-                }, 65000);
+                }, 180000);
 
                 Globals.pageSize = 4;
 
@@ -361,5 +380,12 @@ public class MeetingAttendees extends CoreActivity {
         container1_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .15f));
         container2_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .70f));
         container3_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .15f));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (tclose != null)
+            tclose.cancel();
     }
 }
