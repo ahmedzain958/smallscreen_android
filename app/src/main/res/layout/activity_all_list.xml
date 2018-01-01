@@ -36,15 +36,16 @@
 
                 />
             <ImageView
-                android:layout_weight=".1"
+                android:layout_weight=".08"
                 android:layout_width="0sp"
                 android:id="@+id/listIv"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/list"
-                android:padding="2dp" />
+                app:srcCompat="@drawable/book"
+                android:padding="2dp"
+                android:scaleType="fitCenter"/>
             <TextView
                 android:text=""
-                android:layout_weight=".3"
+                android:layout_weight=".32"
                 android:layout_width="0sp"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
