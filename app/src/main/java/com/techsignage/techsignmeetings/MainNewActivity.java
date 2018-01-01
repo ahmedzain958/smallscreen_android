@@ -218,9 +218,10 @@ public class MainNewActivity extends CoreActivityNew {
                 {
                     setRedOn();
                     meetingModel.IsStarting = 1;
-
+                    startmeeting_btn.setText(R.string.endmeeting);
                 }
                 else {
+                    startmeeting_btn.setText(R.string.startmeeting);
                     setRedOff();
                     meetingModel.IsStarting = 0;
                 }
