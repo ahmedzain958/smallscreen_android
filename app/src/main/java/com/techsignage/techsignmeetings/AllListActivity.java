@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.techsignage.techsignmeetings.Activities.CoreActivity;
 import com.techsignage.techsignmeetings.Adapters.MeetingsAdapter;
+import com.techsignage.techsignmeetings.Adapters.MeetingsAllAdapter;
 import com.techsignage.techsignmeetings.Dialogs.NotAuthorizedDialog;
 import com.techsignage.techsignmeetings.Helpers.Globals;
 import com.techsignage.techsignmeetings.Helpers.Utilities;
@@ -69,7 +70,7 @@ public class AllListActivity extends CoreActivity {
     RecyclerView activerequestslist;
 
     @InjectView(R.id.container1_lin)
-    LinearLayout container1_lin;
+    RelativeLayout container1_lin;
 
     @InjectView(R.id.container2_lin)
     RelativeLayout container2_lin;
@@ -85,7 +86,7 @@ public class AllListActivity extends CoreActivity {
 
     Timer t;
     IConnector connector;
-    MeetingsAdapter adapter;
+    MeetingsAllAdapter adapter;
     List<UserMeetingModel> Meetings;
     retrofitInterface retrofitInterface;
     private Subscription subscription;
@@ -178,7 +179,7 @@ public class AllListActivity extends CoreActivity {
                     }
                 }
 
-                adapter = new MeetingsAdapter(AllListActivity.this, R.layout.meeting_itemall);
+                adapter = new MeetingsAllAdapter(AllListActivity.this, R.layout.meeting_itemall);
                 adapter.setLst(meetingModels);
                 activerequestslist.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
@@ -206,7 +207,7 @@ public class AllListActivity extends CoreActivity {
                     }
                 }
 
-                adapter = new MeetingsAdapter(AllListActivity.this, R.layout.meeting_itemall);
+                adapter = new MeetingsAllAdapter(AllListActivity.this, R.layout.meeting_itemall);
                 adapter.setLst(meetingModels);
                 activerequestslist.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
@@ -308,7 +309,7 @@ public class AllListActivity extends CoreActivity {
                         //Meetings = serviceResponse.RoomMeetingsResponse.Meetings;
                         Meetings = serviceResponse.RoomMeetings.MeetingsAll;
                         assert activerequestslist != null;
-                        adapter = new MeetingsAdapter(AllListActivity.this, R.layout.meeting_itemall) ;
+                        adapter = new MeetingsAllAdapter(AllListActivity.this, R.layout.meeting_itemall) ;
 
                         //tv_UnitName.setText(serviceResponse.RoomMeetings.Room.UNIT_NAME);
 
