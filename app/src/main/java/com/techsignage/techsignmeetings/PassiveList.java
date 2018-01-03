@@ -50,8 +50,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class AllListActivity extends CoreActivity {
-
+public class PassiveList extends CoreActivity {
 
     @InjectView(R.id.tv_NowDate)
     TextView tv_NowDate;
@@ -99,7 +98,7 @@ public class AllListActivity extends CoreActivity {
 
         if (Utilities.getSharedValue("licensed", this).equals(""))
         {
-            Intent intent = new Intent(AllListActivity.this, LicenseNewActivity.class);
+            Intent intent = new Intent(PassiveList.this, LicenseNewActivity.class);
             intent.putExtra("activityName", "AllListActivity");
             startActivity(intent);
             finish();
@@ -116,7 +115,7 @@ public class AllListActivity extends CoreActivity {
                                       JSONObject object = new JSONObject(result);
                                       final String token = object.getString("access_token");
                                       Utilities.setSharedValue("token", token, getApplicationContext());
-                                      Utilities.setSharedValue("username", "Admin", AllListActivity.this);
+                                      Utilities.setSharedValue("username", "Admin", PassiveList.this);
 
                                       progress_rel.setVisibility(View.GONE);
                                       retrofitInterface = Utilities.liveAPI(token);
@@ -151,7 +150,7 @@ public class AllListActivity extends CoreActivity {
                               public void onError(String result) {
 
                               }
-                          }, AllListActivity.this, getApplicationContext(), Globals.tokenUrl, "",
+                          }, PassiveList.this, getApplicationContext(), Globals.tokenUrl, "",
                 String.format("grant_type=password&username=%s&password=%s", "Admin", "P@ssw0rd"), ContentTypes.FormEncoded.toString());
 
         //Globals.pageSize = 5;
@@ -178,7 +177,7 @@ public class AllListActivity extends CoreActivity {
                     }
                 }
 
-                adapter = new MeetingsAllAdapter(AllListActivity.this, R.layout.meeting_itemall);
+                adapter = new MeetingsAllAdapter(PassiveList.this, R.layout.meeting_itemall);
                 adapter.setLst(meetingModels);
                 activerequestslist.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
@@ -206,7 +205,7 @@ public class AllListActivity extends CoreActivity {
                     }
                 }
 
-                adapter = new MeetingsAllAdapter(AllListActivity.this, R.layout.meeting_itemall);
+                adapter = new MeetingsAllAdapter(PassiveList.this, R.layout.meeting_itemall);
                 adapter.setLst(meetingModels);
                 activerequestslist.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
@@ -218,10 +217,10 @@ public class AllListActivity extends CoreActivity {
         book_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AllListActivity.this, LoginActivity.class);
+                Intent intent = new Intent(PassiveList.this, LoginActivity.class);
                 //intent.putExtra("activityName", getClass().getSimpleName());
                 intent.putExtra("activityName", "AllListActivity");
-                AllListActivity.this.startActivity(intent);
+                PassiveList.this.startActivity(intent);
             }
         });
 
@@ -308,11 +307,11 @@ public class AllListActivity extends CoreActivity {
                         //Meetings = serviceResponse.RoomMeetingsResponse.Meetings;
                         Meetings = serviceResponse.RoomMeetings.MeetingsAll;
                         assert activerequestslist != null;
-                        adapter = new MeetingsAllAdapter(AllListActivity.this, R.layout.meeting_itemall) ;
+                        adapter = new MeetingsAllAdapter(PassiveList.this, R.layout.meeting_itemall) ;
 
                         //tv_UnitName.setText(serviceResponse.RoomMeetings.Room.UNIT_NAME);
 
-                        LinearLayoutManager llm = new LinearLayoutManager(AllListActivity.this);
+                        LinearLayoutManager llm = new LinearLayoutManager(PassiveList.this);
                         activerequestslist.setLayoutManager(llm);
 
 
