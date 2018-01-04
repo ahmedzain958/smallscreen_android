@@ -83,6 +83,7 @@ public class PassiveList extends CoreActivity {
     RelativeLayout progress_rel;
 
     Timer t;
+    Timer tPager;
     IConnector connector;
     MeetingsAllAdapter adapter;
     List<UserMeetingModel> Meetings;
@@ -158,59 +159,14 @@ public class PassiveList extends CoreActivity {
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Globals.skipCount < Meetings.size() && (Meetings.size() - (Globals.skipCount+pageSize)) > 0)
-                {
-                    Globals.skipCount += pageSize;
-                }
-
-                setButtons();
-
-                List<UserMeetingModel> meetingModels = new ArrayList<UserMeetingModel>();
-                for (int i = 0; i < Meetings.size(); i++)
-                {
-                    if ((i+1) > Globals.skipCount)
-                    {
-                        if(meetingModels.size() < pageSize)
-                        {
-                            meetingModels.add(Meetings.get(i));
-                        }
-                    }
-                }
-
-                adapter = new MeetingsAllAdapter(PassiveList.this, R.layout.meeting_itemall);
-                adapter.setLst(meetingModels);
-                activerequestslist.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
-
+                nextLogic();
             }
         });
 
         prev_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Globals.skipCount > 0)
-                    Globals.skipCount -= pageSize;
-
-                setButtons();
-
-                List<UserMeetingModel> meetingModels = new ArrayList<UserMeetingModel>();
-                for (int i = 0; i < Meetings.size(); i++)
-                {
-                    if ((i+1) > Globals.skipCount)
-                    {
-                        if(meetingModels.size() < pageSize)
-                        {
-                            meetingModels.add(Meetings.get(i));
-                        }
-                    }
-                }
-
-                adapter = new MeetingsAllAdapter(PassiveList.this, R.layout.meeting_itemall);
-                adapter.setLst(meetingModels);
-                activerequestslist.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
-
-
+                prevLogic();
             }
         });
 
@@ -254,6 +210,89 @@ public class PassiveList extends CoreActivity {
         };
 
         super.networkStateReceiver.setConnector(connector);
+
+
+        tPager = new Timer();
+        tPager.scheduleAtFixedRate(new TimerTask() {
+
+                                  @Override
+                                  public void run() {
+                                      runOnUiThread(new Runnable() {
+                                          @Override
+                                          public void run() {
+                                              if (Meetings != null)
+                                              {
+                                                  if(Globals.skipCount < Meetings.size() && (Meetings.size() - (Globals.skipCount+pageSize)) > 0)
+                                                  {
+                                                      nextLogic();
+                                                  }
+                                                  else
+                                                  {
+                                                      if(Globals.skipCount > 0)
+                                                      {
+                                                          prevLogic();
+                                                      }
+                                                  }
+                                              }
+
+                                          }
+                                      });
+
+                                  }
+
+                              },
+                0,
+                35000);
+    }
+
+    private void prevLogic() {
+        if(Globals.skipCount > 0)
+            Globals.skipCount -= pageSize;
+
+        setButtons();
+
+        List<UserMeetingModel> meetingModels = new ArrayList<UserMeetingModel>();
+        for (int i = 0; i < Meetings.size(); i++)
+        {
+            if ((i+1) > Globals.skipCount)
+            {
+                if(meetingModels.size() < pageSize)
+                {
+                    meetingModels.add(Meetings.get(i));
+                }
+            }
+        }
+
+        adapter = new MeetingsAllAdapter(PassiveList.this, R.layout.meeting_itemall);
+        adapter.setLst(meetingModels);
+        activerequestslist.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
+    private void nextLogic() {
+        if(Globals.skipCount < Meetings.size() && (Meetings.size() - (Globals.skipCount+pageSize)) > 0)
+        {
+            Globals.skipCount += pageSize;
+        }
+
+        setButtons();
+
+        List<UserMeetingModel> meetingModels = new ArrayList<UserMeetingModel>();
+        for (int i = 0; i < Meetings.size(); i++)
+        {
+            if ((i+1) > Globals.skipCount)
+            {
+                if(meetingModels.size() < pageSize)
+                {
+                    meetingModels.add(Meetings.get(i));
+                }
+            }
+        }
+
+        adapter = new MeetingsAllAdapter(PassiveList.this, R.layout.meeting_itemall);
+        adapter.setLst(meetingModels);
+        activerequestslist.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
 
@@ -325,7 +364,7 @@ public class PassiveList extends CoreActivity {
                         activerequestslist.setAdapter(adapter);
                         activerequestslist.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
                         int height = activerequestslist.getMeasuredHeight();
-                        pageSize = Math.ceil((double) height / (double)(adapter.getItemHeight() + 20));
+                        pageSize = Math.ceil((double) height / (double)(adapter.getItemHeight()));
 
 
                         meetingModels = new ArrayList<>();
@@ -418,5 +457,7 @@ public class PassiveList extends CoreActivity {
         super.networkStateReceiver.connector = null;
         if(t != null)
             t.cancel();
+        if(tPager != null)
+            tPager.cancel();
     }
 }
