@@ -23,7 +23,8 @@ public class Globals {
     public static int pageSize = 0;
     public static int skipCount = 0;
     public static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
-    public static SimpleDateFormat format1 = new SimpleDateFormat("h:mm a");
+    //public static SimpleDateFormat format1 = new SimpleDateFormat("h:mm a");
+    public static SimpleDateFormat format1 = new SimpleDateFormat("HH:mm aaa");
     public static SimpleDateFormat format3 = new SimpleDateFormat("dd/MM/yyyy");
     public static String timeStamp = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss aaa").format(new Date());
     //public static String timeStamp2 = new SimpleDateFormat("EEEE, dd/MM/yyyy | HH:mm aaa").format(new Date());
@@ -48,5 +49,4 @@ public class Globals {
     public static String modulusKey = "";
     public static String exponentKey = "";
     public static String licenseUrl = "http://technomounts.com/QLMWS/QlmService.asmx/ValidateLicenseHttp";
-
 }

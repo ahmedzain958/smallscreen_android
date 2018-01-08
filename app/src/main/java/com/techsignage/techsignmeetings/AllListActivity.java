@@ -121,7 +121,8 @@ public class AllListActivity extends CoreActivity {
                                       progress_rel.setVisibility(View.GONE);
                                       retrofitInterface = Utilities.liveAPI(token);
                                       tv_NowDate = (TextView)findViewById(R.id.tv_NowDate);
-                                      tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy").format(new Date()));
+                                      //tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy").format(new Date()));
+                                      tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy | HH:mm aaa").format(new Date()));
 
                                       t = new Timer();
                                       t.scheduleAtFixedRate(new TimerTask() {
@@ -302,7 +303,8 @@ public class AllListActivity extends CoreActivity {
 
                     @Override
                     public void onNext(RoomMeetingsResponse serviceResponse) {
-                        tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy").format(new Date()));
+                        //tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy").format(new Date()));
+                        tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy | HH:mm aaa").format(new Date()));
                         next_btn.setEnabled(true);
                         prev_btn.setEnabled(true);
                         //Meetings = serviceResponse.RoomMeetingsResponse.Meetings;
@@ -326,7 +328,7 @@ public class AllListActivity extends CoreActivity {
                         activerequestslist.setAdapter(adapter);
                         activerequestslist.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
                         int height = activerequestslist.getMeasuredHeight();
-                        pageSize = Math.ceil((double) height / (double)(adapter.getItemHeight() + 20));
+                        pageSize = Math.ceil((double) height / (double)(adapter.getItemHeight()));
 
 
                         meetingModels = new ArrayList<>();
