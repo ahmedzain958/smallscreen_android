@@ -170,17 +170,17 @@ public class MainActivity extends CoreActivity {
         ButterKnife.inject(this);
         getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
 
-        if (checkConfigurationFile()) return;
+//        if (checkConfigurationFile()) return;
 
         //new LiscenceTask(this).execute("AGKA0S0H00AXNGZ78XM35J1I4M");
         new LiscenceTask(this).execute(Utilities.getSharedValue("licensekey", getApplicationContext()));
 
-        if (Utilities.getSharedValue("licensed", this).equals(""))
-        {
-            Intent intent = new Intent(MainActivity.this, LicenseNewActivity.class);
-            startActivity(intent);
-            finish();
-        }
+//        if (Utilities.getSharedValue("licensed", this).equals(""))
+//        {
+//            Intent intent = new Intent(MainActivity.this, LicenseNewActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
 
         smdtManager = SmdtManager.create(this);
 

@@ -1,4 +1,7 @@
 package com.techsignage.techsignmeetings.Helpers;
+import android.content.Context;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.view.View;
 
 import com.techsignage.techsignmeetings.Models.HourModel;
@@ -9,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by mohamed on 3/22/2017.
@@ -49,4 +53,41 @@ public class Globals {
     public static String exponentKey = "";
     public static String licenseUrl = "http://technomounts.com/QLMWS/QlmService.asmx/ValidateLicenseHttp";
 
+    private static final String PREF_APP_LOCAL = "PREF_APP_LOCAL";
+    private static final String KEY_LOCAL = "KEY_LOCAL";
+    private static String mAppLocal;
+    public static final String PREF_LOCAL_ENGLISH = "en";
+    public static final String PREF_LOCAL_ARABIC = "ar";
+
+    public static void setAppLocal(Context context, String appLocal) {
+        Locale locale;
+
+        mAppLocal = appLocal;
+        setAppLocalToPref(context, appLocal);
+
+        if (appLocal.equals(PREF_LOCAL_ARABIC)) {
+            locale = new Locale(PREF_LOCAL_ARABIC);
+        } else {
+            locale = new Locale(PREF_LOCAL_ENGLISH);
+        }
+
+        Locale.setDefault(locale);
+
+        Configuration config = new Configuration();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+            config.setLocale(locale);
+        else
+            config.locale = locale;
+
+        context.getApplicationContext().getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
+//        context.createConfigurationContext(config);
+    }
+
+    private static void setAppLocalToPref(Context context, String appLocal) {
+        context.getApplicationContext()
+                .getSharedPreferences(PREF_APP_LOCAL, Context.MODE_PRIVATE)
+                .edit()
+                .putString(KEY_LOCAL, appLocal)
+                .apply();
+    }
 }
