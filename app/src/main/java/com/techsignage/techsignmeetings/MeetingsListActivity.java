@@ -1,5 +1,6 @@
 package com.techsignage.techsignmeetings;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -77,6 +78,7 @@ public class MeetingsListActivity extends CoreActivity {
     RelativeLayout progress_rel;
 
     Timer t;
+    Timer tclose;
     IConnector connector;
     MeetingsAdapter adapter;
     List<UserMeetingModel> Meetings;
@@ -122,21 +124,42 @@ public class MeetingsListActivity extends CoreActivity {
                             0,
                             30000);
 
-                    new Timer().schedule(new TimerTask() {
+//                    new Timer().schedule(new TimerTask() {
+//                        @Override
+//                        public void run() {
+//                            if(t != null)
+//                                t.cancel();
+//
+//                            runOnUiThread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    //finish();
+//                                    Intent intent = new Intent(MeetingsListActivity.this, MainNewActivity.class);
+//                                    startActivity(intent);
+//                                    finish();
+//                                }
+//                            });
+//
+//                        }
+//                    }, 65000);
+
+                    tclose = new Timer();
+                    tclose.schedule(new TimerTask() {
                         @Override
                         public void run() {
-                            if(t != null)
-                                t.cancel();
 
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    //finish();
+                                    Intent intent = new Intent(MeetingsListActivity.this, MainNewActivity.class);
+                                    startActivity(intent);
                                     finish();
                                 }
                             });
 
                         }
-                    }, 100000);
+                    }, 180000);
                 }
                 catch (Exception ex)
                 {
@@ -244,12 +267,6 @@ public class MeetingsListActivity extends CoreActivity {
         super.networkStateReceiver.setConnector(connector);
     }
 
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
     void setButtons()
     {
         if(Globals.skipCount < Meetings.size() && (Meetings.size() - (Globals.skipCount+Globals.pageSize)) > 0)
@@ -353,5 +370,7 @@ public class MeetingsListActivity extends CoreActivity {
         super.networkStateReceiver.connector = null;
         if(t != null)
             t.cancel();
+        if (tclose != null)
+            tclose.cancel();
     }
 }

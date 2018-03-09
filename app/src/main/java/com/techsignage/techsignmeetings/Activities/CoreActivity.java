@@ -32,6 +32,9 @@ public class CoreActivity extends AppCompatActivity  {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         Globals.setAppLocal(this, "ar");
 
+//        Intent intent = new Intent("com.android.action.hide_navigationbar");
+//        sendBroadcast(intent);
+
         networkStateReceiver = new CustomReceiver()
         {
             @Override

@@ -28,6 +28,8 @@ import com.techsignage.techsignmeetings.Models.UserModel;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -39,6 +41,8 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class LoginActivity extends CoreActivity {
+
+    Timer tclose;
 
     @InjectView(R.id.container1_lin)
     RelativeLayout container1_lin;
@@ -225,17 +229,26 @@ public class LoginActivity extends CoreActivity {
                                         break;
                                     }
                                 }
-                                if (loggedCheck)
+                                if (activityName.equals("MainActivity"))
                                 {
-                                    Toast.makeText(LoginActivity.this, authResponse.Message, Toast.LENGTH_SHORT).show();
+                                    if (loggedCheck)
+                                    {
+                                        Toast.makeText(LoginActivity.this, authResponse.Message, Toast.LENGTH_SHORT).show();
 
-                                    Intent intent = new Intent(LoginActivity.this, BookActivity.class);
-                                    intent.putExtra("activityName", activityName);
-                                    startActivity(intent);
+                                        Intent intent = new Intent(LoginActivity.this, BookActivity.class);
+                                        intent.putExtra("activityName", activityName);
+                                        startActivity(intent);
+                                    }
+                                    else
+                                    {
+                                        Toast.makeText(LoginActivity.this, R.string.nopermission, Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                                 else
                                 {
-                                    Toast.makeText(LoginActivity.this, R.string.nopermission, Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(LoginActivity.this, BookActivity.class);
+                                    intent.putExtra("activityName", activityName);
+                                    startActivity(intent);
                                 }
                             }
                         });
@@ -248,9 +261,39 @@ public class LoginActivity extends CoreActivity {
                 finish();
             }
         });
+
+        tclose = new Timer();
+        tclose.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //finish();
+                        Intent intent = new Intent(LoginActivity.this, MainNewActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+
+            }
+        }, 180000);
     }
 
-//
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (tclose != null)
+            tclose.cancel();
+    }
+
+    //
 //    @Override
 //    public void onConfigurationChanged(Configuration newConfig) {
 //        super.onConfigurationChanged(newConfig);

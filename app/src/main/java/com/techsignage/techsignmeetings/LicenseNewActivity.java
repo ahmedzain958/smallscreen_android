@@ -131,10 +131,19 @@ public class LicenseNewActivity extends CoreActivity {
                                                       final String token = object.getString("access_token");
                                                       Utilities.setSharedValue("token", token, getApplicationContext());
                                                       Utilities.setSharedValue("username", "Admin", LicenseNewActivity.this);
-
-                                                      Intent intent = new Intent(LicenseNewActivity.this, MainActivity.class);
-                                                      startActivity(intent);
-                                                      finish();
+                                                      String activityName = getIntent().getExtras().getString("activityName");
+                                                      if (activityName.equals("AllListActivity"))
+                                                      {
+                                                          Intent intent = new Intent(LicenseNewActivity.this, AllListActivity.class);
+                                                          startActivity(intent);
+                                                          finish();
+                                                      }
+                                                      else
+                                                      {
+                                                          Intent intent = new Intent(LicenseNewActivity.this, MainNewActivity.class);
+                                                          startActivity(intent);
+                                                          finish();
+                                                      }
                                                   }
                                               } catch (Exception ex) {
                                               }

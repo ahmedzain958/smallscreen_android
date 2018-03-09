@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.techsignage.techsignmeetings.Activities.CoreActivity;
-import com.techsignage.techsignmeetings.Adapters.MeetingsAdapter;
+import com.techsignage.techsignmeetings.Adapters.MeetingsAllAdapter;
 import com.techsignage.techsignmeetings.Dialogs.NotAuthorizedDialog;
 import com.techsignage.techsignmeetings.Helpers.Globals;
 import com.techsignage.techsignmeetings.Helpers.Utilities;
@@ -28,6 +28,7 @@ import com.techsignage.techsignmeetings.Network.ContentTypes;
 import com.techsignage.techsignmeetings.Network.IConnector;
 import com.techsignage.techsignmeetings.Network.VolleyCallbackString;
 import com.techsignage.techsignmeetings.Network.VolleyRequest;
+import com.techsignage.techsignmeetings.Tasks.LiscenceTask;
 
 import org.json.JSONObject;
 
@@ -84,7 +85,7 @@ public class AllListActivity extends CoreActivity {
 
     Timer t;
     IConnector connector;
-    MeetingsAdapter adapter;
+    MeetingsAllAdapter adapter;
     List<UserMeetingModel> Meetings;
     retrofitInterface retrofitInterface;
     private Subscription subscription;
@@ -94,6 +95,15 @@ public class AllListActivity extends CoreActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_list);
         if (checkConfigurationFile()) return;
+        new LiscenceTask(this).execute(Utilities.getSharedValue("licensekey", getApplicationContext()));
+
+        if (Utilities.getSharedValue("licensed", this).equals(""))
+        {
+            Intent intent = new Intent(AllListActivity.this, LicenseNewActivity.class);
+            intent.putExtra("activityName", "AllListActivity");
+            startActivity(intent);
+            finish();
+        }
 
         ButterKnife.inject(this);
 
@@ -111,6 +121,7 @@ public class AllListActivity extends CoreActivity {
                                       progress_rel.setVisibility(View.GONE);
                                       retrofitInterface = Utilities.liveAPI(token);
                                       tv_NowDate = (TextView)findViewById(R.id.tv_NowDate);
+                                      //tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy").format(new Date()));
                                       tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy | HH:mm aaa").format(new Date()));
 
                                       t = new Timer();
@@ -168,7 +179,7 @@ public class AllListActivity extends CoreActivity {
                     }
                 }
 
-                adapter = new MeetingsAdapter(AllListActivity.this, R.layout.meeting_itemall);
+                adapter = new MeetingsAllAdapter(AllListActivity.this, R.layout.meeting_itemall);
                 adapter.setLst(meetingModels);
                 activerequestslist.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
@@ -196,7 +207,7 @@ public class AllListActivity extends CoreActivity {
                     }
                 }
 
-                adapter = new MeetingsAdapter(AllListActivity.this, R.layout.meeting_itemall);
+                adapter = new MeetingsAllAdapter(AllListActivity.this, R.layout.meeting_itemall);
                 adapter.setLst(meetingModels);
                 activerequestslist.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
@@ -209,7 +220,8 @@ public class AllListActivity extends CoreActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AllListActivity.this, LoginActivity.class);
-                intent.putExtra("activityName", getClass().getSimpleName());
+                //intent.putExtra("activityName", getClass().getSimpleName());
+                intent.putExtra("activityName", "AllListActivity");
                 AllListActivity.this.startActivity(intent);
             }
         });
@@ -291,13 +303,14 @@ public class AllListActivity extends CoreActivity {
 
                     @Override
                     public void onNext(RoomMeetingsResponse serviceResponse) {
+                        //tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy").format(new Date()));
                         tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy | HH:mm aaa").format(new Date()));
                         next_btn.setEnabled(true);
                         prev_btn.setEnabled(true);
                         //Meetings = serviceResponse.RoomMeetingsResponse.Meetings;
                         Meetings = serviceResponse.RoomMeetings.MeetingsAll;
                         assert activerequestslist != null;
-                        adapter = new MeetingsAdapter(AllListActivity.this, R.layout.meeting_itemall) ;
+                        adapter = new MeetingsAllAdapter(AllListActivity.this, R.layout.meeting_itemall) ;
 
                         //tv_UnitName.setText(serviceResponse.RoomMeetings.Room.UNIT_NAME);
 
@@ -315,7 +328,7 @@ public class AllListActivity extends CoreActivity {
                         activerequestslist.setAdapter(adapter);
                         activerequestslist.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
                         int height = activerequestslist.getMeasuredHeight();
-                        pageSize = Math.ceil((double) height / (double)(adapter.getItemHeight() + 20));
+                        pageSize = Math.ceil((double) height / (double)(adapter.getItemHeight()));
 
 
                         meetingModels = new ArrayList<>();

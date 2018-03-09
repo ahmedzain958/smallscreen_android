@@ -17,39 +17,40 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0sp"
-            android:layout_weight=".145"
+            android:layout_weight=".11"
             android:id="@+id/container1_lin"
             android:padding="15dp"
             android:background="@drawable/borderframe"
+            android:orientation="horizontal"
             >
             <TextView
-                android:text="@string/todays"
-                android:layout_width="match_parent"
+                android:text="Today's Meetings"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
                 android:id="@+id/tv_UnitName"
-                android:textSize="25sp"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
+                android:textSize="30sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
-                android:gravity="start"
+                android:gravity="start" />
 
-                />
+                <!--/>-->
+            <!--<ImageView-->
+                <!--android:layout_weight=".08"-->
+                <!--android:layout_width="0sp"-->
+                <!--android:id="@+id/listIv"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--app:srcCompat="@drawable/book"-->
+                <!--android:padding="2dp"-->
+                <!--android:scaleType="fitCenter"/>-->
             <TextView
                 android:text=""
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="2dp"
                 android:textStyle="bold"
+                android:layout_marginTop="10dp"
                 android:id="@+id/tv_NowDate"
                 android:gravity="start"
-
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:textSize="14sp"
+                android:textSize="15sp"
                 android:layout_below="@+id/tv_UnitName"
                 android:textColor="@android:color/black"
                 />
@@ -65,18 +66,49 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/header_lin"
+                android:background="@color/dWhite"
+                android:padding="10dp"
                 >
 
                 <TextView
                     android:id="@+id/tv_meetingdate"
                     android:layout_width="0sp"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".25"
-                    android:text="Date/Time"
-                    android:padding="10dp"
+                    android:layout_weight=".15"
+                    android:text="Date"
                     android:background="@color/dWhite"
                     android:gravity="center"
-                    android:textSize="12sp"
+                    android:textSize="10sp"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_meetingdate2"
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".10"
+                    android:text="From"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginStart="2dp"
+                    android:background="@color/dWhite"
+                    android:gravity="center"
+                    android:textSize="10sp"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_meetingdate3"
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".10"
+                    android:text="to"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginStart="2dp"
+                    android:background="@color/dWhite"
+                    android:gravity="center"
+                    android:textSize="10sp"
                     android:textColor="@android:color/black"
                     android:textStyle="bold"
                     />
@@ -87,12 +119,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight=".25"
                     android:text="Meeting Title"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginStart="5dp"
-                    android:padding="10dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginStart="2dp"
                     android:background="@color/dWhite"
                     android:gravity="center"
-                    android:textSize="12sp"
+                    android:textSize="10sp"
                     android:textColor="@android:color/black"
                     android:textStyle="bold"
                     />
@@ -101,14 +132,13 @@
                     android:id="@+id/tv_meetingorganizer"
                     android:layout_width="0sp"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".25"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginStart="5dp"
+                    android:layout_weight=".15"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginStart="2dp"
                     android:text="Organizer"
-                    android:padding="10dp"
                     android:background="@color/dWhite"
                     android:gravity="center"
-                    android:textSize="12sp"
+                    android:textSize="10sp"
                     android:textColor="@android:color/black"
                     android:textStyle="bold"
                     />
@@ -117,14 +147,13 @@
                     android:id="@+id/tv_meetingunit"
                     android:layout_width="0sp"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".25"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginStart="5dp"
+                    android:layout_weight=".15"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginStart="2dp"
                     android:text="Room"
-                    android:padding="10dp"
                     android:background="@color/dWhite"
                     android:gravity="center"
-                    android:textSize="12sp"
+                    android:textSize="10sp"
                     android:textColor="@android:color/black"
                     android:textStyle="bold"
                     />
