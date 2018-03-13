@@ -8,6 +8,7 @@ import android.os.HandlerThread;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -96,6 +97,9 @@ public class LoginActivity extends CoreActivity {
             | View.SYSTEM_UI_FLAG_FULLSCREEN
             | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
             | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,6 +155,36 @@ public class LoginActivity extends CoreActivity {
         retrofitInterface = Utilities.liveAPI(token);
         if (Globals.loggedUnit != null)
             tv_UnitName.setText(Globals.loggedUnit.UNIT_NAME);
+
+//        RelativeLayout view = (RelativeLayout)findViewById(R.id.loginmain);
+//        view.setOnTouchListener(new View.OnTouchListener() {
+//
+//            @Override
+//            public boolean onTouch(View view,MotionEvent event) {
+//
+//                tclose = new Timer();
+//                tclose.schedule(new TimerTask() {
+//                    @Override
+//                    public void run() {
+//
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                //finish();
+//                                Intent intent = new Intent(LoginActivity.this, MainNewActivity.class);
+//                                startActivity(intent);
+//                                finish();
+//                            }
+//                        });
+//
+//                    }
+//                }, 10000);
+//
+//                return true;
+//            }
+//
+//        });
+
 
         next_btn1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -271,14 +305,14 @@ public class LoginActivity extends CoreActivity {
                     @Override
                     public void run() {
                         //finish();
-                        Intent intent = new Intent(LoginActivity.this, MainNewActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     }
                 });
 
             }
-        }, 180000);
+        }, 10000);
     }
 
     @Override
@@ -291,6 +325,56 @@ public class LoginActivity extends CoreActivity {
         super.onDestroy();
         if (tclose != null)
             tclose.cancel();
+    }
+
+//    @Override
+//    public void onClick(View v) {
+//
+//        tclose = new Timer();
+//        tclose.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        //finish();
+//                        Intent intent = new Intent(LoginActivity.this, MainNewActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                    }
+//                });
+//
+//            }
+//        }, 10000);
+//    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        super.onTouchEvent(event);
+//        float x = event.getX();
+//        float y = event.getY();
+//        Toast.makeText(Example.this, "x=" + x + " y="+ y,
+//                Toast.LENGTH_SHORT).show();
+        tclose = new Timer();
+        tclose.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //finish();
+                        Intent intent = new Intent(LoginActivity.this, MainNewActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+
+            }
+        }, 10000);
+
+        return false;
     }
 
     //

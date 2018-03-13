@@ -3,8 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://E:\DEV\techrmsapp\TechSignMeetings_05112017.iml" filepath="E:\DEV\techrmsapp\TechSignMeetings_05112017.iml" />
-      <module fileurl="file://$PROJECT_DIR$/TechSignMeetings_19122017.iml" filepath="$PROJECT_DIR$/TechSignMeetings_19122017.iml" />
+      <module fileurl="file://E:\DEV\techrmsapp\TechSignMeetings_19122017.iml" filepath="E:\DEV\techrmsapp\TechSignMeetings_19122017.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/techrmsapp.iml" filepath="$PROJECT_DIR$/techrmsapp.iml" />
       <module fileurl="file://E:\TechSignMeetings_19122017\techrmsapp.iml" filepath="E:\TechSignMeetings_19122017\techrmsapp.iml" />
     </modules>
   </component>

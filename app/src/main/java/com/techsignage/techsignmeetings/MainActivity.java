@@ -169,6 +169,7 @@ public class MainActivity extends CoreActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
         getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
+        progress_rel.setVisibility(View.GONE);
 
 //        if (checkConfigurationFile()) return;
 
