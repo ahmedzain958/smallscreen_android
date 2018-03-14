@@ -202,20 +202,20 @@ public class MainActivity extends CoreActivity {
 
         //dialog = Utilities.showDialog(MainActivity.this);
         getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
-        try
-        {
-            if (!(Utilities.getSharedValue("licensed", this).equals("")))
-            {
-                progress_rel.setVisibility(View.VISIBLE);
-                //sweetAlertDialog = Utilities.showProgressPrettyDialog(this, getResources().getString(R.string.processing));
-                //sweetAlertDialog.show();
-                callWithToken();
-            }
-        }
-        catch (Exception ex)
-        {
-
-        }
+//        try
+//        {
+//            if (!(Utilities.getSharedValue("licensed", this).equals("")))
+//            {
+//                progress_rel.setVisibility(View.VISIBLE);
+//                //sweetAlertDialog = Utilities.showProgressPrettyDialog(this, getResources().getString(R.string.processing));
+//                //sweetAlertDialog.show();
+//                callWithToken();
+//            }
+//        }
+//        catch (Exception ex)
+//        {
+//
+//        }
 
         startmeeting_btn.setOnClickListener(new View.OnClickListener() {
             @Override

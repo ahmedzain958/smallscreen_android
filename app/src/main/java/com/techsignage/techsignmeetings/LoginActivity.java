@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -105,6 +107,40 @@ public class LoginActivity extends CoreActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.inject(this);
+
+        userName_txt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                setTimer();
+            }
+        });
+        password_txt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                setTimer();
+            }
+        });
+
         progress_rel.setVisibility(View.GONE);
         final String activityName = getIntent().getExtras().getString("activityName");
         //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
@@ -296,23 +332,7 @@ public class LoginActivity extends CoreActivity {
             }
         });
 
-        tclose = new Timer();
-        tclose.schedule(new TimerTask() {
-            @Override
-            public void run() {
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //finish();
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                });
-
-            }
-        }, 10000);
+        setTimer();
     }
 
     @Override
@@ -356,6 +376,18 @@ public class LoginActivity extends CoreActivity {
 //        float y = event.getY();
 //        Toast.makeText(Example.this, "x=" + x + " y="+ y,
 //                Toast.LENGTH_SHORT).show();
+        setTimer();
+
+        return false;
+    }
+
+    private void setTimer()
+    {
+        if (tclose != null)
+        {
+            Toast.makeText(getApplicationContext(), "aloh", Toast.LENGTH_SHORT).show();
+            tclose.cancel();
+        }
         tclose = new Timer();
         tclose.schedule(new TimerTask() {
             @Override
@@ -365,7 +397,7 @@ public class LoginActivity extends CoreActivity {
                     @Override
                     public void run() {
                         //finish();
-                        Intent intent = new Intent(LoginActivity.this, MainNewActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     }
@@ -373,8 +405,6 @@ public class LoginActivity extends CoreActivity {
 
             }
         }, 10000);
-
-        return false;
     }
 
     //

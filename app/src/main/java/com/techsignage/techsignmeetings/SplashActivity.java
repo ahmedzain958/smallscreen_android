@@ -17,7 +17,7 @@ public class SplashActivity extends CoreActivity {
 
         //AppLocal.setAppLocal(getApplicationContext(), AppLocal.PREF_LOCAL_ARABIC);
 
-        //Globals.setAppLocal(this, "ar");
+        Globals.setAppLocal(this, "ar");
 
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
