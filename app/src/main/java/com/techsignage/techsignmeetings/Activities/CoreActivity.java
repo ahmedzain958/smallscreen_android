@@ -17,6 +17,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.techsignage.techsignmeetings.Helpers.AppLocal;
 import com.techsignage.techsignmeetings.Helpers.Globals;
 import com.techsignage.techsignmeetings.Network.CustomReceiver;
 
@@ -30,7 +31,9 @@ public class CoreActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         //Toast.makeText(this, "onCreate", Toast.LENGTH_LONG).show();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        Globals.setAppLocal(this, "ar");
+
+        AppLocal.checkConfigurationFile(this);
+        Globals.setAppLocal(this, Globals.lang);
 
 //        Intent intent = new Intent("com.android.action.hide_navigationbar");
 //        sendBroadcast(intent);

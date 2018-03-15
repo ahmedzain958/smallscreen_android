@@ -3,9 +3,18 @@ package com.techsignage.techsignmeetings.Helpers;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
+import android.os.Environment;
+import android.util.Log;
 
+import com.techsignage.techsignmeetings.Activities.CoreActivity;
 import com.techsignage.techsignmeetings.Applications.TechApp;
+import com.techsignage.techsignmeetings.Dialogs.NotAuthorizedDialog;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.Locale;
 
 /**
@@ -67,4 +76,43 @@ public class AppLocal {
         else
             return AppLocal.PREF_LOCAL_ENGLISH;
     }
+
+    public static boolean checkConfigurationFile(CoreActivity activity) {
+        //File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_ALARMS);
+        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+        File file = new File(dir, Globals.filename + ".txt");
+        if (!file.exists())
+        {
+            Log.v("file", "non existing");
+            NotAuthorizedDialog dialog = new NotAuthorizedDialog();
+            dialog.setCancelable(false);
+            dialog.show(activity.getSupportFragmentManager(), "NotAuth_Dialog");
+            return true;
+        }
+        else
+        {
+            try
+            {
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+                String line;
+                StringBuilder stringBuilder = new StringBuilder();
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(line);
+                    //text.append('\n');
+                }
+                bufferedReader.close();
+                JSONObject jsonObject = new JSONObject(stringBuilder.toString());
+                Globals.unitId = jsonObject.get("UNIT_ID").toString();
+                Globals.coreUrl = jsonObject.get("IP").toString();
+                Globals.tokenUrl = String.format("%s/token", jsonObject.get("IP").toString());
+                Globals.lang = jsonObject.get("Lang").toString();
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        return false;
+    }
+
 }

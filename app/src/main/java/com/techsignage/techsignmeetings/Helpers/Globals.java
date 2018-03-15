@@ -37,6 +37,7 @@ public class Globals {
     public static UserModel loggedUser = null;
     public static String filename = "tech_configfile";
     public static String unitId = "D268F20D-34FB-424D-B2E6-6DB878B2A8F4";
+    public static String lang = "n";
 
     public static final int flags2 = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION

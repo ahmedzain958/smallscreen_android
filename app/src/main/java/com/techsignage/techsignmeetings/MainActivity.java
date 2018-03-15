@@ -35,6 +35,7 @@ import com.techsignage.techsignmeetings.Adapters.RoomsAdapter;
 import com.techsignage.techsignmeetings.Applications.TechApp;
 import com.techsignage.techsignmeetings.Dialogs.NotAuthorizedDialog;
 import com.techsignage.techsignmeetings.Dialogs.SettingsDialog;
+import com.techsignage.techsignmeetings.Helpers.AppLocal;
 import com.techsignage.techsignmeetings.Helpers.Globals;
 import com.techsignage.techsignmeetings.Helpers.Utilities;
 import com.techsignage.techsignmeetings.Models.Injection.NetComponent;
@@ -169,19 +170,19 @@ public class MainActivity extends CoreActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
         getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
-        progress_rel.setVisibility(View.GONE);
+        //progress_rel.setVisibility(View.GONE);
 
-//        if (checkConfigurationFile()) return;
+        if (AppLocal.checkConfigurationFile(this)) return;
 
         //new LiscenceTask(this).execute("AGKA0S0H00AXNGZ78XM35J1I4M");
         new LiscenceTask(this).execute(Utilities.getSharedValue("licensekey", getApplicationContext()));
 
-//        if (Utilities.getSharedValue("licensed", this).equals(""))
-//        {
-//            Intent intent = new Intent(MainActivity.this, LicenseNewActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }
+        if (Utilities.getSharedValue("licensed", this).equals(""))
+        {
+            Intent intent = new Intent(MainActivity.this, LicenseNewActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
         smdtManager = SmdtManager.create(this);
 
@@ -202,20 +203,20 @@ public class MainActivity extends CoreActivity {
 
         //dialog = Utilities.showDialog(MainActivity.this);
         getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
-//        try
-//        {
-//            if (!(Utilities.getSharedValue("licensed", this).equals("")))
-//            {
-//                progress_rel.setVisibility(View.VISIBLE);
-//                //sweetAlertDialog = Utilities.showProgressPrettyDialog(this, getResources().getString(R.string.processing));
-//                //sweetAlertDialog.show();
-//                callWithToken();
-//            }
-//        }
-//        catch (Exception ex)
-//        {
-//
-//        }
+        try
+        {
+            if (!(Utilities.getSharedValue("licensed", this).equals("")))
+            {
+                progress_rel.setVisibility(View.VISIBLE);
+                //sweetAlertDialog = Utilities.showProgressPrettyDialog(this, getResources().getString(R.string.processing));
+                //sweetAlertDialog.show();
+                callWithToken();
+            }
+        }
+        catch (Exception ex)
+        {
+
+        }
 
         startmeeting_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -307,42 +308,42 @@ public class MainActivity extends CoreActivity {
         super.networkStateReceiver.setConnector(connector);
     }
 
-    private boolean checkConfigurationFile() {
-        //File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_ALARMS);
-        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
-        File file = new File(dir, Globals.filename + ".txt");
-        if (!file.exists())
-        {
-            Log.v("file", "non existing");
-            NotAuthorizedDialog dialog = new NotAuthorizedDialog();
-            dialog.setCancelable(false);
-            dialog.show(getSupportFragmentManager(), "NotAuth_Dialog");
-            return true;
-        }
-        else
-        {
-            try
-            {
-                BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-                String line;
-                StringBuilder stringBuilder = new StringBuilder();
-                while ((line = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(line);
-                    //text.append('\n');
-                }
-                bufferedReader.close();
-                JSONObject jsonObject = new JSONObject(stringBuilder.toString());
-                Globals.unitId = jsonObject.get("UNIT_ID").toString();
-                Globals.coreUrl = jsonObject.get("IP").toString();
-                Globals.tokenUrl = String.format("%s/token", jsonObject.get("IP").toString());
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
-        return false;
-    }
+//    private boolean checkConfigurationFile() {
+//        //File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_ALARMS);
+//        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+//        File file = new File(dir, Globals.filename + ".txt");
+//        if (!file.exists())
+//        {
+//            Log.v("file", "non existing");
+//            NotAuthorizedDialog dialog = new NotAuthorizedDialog();
+//            dialog.setCancelable(false);
+//            dialog.show(getSupportFragmentManager(), "NotAuth_Dialog");
+//            return true;
+//        }
+//        else
+//        {
+//            try
+//            {
+//                BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+//                String line;
+//                StringBuilder stringBuilder = new StringBuilder();
+//                while ((line = bufferedReader.readLine()) != null) {
+//                    stringBuilder.append(line);
+//                    //text.append('\n');
+//                }
+//                bufferedReader.close();
+//                JSONObject jsonObject = new JSONObject(stringBuilder.toString());
+//                Globals.unitId = jsonObject.get("UNIT_ID").toString();
+//                Globals.coreUrl = jsonObject.get("IP").toString();
+//                Globals.tokenUrl = String.format("%s/token", jsonObject.get("IP").toString());
+//            }
+//            catch (Exception ex)
+//            {
+//
+//            }
+//        }
+//        return false;
+//    }
 
     private void callWithToken() {
         if(t != null)
