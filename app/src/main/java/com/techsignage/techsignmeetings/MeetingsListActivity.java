@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -143,23 +144,23 @@ public class MeetingsListActivity extends CoreActivity {
 //                        }
 //                    }, 65000);
 
-                    tclose = new Timer();
-                    tclose.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    //finish();
-                                    Intent intent = new Intent(MeetingsListActivity.this, MainNewActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            });
-
-                        }
-                    }, 180000);
+//                    tclose = new Timer();
+//                    tclose.schedule(new TimerTask() {
+//                        @Override
+//                        public void run() {
+//
+//                            runOnUiThread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    //finish();
+//                                    Intent intent = new Intent(MeetingsListActivity.this, MainNewActivity.class);
+//                                    startActivity(intent);
+//                                    finish();
+//                                }
+//                            });
+//
+//                        }
+//                    }, 180000);
                 }
                 catch (Exception ex)
                 {
@@ -265,6 +266,48 @@ public class MeetingsListActivity extends CoreActivity {
         };
 
         super.networkStateReceiver.setConnector(connector);
+
+
+        setTimer();
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        super.onTouchEvent(event);
+//        float x = event.getX();
+//        float y = event.getY();
+//        Toast.makeText(Example.this, "x=" + x + " y="+ y,
+//                Toast.LENGTH_SHORT).show();
+        setTimer();
+
+        return false;
+    }
+
+
+    private void setTimer()
+    {
+        if (tclose != null)
+        {
+            Toast.makeText(getApplicationContext(), "aloh", Toast.LENGTH_SHORT).show();
+            tclose.cancel();
+        }
+        tclose = new Timer();
+        tclose.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //finish();
+                        Intent intent = new Intent(MeetingsListActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+
+            }
+        }, 180000);
     }
 
     void setButtons()
