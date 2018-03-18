@@ -45,8 +45,8 @@ import java.util.TimerTask;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -55,37 +55,37 @@ import rx.schedulers.Schedulers;
 
 public class MainNewActivity extends CoreActivityNew {
 
-    @InjectView(R.id.progress_rel)
+    @BindView(R.id.progress_rel)
     RelativeLayout progress_rel;
 
-    @InjectView(R.id.tv_MeetingName)
+    @BindView(R.id.tv_MeetingName)
     TextView tv_MeetingName;
 
-    @InjectView(R.id.tv_MeetingDate)
+    @BindView(R.id.tv_MeetingDate)
     TextView tv_MeetingDate;
 
-    @InjectView(R.id.tv_nextMeeting)
+    @BindView(R.id.tv_nextMeeting)
     TextView tv_nextMeeting;
 
-    @InjectView(R.id.tv_nextMeetingDate)
+    @BindView(R.id.tv_nextMeetingDate)
     TextView tv_nextMeetingDate;
 
-    @InjectView(R.id.tv_NowDate)
+    @BindView(R.id.tv_NowDate)
     TextView tv_NowDate;
 
-    @InjectView(R.id.tv_UnitName)
+    @BindView(R.id.tv_UnitName)
     TextView tv_UnitName;
 
-    @InjectView(R.id.startmeeting_btn)
+    @BindView(R.id.startmeeting_btn)
     TextView startmeeting_btn;
 
-    @InjectView(R.id.tv_Hour)
+    @BindView(R.id.tv_Hour)
     TextView tv_Hour;
 
-    @InjectView(R.id.meetingslist_btn)
+    @BindView(R.id.meetingslist_btn)
     TextView meetingslist_btn;
 
-    @InjectView(R.id.book_btn)
+    @BindView(R.id.book_btn)
     TextView book_btn;
 
     private Handler handler = new Handler();
@@ -135,7 +135,7 @@ public class MainNewActivity extends CoreActivityNew {
 
         //tv_nextMeetingDate = (TextView) findViewById(R.id.tv_nextMeetingDate);
 
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         if (Utilities.checkConfigurationFile(this)) return;
 

@@ -35,8 +35,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
-import cn.pedant.SweetAlert.SweetAlertDialog;
+import butterknife.BindView;
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
 import rx.Subscriber;
@@ -47,46 +46,46 @@ public class LoginActivity extends CoreActivity {
 
     Timer tclose;
 
-    @InjectView(R.id.container1_lin)
+    @BindView(R.id.container1_lin)
     RelativeLayout container1_lin;
 
-    @InjectView(R.id.container2_lin)
+    @BindView(R.id.container2_lin)
     RelativeLayout container2_lin;
 
-    @InjectView(R.id.container3_lin)
+    @BindView(R.id.container3_lin)
     RelativeLayout container3_lin;
 
-    @InjectView(R.id.next_btn1)
+    @BindView(R.id.next_btn1)
     Button next_btn1;
 
-    @InjectView(R.id.back_btn)
+    @BindView(R.id.back_btn)
     Button back_btn;
 
-    @InjectView(R.id.userName_txt)
+    @BindView(R.id.userName_txt)
     EditText userName_txt;
 
-    @InjectView(R.id.password_txt)
+    @BindView(R.id.password_txt)
     EditText password_txt;
 
-    @InjectView(R.id.tv_NowDate)
+    @BindView(R.id.tv_NowDate)
     TextView tv_NowDate;
 
-    @InjectView(R.id.tv_UnitName)
+    @BindView(R.id.tv_UnitName)
     TextView tv_UnitName;
 
-    @InjectView(R.id.txt_holder1)
+    @BindView(R.id.txt_holder1)
     TextView txt_holder1;
 
-    @InjectView(R.id.txt_holder2)
+    @BindView(R.id.txt_holder2)
     TextView txt_holder2;
 
-    @InjectView(R.id.txt_holder3)
+    @BindView(R.id.txt_holder3)
     TextView txt_holder3;
 
-    @InjectView(R.id.txt_holder4)
+    @BindView(R.id.txt_holder4)
     TextView txt_holder4;
 
-    @InjectView(R.id.progress_rel)
+    @BindView(R.id.progress_rel)
     RelativeLayout progress_rel;
 
     //ProgressDialog dialog;
@@ -106,7 +105,7 @@ public class LoginActivity extends CoreActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         userName_txt.addTextChangedListener(new TextWatcher() {
             @Override

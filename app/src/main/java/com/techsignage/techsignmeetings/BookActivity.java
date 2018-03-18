@@ -47,8 +47,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
-import cn.pedant.SweetAlert.SweetAlertDialog;
+import butterknife.BindView;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -57,39 +56,39 @@ import rx.schedulers.Schedulers;
 
 public class BookActivity extends CoreActivity {
 
-    @InjectView(R.id.tv_MeetingDate)
+    @BindView(R.id.tv_MeetingDate)
     TextView tv_MeetingDate;
 
-    @InjectView(R.id.tv_NowDate)
+    @BindView(R.id.tv_NowDate)
     TextView tv_NowDate;
 
-    @InjectView(R.id.date_picker)
+    @BindView(R.id.date_picker)
     DatePicker date_picker;
 
     Calendar selectedDate;
 
-    @InjectView(R.id.tv_UnitName)
+    @BindView(R.id.tv_UnitName)
     TextView tv_UnitName;
 
-//    @InjectView(R.id.tv_leftbtn)
+//    @BindView(R.id.tv_leftbtn)
 //    TextView tv_leftbtn;
 //
-//    @InjectView(R.id.tv_rightBtn)
+//    @BindView(R.id.tv_rightBtn)
 //    TextView tv_rightBtn;
 
-    @InjectView(R.id.next_btn)
+    @BindView(R.id.next_btn)
     TextView next_btn;
 
-    @InjectView(R.id.tv_MeetingTitle)
+    @BindView(R.id.tv_MeetingTitle)
     TextView tv_MeetingTitle;
 
-    @InjectView(R.id.lin2)
+    @BindView(R.id.lin2)
     LinearLayout lin2;
 
-    @InjectView(R.id.progress_rel)
+    @BindView(R.id.progress_rel)
     RelativeLayout progress_rel;
 
-//    @InjectView(R.id.rooms_spinner)
+//    @BindView(R.id.rooms_spinner)
     Spinner rooms_spinner;
 
     LinearLayoutManager llm;
@@ -98,7 +97,7 @@ public class BookActivity extends CoreActivity {
     //SweetAlertDialog sweetAlertDialog;
     com.techsignage.techsignmeetings.Models.Interfaces.retrofitInterface retrofitInterface;
 
-    @InjectView(R.id.back_btn)
+    @BindView(R.id.back_btn)
     Button back_btn;
 
     Subscription subscription;
@@ -120,7 +119,7 @@ public class BookActivity extends CoreActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
         //this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
         progress_rel.setVisibility(View.GONE);
         rooms_spinner = (Spinner)findViewById(R.id.rooms_spinner);
 

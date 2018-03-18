@@ -67,9 +67,9 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.inject.Inject;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -80,43 +80,43 @@ public class MainActivity extends CoreActivity {
 
     private Subscription subscription;
 
-    @InjectView(R.id.container1_lin)
+    @BindView(R.id.container1_lin)
     RelativeLayout container1_lin;
 
-    @InjectView(R.id.container2_lin)
+    @BindView(R.id.container2_lin)
     RelativeLayout container2_lin;
 
-    @InjectView(R.id.container3_lin)
+    @BindView(R.id.container3_lin)
     RelativeLayout container3_lin;
 
-    @InjectView(R.id.tv_UnitName)
+    @BindView(R.id.tv_UnitName)
     TextView tv_UnitName;
 
-    @InjectView(R.id.tv_NowDate)
+    @BindView(R.id.tv_NowDate)
     TextView tv_NowDate;
 
-    @InjectView(R.id.startmeeting_btn)
+    @BindView(R.id.startmeeting_btn)
     Button startmeeting_btn;
 
-    @InjectView(R.id.meetingslist_btn)
+    @BindView(R.id.meetingslist_btn)
     Button meetingslist_btn;
 
-    @InjectView(R.id.tv_MeetingName)
+    @BindView(R.id.tv_MeetingName)
     TextView tv_MeetingName;
 
-    @InjectView(R.id.tv_MeetingDate)
+    @BindView(R.id.tv_MeetingDate)
     TextView tv_MeetingDate;
 
-    @InjectView(R.id.tv_nextMeeting)
+    @BindView(R.id.tv_nextMeeting)
     TextView tv_nextMeeting;
 
-    @InjectView(R.id.tv_nextMeetingDate)
+    @BindView(R.id.tv_nextMeetingDate)
     TextView tv_nextMeetingDate;
 
-    @InjectView(R.id.book_btn)
+    @BindView(R.id.book_btn)
     Button book_btn;
 
-    @InjectView(R.id.progress_rel)
+    @BindView(R.id.progress_rel)
     RelativeLayout progress_rel;
 
     //ProgressDialog dialog;
@@ -168,7 +168,7 @@ public class MainActivity extends CoreActivity {
         super.onCreate(savedInstanceState);
         //Toast.makeText(this, "onCreateAct", Toast.LENGTH_LONG).show();
         setContentView(R.layout.activity_main);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
         getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
         //progress_rel.setVisibility(View.GONE);
 

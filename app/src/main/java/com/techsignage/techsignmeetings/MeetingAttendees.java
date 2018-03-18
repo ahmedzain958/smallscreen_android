@@ -31,7 +31,7 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import butterknife.InjectView;
+import butterknife.BindView;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;

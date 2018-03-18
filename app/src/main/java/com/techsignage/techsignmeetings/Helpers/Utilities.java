@@ -55,7 +55,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -263,6 +262,7 @@ public class Utilities {
                 Globals.unitId = jsonObject.get("UNIT_ID").toString();
                 Globals.coreUrl = jsonObject.get("IP").toString();
                 Globals.tokenUrl = String.format("%s/token", jsonObject.get("IP").toString());
+                Globals.lang = jsonObject.get("Lang").toString();
             }
             catch (Exception ex)
             {
@@ -446,12 +446,12 @@ public class Utilities {
         }
     }
 
-    public static SweetAlertDialog showProgressPrettyDialog(Context context, String message) {
-        SweetAlertDialog pDialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
-        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        pDialog.setTitleText(message);
-        pDialog.setCancelable(false);
-        return pDialog;
-    }
+//    public static SweetAlertDialog showProgressPrettyDialog(Context context, String message) {
+//        SweetAlertDialog pDialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
+//        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+//        pDialog.setTitleText(message);
+//        pDialog.setCancelable(false);
+//        return pDialog;
+//    }
 
 }

@@ -43,7 +43,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.BindView;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -52,34 +52,34 @@ import rx.schedulers.Schedulers;
 
 public class PassiveList extends CoreActivity {
 
-    @InjectView(R.id.tv_NowDate)
+    @BindView(R.id.tv_NowDate)
     TextView tv_NowDate;
 
-    @InjectView(R.id.next_btn)
+    @BindView(R.id.next_btn)
     Button next_btn;
 
-    @InjectView(R.id.prev_btn)
+    @BindView(R.id.prev_btn)
     Button prev_btn;
 
-    @InjectView(R.id.back_btn)
+    @BindView(R.id.back_btn)
     Button back_btn;
 
-    @InjectView(R.id.meetings_list)
+    @BindView(R.id.meetings_list)
     RecyclerView activerequestslist;
 
-    @InjectView(R.id.container1_lin)
+    @BindView(R.id.container1_lin)
     RelativeLayout container1_lin;
 
-    @InjectView(R.id.container2_lin)
+    @BindView(R.id.container2_lin)
     RelativeLayout container2_lin;
 
-    @InjectView(R.id.container3_lin)
+    @BindView(R.id.container3_lin)
     RelativeLayout container3_lin;
 
-    @InjectView(R.id.book_btn)
+    @BindView(R.id.book_btn)
     Button book_btn;
 
-    @InjectView(R.id.progress_rel)
+    @BindView(R.id.progress_rel)
     RelativeLayout progress_rel;
 
     Timer t;
@@ -105,7 +105,7 @@ public class PassiveList extends CoreActivity {
             finish();
         }
 
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         VolleyRequest request = new VolleyRequest();
         request.getString(new VolleyCallbackString() {
