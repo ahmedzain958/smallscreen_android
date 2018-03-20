@@ -40,4 +40,6 @@
     <string name="orangeroom">Orange Room</string>
     <string name="meetingdatenew">12:45</string>
     <string name="meetingfulldatenew">Wed, 15/11/2017</string>
+    <string name="username">User Name</string>
+    <string name="password">Password</string>
 </resources>

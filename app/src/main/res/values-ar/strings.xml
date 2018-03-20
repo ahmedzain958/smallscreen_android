@@ -35,4 +35,6 @@
     <string name="error_network_timeout">خطأ في اتصال الشبكة</string>
     <string name="todays">اجتماعات اليوم</string>
     <string name="room">غرفة</string>
+    <string name="username">اسم المستخدم</string>
+    <string name="password">كلمة المرور</string>
 </resources>

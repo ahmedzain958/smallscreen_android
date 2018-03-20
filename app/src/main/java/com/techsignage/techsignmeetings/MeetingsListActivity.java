@@ -287,7 +287,7 @@ public class MeetingsListActivity extends CoreActivity {
     {
         if (tclose != null)
         {
-            Toast.makeText(getApplicationContext(), "aloh", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "aloh", Toast.LENGTH_SHORT).show();
             tclose.cancel();
         }
         tclose = new Timer();
@@ -299,7 +299,7 @@ public class MeetingsListActivity extends CoreActivity {
                     @Override
                     public void run() {
                         //finish();
-                        Intent intent = new Intent(MeetingsListActivity.this, MainActivity.class);
+                        Intent intent = new Intent(MeetingsListActivity.this, MainNewActivity.class);
                         startActivity(intent);
                         finish();
                     }

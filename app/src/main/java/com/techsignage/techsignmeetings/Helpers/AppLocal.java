@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Environment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.techsignage.techsignmeetings.Activities.CoreActivity;
@@ -77,7 +78,7 @@ public class AppLocal {
             return AppLocal.PREF_LOCAL_ENGLISH;
     }
 
-    public static boolean checkConfigurationFile(CoreActivity activity) {
+    public static boolean checkConfigurationFile(AppCompatActivity activity) {
         //File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_ALARMS);
         File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
         File file = new File(dir, Globals.filename + ".txt");
@@ -109,7 +110,7 @@ public class AppLocal {
             }
             catch (Exception ex)
             {
-
+                String ss = "";
             }
         }
         return false;

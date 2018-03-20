@@ -205,6 +205,7 @@ public class BookActivity extends CoreActivity {
                     MeetingModel meetingModel = new MeetingModel();
                     meetingModel.TheDate = new SimpleDateFormat("dd/MM/yyyy").format(selectedDate.getTime());
                     meetingModel.UNIT_ID = ((UnitModel)rooms_spinner.getSelectedItem()).UNIT_ID;
+                    meetingModel.Lang = Globals.lang;
                     structCalendar(callback, mRecyclerView, meetingModel);
                 }
 
@@ -262,6 +263,7 @@ public class BookActivity extends CoreActivity {
                             MeetingModel meetingModel = new MeetingModel();
                             meetingModel.TheDate = new SimpleDateFormat("dd/MM/yyyy").format(selectedDate.getTime());
                             meetingModel.UNIT_ID = roomsResponse.Rooms.get(0).UNIT_ID;
+                            meetingModel.Lang = Globals.lang;
                             structCalendar(callback, mRecyclerView, meetingModel);
                         }
                     }
@@ -286,6 +288,7 @@ public class BookActivity extends CoreActivity {
                 MeetingModel meetingModel = new MeetingModel();
                 meetingModel.TheDate = new SimpleDateFormat("dd/MM/yyyy").format(selectedDate.getTime());
                 meetingModel.UNIT_ID = Globals.unitId;
+                meetingModel.Lang = Globals.lang;
                 structCalendar(callback, mRecyclerView, meetingModel);
 
             }
@@ -295,6 +298,8 @@ public class BookActivity extends CoreActivity {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+
+                setTimer();
 
                 for (int i = 0; i < Globals.hours.size(); i++)
                 {
@@ -510,11 +515,11 @@ public class BookActivity extends CoreActivity {
         return false;
     }
 
-    private void setTimer()
+    public void setTimer()
     {
         if (tclose != null)
         {
-            Toast.makeText(getApplicationContext(), "aloh", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "aloh", Toast.LENGTH_SHORT).show();
             tclose.cancel();
         }
         tclose = new Timer();
@@ -526,7 +531,7 @@ public class BookActivity extends CoreActivity {
                     @Override
                     public void run() {
                         //finish();
-                        Intent intent = new Intent(BookActivity.this, MainActivity.class);
+                        Intent intent = new Intent(BookActivity.this, MainNewActivity.class);
                         startActivity(intent);
                         finish();
                     }

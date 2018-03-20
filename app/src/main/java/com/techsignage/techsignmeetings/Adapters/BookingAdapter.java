@@ -9,6 +9,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.techsignage.techsignmeetings.Applications.TechApp;
+import com.techsignage.techsignmeetings.BookActivity;
 import com.techsignage.techsignmeetings.Models.HourModel;
 import com.techsignage.techsignmeetings.Models.Interfaces.hourCallback;
 import com.techsignage.techsignmeetings.R;
@@ -45,6 +47,9 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ListView
 
         @Override
         public void onClick(View view) {
+            BookActivity bookActivity = (BookActivity)context;
+            bookActivity.setTimer();
+
             final HourModel selected = dataList.get(getAdapterPosition());
             if(dataList.get(getAdapterPosition()).IsSelected)
             {

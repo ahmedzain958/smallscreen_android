@@ -24,4 +24,7 @@ public class UserModel {
 
     @SerializedName("UnitId")
     public String UnitId;
+
+    @SerializedName("Lang")
+    public String Lang;
 }

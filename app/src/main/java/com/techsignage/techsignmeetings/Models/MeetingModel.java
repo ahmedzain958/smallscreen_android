@@ -60,4 +60,7 @@ public class MeetingModel {
 
     @SerializedName("CanCheckOut")
     public Boolean CanCheckOut;
+
+    @SerializedName("Lang")
+    public String Lang;
 }

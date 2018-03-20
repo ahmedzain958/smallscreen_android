@@ -133,23 +133,7 @@ public class MeetingAttendees extends CoreActivity {
 //                    }
 //                }, 65000);
 
-                tclose = new Timer();
-                tclose.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                //finish();
-                                Intent intent = new Intent(MeetingAttendees.this, MainNewActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        });
-
-                    }
-                }, 180000);
+                setTimer();
 
                 Globals.pageSize = 4;
 
@@ -335,6 +319,32 @@ public class MeetingAttendees extends CoreActivity {
             }
         }
 
+    }
+
+    private void setTimer()
+    {
+        if (tclose != null)
+        {
+            //Toast.makeText(getApplicationContext(), "aloh", Toast.LENGTH_SHORT).show();
+            tclose.cancel();
+        }
+        tclose = new Timer();
+        tclose.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //finish();
+                        Intent intent = new Intent(MeetingAttendees.this, MainNewActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+
+            }
+        }, 180000);
     }
 
     @Override

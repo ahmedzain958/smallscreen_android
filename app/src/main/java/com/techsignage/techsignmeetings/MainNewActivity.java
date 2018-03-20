@@ -334,44 +334,44 @@ public class MainNewActivity extends CoreActivityNew {
     private void loadMeetings() {
         ((TechApp)getApplication()).setNetComponent();
         ((TechApp) getApplication()).getNetComponent().inject(MainNewActivity.this);
-        Observable<RoomsResponse> allRooms = retrofitInterface.allrooms();
-        subscription = allRooms.observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.newThread())
-                .subscribe(new Subscriber<RoomsResponse>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable error) {
-                        error.printStackTrace();
-
-                        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                            Toast.makeText(MainNewActivity.this,
-                                    MainNewActivity.this.getString(R.string.error_network_timeout),
-                                    Toast.LENGTH_LONG).show();
-                        } else if (error instanceof AuthFailureError) {
-                            //TODO
-                        } else if (error instanceof ServerError) {
-                            //TODO
-                        } else if (error instanceof NetworkError) {
-                            //TODO
-                            Toast.makeText(MainNewActivity.this,
-                                    MainNewActivity.this.getString(R.string.error_network_timeout),
-                                    Toast.LENGTH_LONG).show();
-                        } else if (error instanceof ParseError) {
-                            //TODO
-                        }
-
-                    }
-
-                    @Override
-                    public void onNext(final RoomsResponse roomsResponse) {
-                        String ss = "";
-                        //settingsDialog.setSpinner(roomsResponse.Rooms);
-                    }
-                });
+//        Observable<RoomsResponse> allRooms = retrofitInterface.allrooms();
+//        subscription = allRooms.observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.newThread())
+//                .subscribe(new Subscriber<RoomsResponse>() {
+//                    @Override
+//                    public void onCompleted() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable error) {
+//                        error.printStackTrace();
+//
+//                        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+//                            Toast.makeText(MainNewActivity.this,
+//                                    MainNewActivity.this.getString(R.string.error_network_timeout),
+//                                    Toast.LENGTH_LONG).show();
+//                        } else if (error instanceof AuthFailureError) {
+//                            //TODO
+//                        } else if (error instanceof ServerError) {
+//                            //TODO
+//                        } else if (error instanceof NetworkError) {
+//                            //TODO
+//                            Toast.makeText(MainNewActivity.this,
+//                                    MainNewActivity.this.getString(R.string.error_network_timeout),
+//                                    Toast.LENGTH_LONG).show();
+//                        } else if (error instanceof ParseError) {
+//                            //TODO
+//                        }
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(final RoomsResponse roomsResponse) {
+//                        String ss = "";
+//                        //settingsDialog.setSpinner(roomsResponse.Rooms);
+//                    }
+//                });
 
 
         tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy").format(new Date()));

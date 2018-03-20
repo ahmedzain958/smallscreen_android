@@ -249,6 +249,7 @@ public class LoginActivity extends CoreActivity {
                 userModel.USERNAME = userName_txt.getText().toString();
                 userModel.PASSWORD = password_txt.getText().toString();
                 userModel.UnitId = Globals.unitId;
+                userModel.Lang = Globals.lang;
                 Observable<AuthResponse> call = retrofitInterface.allowedrooms(userModel);
                 call.subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -384,7 +385,7 @@ public class LoginActivity extends CoreActivity {
     {
         if (tclose != null)
         {
-            Toast.makeText(getApplicationContext(), "aloh", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "aloh", Toast.LENGTH_SHORT).show();
             tclose.cancel();
         }
         tclose = new Timer();
@@ -396,14 +397,14 @@ public class LoginActivity extends CoreActivity {
                     @Override
                     public void run() {
                         //finish();
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, MainNewActivity.class);
                         startActivity(intent);
                         finish();
                     }
                 });
 
             }
-        }, 10000);
+        }, 180000);
     }
 
     //

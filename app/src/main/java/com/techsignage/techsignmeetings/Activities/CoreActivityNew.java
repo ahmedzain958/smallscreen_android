@@ -10,6 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.techsignage.techsignmeetings.Helpers.AppLocal;
+import com.techsignage.techsignmeetings.Helpers.Globals;
+import com.techsignage.techsignmeetings.Helpers.Utilities;
 import com.techsignage.techsignmeetings.Network.CustomReceiver;
 import com.techsignage.techsignmeetings.R;
 
@@ -25,6 +28,11 @@ public class CoreActivityNew extends AppCompatActivity {
         //Toast.makeText(this, "onCreate", Toast.LENGTH_LONG).show();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         getWindow().setBackgroundDrawableResource(R.drawable.mainpage_bg);
+
+        Utilities.getPermissions(this);
+        AppLocal.checkConfigurationFile(this);
+        Globals.setAppLocal(this, Globals.lang);
+
 //        Intent intent = new Intent("com.android.action.hide_navigationbar");
 //        sendBroadcast(intent);
 

@@ -122,7 +122,7 @@
                                 android:layout_weight=".3"
                                 android:textSize="18sp"
                                 android:layout_height="match_parent"
-                                android:text="User Name"
+                                android:text="@string/username"
                                 android:padding="5dp"
                                 android:textColor="@android:color/black"/>
 
@@ -154,7 +154,7 @@
                                 android:layout_weight=".3"
                                 android:textSize="18sp"
                                 android:layout_height="match_parent"
-                                android:text="Password"
+                                android:text="@string/password"
                                 android:padding="5dp"
                                 android:textColor="@android:color/black"/>
 
