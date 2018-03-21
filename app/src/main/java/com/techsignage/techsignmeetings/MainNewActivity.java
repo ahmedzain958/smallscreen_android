@@ -456,7 +456,7 @@ public class MainNewActivity extends CoreActivityNew {
                 Date startdate = Globals.format.parse(firstMeeting.START_DATETIME);
                 Date enddate = Globals.format.parse(firstMeeting.END_DATETIME);
                 chkfirst_diff = getDifference(new Date(), startdate);
-                if(chkfirst_diff <= 1)
+                if(chkfirst_diff <= 1 && chkfirst_diff >= 0)
                 {
                     startmeeting_btn.setEnabled(true);
                     String MeetingDate = String.format("%s - %s", Globals.format1.format(startdate), Globals.format1.format(enddate));

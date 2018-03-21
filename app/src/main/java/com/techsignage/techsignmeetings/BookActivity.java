@@ -399,7 +399,7 @@ public class BookActivity extends CoreActivity {
                 {
                     if (rooms_spinner.getSelectedItem() == null)
                     {
-                        Toast.makeText(BookActivity.this, "Choose Room", Toast.LENGTH_LONG).show();
+                        Toast.makeText(BookActivity.this, getResources().getString(R.string.chooseroom), Toast.LENGTH_LONG).show();
                         return;
                     }
                 }
@@ -443,8 +443,14 @@ public class BookActivity extends CoreActivity {
                             @Override
                             public void onNext(CreateMeetingResponse authResponse) {
                                 progress_rel.setVisibility(View.GONE);
-
-                                Toast.makeText(BookActivity.this, authResponse.Message, Toast.LENGTH_SHORT).show();
+                                if (Globals.lang.equals("ar"))
+                                {
+                                    Toast.makeText(BookActivity.this, authResponse.ArabicMessage, Toast.LENGTH_SHORT).show();
+                                }
+                                else
+                                {
+                                    Toast.makeText(BookActivity.this, authResponse.Message, Toast.LENGTH_SHORT).show();
+                                }
                                 Intent intent = null;
                                 if (rooms_spinner == null)
                                 {

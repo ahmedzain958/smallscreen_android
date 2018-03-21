@@ -38,4 +38,8 @@
     <string name="username">اسم المستخدم</string>
     <string name="password">كلمة المرور</string>
     <string name="selectadjacentslots">رجاء اختيار فترات زمنية متجاورة</string>
+    <string name="chooseroom">اختر الغرفة</string>
+    <string name="date">التاريخ</string>
+    <string name="from">من</string>
+    <string name="to">إلى</string>
 </resources>

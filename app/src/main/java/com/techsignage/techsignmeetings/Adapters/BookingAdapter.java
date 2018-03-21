@@ -137,7 +137,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ListView
             {
                 selected.IsSelected = false;
                 selected_all.remove(dataList.get(getAdapterPosition()));
-                Toast.makeText(context, "Select adjacent slots", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, context.getResources().getString(R.string.chooseroom), Toast.LENGTH_SHORT).show();
                 return;
             }
 
