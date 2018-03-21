@@ -411,7 +411,8 @@ public class LoginActivity extends CoreActivity {
                     @Override
                     public void run() {
                         //finish();
-                        Intent intent = new Intent(LoginActivity.this, MainNewActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, AllListActivity.class);
+                        //Intent intent = new Intent(LoginActivity.this, MainNewActivity.class);
                         startActivity(intent);
                         finish();
                     }

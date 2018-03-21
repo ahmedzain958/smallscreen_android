@@ -26,6 +26,87 @@
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
+    <!--<application-->
+        <!--android:name=".Applications.TechApp"-->
+        <!--android:allowBackup="true"-->
+        <!--android:icon="@mipmap/ic_launcher"-->
+        <!--android:label="@string/app_name"-->
+        <!--android:supportsRtl="true"-->
+        <!--android:theme="@style/AppTheme"-->
+        <!--tools:replace="android:icon"-->
+        <!--&gt;-->
+        <!--<activity-->
+            <!--android:name=".MainActivity"-->
+            <!--android:configChanges="orientation|screenSize"-->
+            <!--android:screenOrientation="landscape">-->
+            <!--&lt;!&ndash;<intent-filter>&ndash;&gt;-->
+                <!--&lt;!&ndash;<action android:name="android.intent.action.MAIN" />&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<category android:name="android.intent.category.LAUNCHER" />&ndash;&gt;-->
+            <!--&lt;!&ndash;</intent-filter>&ndash;&gt;-->
+        <!--</activity>-->
+        <!--<activity-->
+            <!--android:name=".MeetingsListActivity"-->
+            <!--android:screenOrientation="landscape" />-->
+        <!--<activity android:name=".MeetingAttendees" />-->
+        <!--<activity-->
+            <!--android:name=".LoginActivity"-->
+            <!--android:screenOrientation="landscape"-->
+            <!--android:windowSoftInputMode="adjustPan" />-->
+        <!--<activity-->
+            <!--android:name=".BookActivity"-->
+            <!--android:screenOrientation="landscape"-->
+            <!--android:windowSoftInputMode="adjustPan" />-->
+        <!--<activity-->
+            <!--android:name=".MainNewActivity"-->
+            <!--android:screenOrientation="landscape"-->
+            <!--android:windowSoftInputMode="adjustPan" />-->
+        <!--<activity android:name=".LicenseActivity">-->
+
+            <!--&lt;!&ndash; <meta-data &ndash;&gt;-->
+            <!--&lt;!&ndash; android:name="ServiceURL" &ndash;&gt;-->
+            <!--&lt;!&ndash; android:value="http://72.55.166.201/QLM/QlmService.asmx/ValidateLicenseHttp" &ndash;&gt;-->
+            <!--&lt;!&ndash;  &ndash;&gt;-->
+            <!--&lt;!&ndash; &gt; &ndash;&gt;-->
+            <!--&lt;!&ndash; </meta-data> &ndash;&gt;-->
+            <!--<meta-data-->
+                <!--android:name="ServiceURL"-->
+                <!--android:value="http://technomounts.com/QLMWS/QlmService.asmx?op=ValidateLicenseHttp" />-->
+            <!--&lt;!&ndash; <intent-filter> &ndash;&gt;-->
+            <!--&lt;!&ndash; <action android:name="android.intent.action.MAIN" /> &ndash;&gt;-->
+
+
+            <!--&lt;!&ndash; <category android:name="android.intent.category.LAUNCHER" /> &ndash;&gt;-->
+            <!--&lt;!&ndash; </intent-filter> &ndash;&gt;-->
+        <!--</activity>-->
+        <!--<activity android:name=".LicenseNewActivity">-->
+
+            <!--&lt;!&ndash; <intent-filter> &ndash;&gt;-->
+            <!--&lt;!&ndash; <action android:name="android.intent.action.MAIN" /> &ndash;&gt;-->
+
+
+            <!--&lt;!&ndash; <category android:name="android.intent.category.LAUNCHER" /> &ndash;&gt;-->
+            <!--&lt;!&ndash; </intent-filter> &ndash;&gt;-->
+        <!--</activity>-->
+        <!--<activity-->
+            <!--android:name=".AllListActivity"-->
+            <!--android:screenOrientation="portrait">-->
+
+            <!--&lt;!&ndash; <intent-filter> &ndash;&gt;-->
+            <!--&lt;!&ndash; <action android:name="android.intent.action.MAIN" /> &ndash;&gt;-->
+
+
+            <!--&lt;!&ndash; <category android:name="android.intent.category.LAUNCHER" /> &ndash;&gt;-->
+            <!--&lt;!&ndash; </intent-filter> &ndash;&gt;-->
+        <!--</activity>-->
+        <!--<activity android:name=".SplashActivity">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+    <!--</application>-->
     <application
         android:name=".Applications.TechApp"
         android:allowBackup="true"
@@ -40,26 +121,26 @@
             android:configChanges="orientation|screenSize"
             android:screenOrientation="landscape">
             <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".MeetingsListActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="portrait" />
         <activity android:name=".MeetingAttendees" />
         <activity
             android:name=".LoginActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".BookActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".MainNewActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".LicenseActivity">
 
@@ -107,5 +188,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

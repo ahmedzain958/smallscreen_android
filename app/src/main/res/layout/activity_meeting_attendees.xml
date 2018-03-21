@@ -234,5 +234,14 @@
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>
+
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:id="@+id/webview_main"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="70dp"
+        />
     <include layout="@layout/custom_progressbar" />
 </RelativeLayout>
