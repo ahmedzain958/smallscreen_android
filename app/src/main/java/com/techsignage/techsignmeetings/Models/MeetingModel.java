@@ -28,6 +28,12 @@ public class MeetingModel {
     @SerializedName("END_DATETIME")
     public String END_DATETIME;
 
+    @SerializedName("StartDate")
+    public String StartDate;
+
+    @SerializedName("EndDate")
+    public String EndDate;
+
     @SerializedName("ACTUAL_START_DATETIME")
     public String ACTUAL_START_DATETIME;
 

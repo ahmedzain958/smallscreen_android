@@ -283,7 +283,14 @@ public class LoginActivity extends CoreActivity {
 
                                 if (!authResponse.ResponseStatus)
                                 {
-                                    Toast.makeText(getApplicationContext(), authResponse.Message, Toast.LENGTH_LONG).show();
+                                    if (Globals.lang == "ar")
+                                    {
+                                        Toast.makeText(getApplicationContext(), authResponse.Message, Toast.LENGTH_LONG).show();
+                                    }
+                                    else
+                                    {
+                                        Toast.makeText(getApplicationContext(), authResponse.ArabicMessage, Toast.LENGTH_LONG).show();
+                                    }
                                     return;
                                 }
 
@@ -303,8 +310,15 @@ public class LoginActivity extends CoreActivity {
                                 {
                                     if (loggedCheck)
                                     {
-                                        Toast.makeText(LoginActivity.this, authResponse.Message, Toast.LENGTH_SHORT).show();
-
+                                        //Toast.makeText(LoginActivity.this, authResponse.Message, Toast.LENGTH_SHORT).show();
+                                        if (Globals.lang == "ar")
+                                        {
+                                            Toast.makeText(getApplicationContext(), authResponse.Message, Toast.LENGTH_LONG).show();
+                                        }
+                                        else
+                                        {
+                                            Toast.makeText(getApplicationContext(), authResponse.ArabicMessage, Toast.LENGTH_LONG).show();
+                                        }
                                         Intent intent = new Intent(LoginActivity.this, BookActivity.class);
                                         intent.putExtra("activityName", activityName);
                                         startActivity(intent);

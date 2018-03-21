@@ -42,4 +42,5 @@
     <string name="meetingfulldatenew">Wed, 15/11/2017</string>
     <string name="username">User Name</string>
     <string name="password">Password</string>
+    <string name="selectadjacentslots">Select adjacent slots</string>
 </resources>

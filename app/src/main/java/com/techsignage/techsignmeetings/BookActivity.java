@@ -414,9 +414,13 @@ public class BookActivity extends CoreActivity {
                 meetingModel.MEETING_TITLE = title;
                 meetingModel.RECURRENCE_TYPE = "Single";
                 //meetingModel.MEETING_TITLE =
-                meetingModel.START_DATETIME = String.format("%s %s", new SimpleDateFormat("yyyy/MM/dd").format(selectedDate.getTime()),
+//                meetingModel.START_DATETIME = String.format("%s %s", new SimpleDateFormat("dd/MM/yyyy").format(selectedDate.getTime()),
+//                        firstHour);
+//                meetingModel.END_DATETIME = String.format("%s %s", new SimpleDateFormat("dd/MM/yyyy").format(selectedDate.getTime()),
+//                        lastHour);
+                meetingModel.StartDate = String.format("%s %s", new SimpleDateFormat("dd/MM/yyyy").format(selectedDate.getTime()),
                         firstHour);
-                meetingModel.END_DATETIME = String.format("%s %s", new SimpleDateFormat("yyyy/MM/dd").format(selectedDate.getTime()),
+                meetingModel.EndDate = String.format("%s %s", new SimpleDateFormat("dd/MM/yyyy").format(selectedDate.getTime()),
                         lastHour);
                 meetingModel.MEETING_STATUS_ID = "F6A33569-A955-48C2-934A-574F8589E7DC";
                 Gson gson = new Gson();
