@@ -22,4 +22,7 @@ public class UnitModel {
     @SerializedName("TSF_Themes")
     public ThemeModel Theme;
 
+    @SerializedName("WF_POI")
+    public WF_POI WF_POI;
+
 }

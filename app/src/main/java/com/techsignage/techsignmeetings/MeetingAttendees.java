@@ -346,7 +346,7 @@ public class MeetingAttendees extends CoreActivity {
 
     }
 
-    private void setTimer()
+    public void setTimer()
     {
         if (tclose != null)
         {

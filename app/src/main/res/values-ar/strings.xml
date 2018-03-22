@@ -42,4 +42,5 @@
     <string name="date">التاريخ</string>
     <string name="from">من</string>
     <string name="to">إلى</string>
+    <string name="unselectadjacentslots">رجاء ازالة الاختيار من فترات زمنية متجاورة</string>
 </resources>

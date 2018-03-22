@@ -43,6 +43,7 @@
     <string name="username">User Name</string>
     <string name="password">Password</string>
     <string name="selectadjacentslots">Select adjacent slots</string>
+    <string name="unselectadjacentslots">Unselect one of the adjacent slots</string>
     <string name="chooseroom">Choose Room</string>
     <string name="date">Date</string>
     <string name="from">From</string>

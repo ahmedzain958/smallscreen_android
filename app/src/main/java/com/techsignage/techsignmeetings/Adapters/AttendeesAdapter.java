@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.techsignage.techsignmeetings.BookActivity;
 import com.techsignage.techsignmeetings.Helpers.Globals;
 import com.techsignage.techsignmeetings.Helpers.Utilities;
+import com.techsignage.techsignmeetings.MeetingAttendees;
 import com.techsignage.techsignmeetings.Models.ATTENDEEModel;
 import com.techsignage.techsignmeetings.Models.ServiceResponses.AttendeeResponse;
 import com.techsignage.techsignmeetings.Models.Interfaces.retrofitInterface;
@@ -121,6 +122,9 @@ public class AttendeesAdapter extends RecyclerView.Adapter<AttendeesAdapter.List
             holder.btn_swapcheck.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    MeetingAttendees meetingAttendees = (MeetingAttendees)context;
+                    meetingAttendees.setTimer();
+
                     if (dataList.get(position).CHECK_IN == null)
                     {
                         if(!CanCheckIn)
@@ -198,6 +202,8 @@ public class AttendeesAdapter extends RecyclerView.Adapter<AttendeesAdapter.List
                 holder.btn_swapcheck2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        MeetingAttendees meetingAttendees = (MeetingAttendees)context;
+                        meetingAttendees.setTimer();
                         if (dataList.get(position+1).CHECK_IN == null)
                         {
                             if(!CanCheckIn)
