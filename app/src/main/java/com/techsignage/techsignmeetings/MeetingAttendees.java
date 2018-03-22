@@ -341,7 +341,7 @@ public class MeetingAttendees extends CoreActivity {
                 }
             });
             webview.getSettings().setJavaScriptEnabled(true);
-            webview.loadUrl(String.format("http://197.45.191.5:760/main.html?poi=", "72"));
+            webview.loadUrl(String.format("http://197.45.191.5:760/main.html?poi=", meetingModel.unit.WF_POI.ROOM_NO));
         }
 
     }
