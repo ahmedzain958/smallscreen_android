@@ -541,8 +541,8 @@ public class BookActivity extends CoreActivity {
                     @Override
                     public void run() {
                         //finish();
-                        //Intent intent = new Intent(BookActivity.this, MainNewActivity.class);
-                        Intent intent = new Intent(BookActivity.this, AllListActivity.class);
+                        Intent intent = new Intent(BookActivity.this, MainNewActivity.class);
+                        //Intent intent = new Intent(BookActivity.this, AllListActivity.class);
                         startActivity(intent);
                         finish();
                     }

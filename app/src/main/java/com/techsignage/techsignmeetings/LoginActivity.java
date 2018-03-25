@@ -283,7 +283,7 @@ public class LoginActivity extends CoreActivity {
 
                                 if (!authResponse.ResponseStatus)
                                 {
-                                    if (Globals.lang == "ar")
+                                    if (Globals.lang.equals("ar"))
                                     {
                                         Toast.makeText(getApplicationContext(), authResponse.Message, Toast.LENGTH_LONG).show();
                                     }
@@ -311,7 +311,7 @@ public class LoginActivity extends CoreActivity {
                                     if (loggedCheck)
                                     {
                                         //Toast.makeText(LoginActivity.this, authResponse.Message, Toast.LENGTH_SHORT).show();
-                                        if (Globals.lang == "ar")
+                                        if (Globals.lang.equals("ar"))
                                         {
                                             Toast.makeText(getApplicationContext(), authResponse.Message, Toast.LENGTH_LONG).show();
                                         }
@@ -411,8 +411,8 @@ public class LoginActivity extends CoreActivity {
                     @Override
                     public void run() {
                         //finish();
-                        Intent intent = new Intent(LoginActivity.this, AllListActivity.class);
-                        //Intent intent = new Intent(LoginActivity.this, MainNewActivity.class);
+                        //Intent intent = new Intent(LoginActivity.this, AllListActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, MainNewActivity.class);
                         startActivity(intent);
                         finish();
                     }

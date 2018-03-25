@@ -20,8 +20,8 @@ public class SplashActivity extends CoreActivity {
         //Globals.setAppLocal(this, "ar");
         if (AppLocal.checkConfigurationFile(this)) return;
 
-        //Intent intent = new Intent(getApplicationContext(), MainNewActivity.class);
-        Intent intent = new Intent(getApplicationContext(), AllListActivity.class);
+        Intent intent = new Intent(getApplicationContext(), MainNewActivity.class);
+        //Intent intent = new Intent(getApplicationContext(), AllListActivity.class);
         startActivity(intent);
     }
 }

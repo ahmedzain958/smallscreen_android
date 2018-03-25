@@ -57,7 +57,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ListView
                 {
                     if (dataList.get((getAdapterPosition()-1)).IsSelected && dataList.get((getAdapterPosition()+1)).IsSelected)
                     {
-                        Toast.makeText(context, "Unselect one of the Ancestors", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, context.getResources().getString(R.string.unselectadjacentslots), Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }

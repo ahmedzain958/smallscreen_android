@@ -326,22 +326,30 @@ public class MeetingAttendees extends CoreActivity {
         final WebView webview = (WebView)findViewById(R.id.webview_main);
         if (webview != null)
         {
-            webview.setWebViewClient(new WebViewClient(){
+            try
+            {
+                webview.setWebViewClient(new WebViewClient(){
 
-                @Override
-                public boolean shouldOverrideUrlLoading(WebView view, String url){
-                    view.loadUrl(url);
-                    return true;
-                }
+                    @Override
+                    public boolean shouldOverrideUrlLoading(WebView view, String url){
+                        view.loadUrl(url);
+                        return true;
+                    }
 
-                @Override
-                public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                    @Override
+                    public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
 
-                    super.onReceivedError(view, request, error);
-                }
-            });
-            webview.getSettings().setJavaScriptEnabled(true);
-            webview.loadUrl(String.format("http://197.45.191.5:760/main.html?poi=", meetingModel.unit.WF_POI.ROOM_NO));
+                        super.onReceivedError(view, request, error);
+                    }
+                });
+                webview.getSettings().setJavaScriptEnabled(true);
+                webview.loadUrl(String.format("http://197.45.191.5:760/main.html?poi=", meetingModel.unit.WF_POI.ROOM_NO));
+            }
+            catch(Exception ex)
+            {
+
+            }
+
         }
 
     }
@@ -362,8 +370,8 @@ public class MeetingAttendees extends CoreActivity {
                     @Override
                     public void run() {
                         //finish();
-                        //Intent intent = new Intent(MeetingAttendees.this, MainNewActivity.class);
-                        Intent intent = new Intent(MeetingAttendees.this, AllListActivity.class);
+                        Intent intent = new Intent(MeetingAttendees.this, MainNewActivity.class);
+                        //Intent intent = new Intent(MeetingAttendees.this, AllListActivity.class);
                         startActivity(intent);
                         finish();
                     }
