@@ -285,11 +285,11 @@ public class LoginActivity extends CoreActivity {
                                 {
                                     if (Globals.lang.equals("ar"))
                                     {
-                                        Toast.makeText(getApplicationContext(), authResponse.Message, Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(), authResponse.ArabicMessage, Toast.LENGTH_LONG).show();
                                     }
                                     else
                                     {
-                                        Toast.makeText(getApplicationContext(), authResponse.ArabicMessage, Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(), authResponse.Message, Toast.LENGTH_LONG).show();
                                     }
                                     return;
                                 }
@@ -313,11 +313,11 @@ public class LoginActivity extends CoreActivity {
                                         //Toast.makeText(LoginActivity.this, authResponse.Message, Toast.LENGTH_SHORT).show();
                                         if (Globals.lang.equals("ar"))
                                         {
-                                            Toast.makeText(getApplicationContext(), authResponse.Message, Toast.LENGTH_LONG).show();
+                                            Toast.makeText(getApplicationContext(), authResponse.ArabicMessage, Toast.LENGTH_LONG).show();
                                         }
                                         else
                                         {
-                                            Toast.makeText(getApplicationContext(), authResponse.ArabicMessage, Toast.LENGTH_LONG).show();
+                                            Toast.makeText(getApplicationContext(), authResponse.Message, Toast.LENGTH_LONG).show();
                                         }
                                         Intent intent = new Intent(LoginActivity.this, BookActivity.class);
                                         intent.putExtra("activityName", activityName);
@@ -411,8 +411,8 @@ public class LoginActivity extends CoreActivity {
                     @Override
                     public void run() {
                         //finish();
-                        //Intent intent = new Intent(LoginActivity.this, AllListActivity.class);
-                        Intent intent = new Intent(LoginActivity.this, MainNewActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, AllListActivity.class);
+                        //Intent intent = new Intent(LoginActivity.this, MainNewActivity.class);
                         startActivity(intent);
                         finish();
                     }

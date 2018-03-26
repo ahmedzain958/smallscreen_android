@@ -370,8 +370,8 @@ public class MeetingAttendees extends CoreActivity {
                     @Override
                     public void run() {
                         //finish();
-                        Intent intent = new Intent(MeetingAttendees.this, MainNewActivity.class);
-                        //Intent intent = new Intent(MeetingAttendees.this, AllListActivity.class);
+                        //Intent intent = new Intent(MeetingAttendees.this, MainNewActivity.class);
+                        Intent intent = new Intent(MeetingAttendees.this, AllListActivity.class);
                         startActivity(intent);
                         finish();
                     }
