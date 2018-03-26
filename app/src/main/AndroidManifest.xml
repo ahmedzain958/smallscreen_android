@@ -117,7 +117,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon"
-        >
+        android:hardwareAccelerated="true">
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize"

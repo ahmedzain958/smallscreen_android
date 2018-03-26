@@ -17,6 +17,6 @@ public class WF_POI {
     public String POI_NAME_A;
 
     @SerializedName("ROOM_NO")
-    public Double ROOM_NO;
+    public Integer ROOM_NO;
 
 }

@@ -3,12 +3,15 @@ package com.techsignage.techsignmeetings;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -257,6 +260,45 @@ public class MeetingAttendees extends CoreActivity {
                                                                       }
                                                                   }
 
+                                                                  final WebView webview = (WebView)findViewById(R.id.webview_main);
+                                                                  if (webview != null)
+                                                                  {
+                                                                      try
+                                                                      {
+                                                                          webview.setWebViewClient(new WebViewClient(){
+
+                                                                              @Override
+                                                                              public boolean shouldOverrideUrlLoading(WebView view, String url){
+                                                                                  view.loadUrl(url);
+                                                                                  return true;
+                                                                              }
+
+                                                                              @Override
+                                                                              public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+
+                                                                                  super.onReceivedError(view, request, error);
+                                                                              }
+                                                                          });
+                                                                          webview.getSettings().setJavaScriptEnabled(true);
+                                                                          webview.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
+                                                                          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                                                              // chromium, enable hardware acceleration
+                                                                              webview.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+                                                                          } else {
+                                                                              // older android version, disable hardware acceleration
+                                                                              webview.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+                                                                          }
+                                                                          webview.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+                                                                          webview.setWebChromeClient(new WebChromeClient());
+                                                                          webview.loadUrl(String.format("http://197.45.191.5:760/main.html?poi=%s", meetingModel.unit.WF_POI.ROOM_NO));
+                                                                      }
+                                                                      catch(Exception ex)
+                                                                      {
+
+                                                                      }
+
+                                                                  }
+
                                                                   adapter = new AttendeesAdapter(MeetingAttendees.this, meetingModel.meeting.CanCheckin, meetingModel.meeting.CanCheckOut, showbtns_check) ;
 //                                                                  List<ATTENDEEModel> meetingModels = new ArrayList<ATTENDEEModel>();
 //                                                                  for (int i = 0; i < meetingModel.meeting.ATTENDEES.size(); i++)
@@ -323,34 +365,7 @@ public class MeetingAttendees extends CoreActivity {
             }
         }
 
-        final WebView webview = (WebView)findViewById(R.id.webview_main);
-        if (webview != null)
-        {
-            try
-            {
-                webview.setWebViewClient(new WebViewClient(){
 
-                    @Override
-                    public boolean shouldOverrideUrlLoading(WebView view, String url){
-                        view.loadUrl(url);
-                        return true;
-                    }
-
-                    @Override
-                    public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
-
-                        super.onReceivedError(view, request, error);
-                    }
-                });
-                webview.getSettings().setJavaScriptEnabled(true);
-                webview.loadUrl(String.format("http://197.45.191.5:760/main.html?poi=", meetingModel.unit.WF_POI.ROOM_NO));
-            }
-            catch(Exception ex)
-            {
-
-            }
-
-        }
 
     }
 
