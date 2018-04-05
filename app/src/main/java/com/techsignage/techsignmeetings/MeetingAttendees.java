@@ -290,7 +290,7 @@ public class MeetingAttendees extends CoreActivity {
                                                                           }
                                                                           webview.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
                                                                           webview.setWebChromeClient(new WebChromeClient());
-                                                                          webview.loadUrl(String.format("http://197.45.191.5:760/main.html?poi=%s", meetingModel.unit.WF_POI.ROOM_NO));
+                                                                          webview.loadUrl(String.format("%s/main.html?poi=%s", Globals.coreUrl, meetingModel.unit.WF_POI.ROOM_NO));
                                                                       }
                                                                       catch(Exception ex)
                                                                       {
