@@ -108,7 +108,7 @@
             android:id="@+id/tv_meetingdate"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1.5"
+            android:layout_weight="1"
             android:background="@color/white"
             android:gravity="center_vertical"
             android:paddingStart="@dimen/_10sdp"
@@ -135,23 +135,6 @@
             android:textSize="@dimen/textview_middle_size"
             android:textStyle="bold" />
 
-        <View
-            android:layout_width="@dimen/_1sdp"
-            android:layout_height="match_parent"
-            android:background="@color/background" />
-
-        <TextView
-            android:id="@+id/tv_meetingroom"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1.9"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:paddingStart="@dimen/_10sdp"
-            android:text="@string/room_name"
-            android:textColor="@color/greentitle"
-            android:textSize="@dimen/textview_middle_size"
-            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout

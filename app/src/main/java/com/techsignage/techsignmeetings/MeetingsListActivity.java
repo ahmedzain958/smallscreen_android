@@ -184,58 +184,6 @@ public class MeetingsListActivity extends CoreActivity {
                 MeetingsListActivity.this.startActivity(intent);
             }
         });
-       /* next_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                *//*if (Globals.skipCount < Meetings.size() && (Meetings.size() - (Globals.skipCount + Globals.pageSize)) > 0) {
-                    Globals.skipCount += Globals.pageSize;
-                }
-
-                setButtons();
-
-                List<UserMeetingModel> meetingModels = new ArrayList<UserMeetingModel>();
-                for (int i = 0; i < Meetings.size(); i++) {
-                    if ((i + 1) > Globals.skipCount) {
-                        if (meetingModels.size() < Globals.pageSize) {
-                            meetingModels.add(Meetings.get(i));
-                        }
-                    }
-                }*//*
-
-                adapter = new MeetingsAdapter(MeetingsListActivity.this, R.layout.meeting_item);
-                adapter.setLst(Meetings);
-                activerequestslist.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
-
-            }
-        });
-
-        prev_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (Globals.skipCount > 0)
-                    Globals.skipCount -= Globals.pageSize;
-
-//                setButtons();
-
-                List<UserMeetingModel> meetingModels = new ArrayList<UserMeetingModel>();
-                for (int i = 0; i < Meetings.size(); i++) {
-                    if ((i + 1) > Globals.skipCount) {
-                        if (meetingModels.size() < Globals.pageSize) {
-                            meetingModels.add(Meetings.get(i));
-                        }
-                    }
-                }
-
-                adapter = new MeetingsAdapter(MeetingsListActivity.this, R.layout.meeting_item);
-                adapter.setLst(meetingModels);
-                activerequestslist.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
-
-
-            }
-        });*/
-
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -268,10 +216,6 @@ public class MeetingsListActivity extends CoreActivity {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);
-//        float x = event.getX();
-//        float y = event.getY();
-//        Toast.makeText(Example.this, "x=" + x + " y="+ y,
-//                Toast.LENGTH_SHORT).show();
         setTimer();
 
         return false;
@@ -280,7 +224,6 @@ public class MeetingsListActivity extends CoreActivity {
 
     private void setTimer() {
         if (tclose != null) {
-            //Toast.makeText(getApplicationContext(), "aloh", Toast.LENGTH_SHORT).show();
             tclose.cancel();
         }
         tclose = new Timer();
@@ -301,19 +244,6 @@ public class MeetingsListActivity extends CoreActivity {
             }
         }, 180000);
     }
-
-   /* void setButtons() {
-        if (Globals.skipCount < Meetings.size() && (Meetings.size() - (Globals.skipCount + Globals.pageSize)) > 0) {
-            next_btn.setEnabled(true);
-        } else
-            next_btn.setEnabled(false);
-
-        if (Globals.skipCount > 0) {
-            prev_btn.setEnabled(true);
-        } else
-            prev_btn.setEnabled(false);
-    }*/
-
     void getMeetingsList() {
         UnitModel model = new UnitModel();
         model.UNIT_ID = Globals.unitId;

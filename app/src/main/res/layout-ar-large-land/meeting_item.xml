@@ -33,7 +33,7 @@
         android:padding="@dimen/_5sdp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="1.5"
+        android:layout_weight="1"
         android:gravity="center"
         android:text="@string/meeting_datetime"
         android:textColor="@color/white"
@@ -59,26 +59,5 @@
         android:textSize="@dimen/textview_middle_size"
         android:textStyle="bold"
         tools:text="admin admin" />
-
-    <View
-        android:layout_width="@dimen/_1sdp"
-        android:layout_height="match_parent"
-        android:background="#a6d2ef" />
-
-
-    <TextView
-        android:padding="@dimen/_5sdp"
-        android:id="@+id/tv_meetingroom"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="1.9"
-        android:gravity="center"
-        android:text="@string/room_name"
-        android:textColor="@color/white"
-        android:textSize="@dimen/textview_middle_size"
-        android:textStyle="bold"
-        tools:text="technogsignage" />
-
 
 </LinearLayout>

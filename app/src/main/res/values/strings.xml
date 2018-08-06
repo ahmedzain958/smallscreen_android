@@ -12,7 +12,7 @@
     <string name="processing">Processing</string>
     <string name="meetingslist">Meetings List</string>
     <string name="meeting_title">Meeting Title</string>
-    <string name="meeting_datetime">Date/Time</string>
+    <string name="meeting_datetime">Time</string>
     <string name="meeting_organizer">Organizer</string>
     <string name="meeting_attendees">Attendees</string>
     <string name="checkin">Check In</string>

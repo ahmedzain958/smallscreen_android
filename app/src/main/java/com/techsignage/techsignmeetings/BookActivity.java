@@ -443,7 +443,8 @@ public class BookActivity extends CoreActivity {
                 meetingModel.UNIT_ID = Globals.unitId;
                 /*if (rooms_spinner != null)
                     meetingModel.UNIT_ID = ((UnitModel) rooms_spinner.getSelectedItem()).UNIT_ID;
-               */ meetingModel.CREATE_USER = Globals.loggedUser.USER_ID;
+               */
+                meetingModel.CREATE_USER = Globals.loggedUser.USER_ID;
                 meetingModel.MEETING_TITLE = title;
                 meetingModel.RECURRENCE_TYPE = "Single";
                 //meetingModel.MEETING_TITLE =
@@ -540,17 +541,19 @@ public class BookActivity extends CoreActivity {
 //
         setTimer();
     }
+
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-            getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);

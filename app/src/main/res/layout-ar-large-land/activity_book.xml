@@ -399,48 +399,6 @@
         </RelativeLayout>
 
     </LinearLayout>
-    <!--  <android.support.constraint.Guideline
-          android:id="@+id/guideline_horiz_footer"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal"
-          app:layout_constraintGuide_percent="0.89" />   <View
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:background="@color/white"
-          app:layout_constraintTop_toBottomOf="@id/guideline_horiz_footer" />
-
-
-      <Button
-          android:id="@+id/back_btn"
-          android:layout_width="150dp"
-          android:layout_height="wrap_content"
-          android:layout_margin="8dp"
-          android:layout_marginEnd="@dimen/_20sdp"
-          android:background="@drawable/back_btn"
-          android:drawableStart="@drawable/ic_arrow_back_black_24dp"
-          android:text="@string/back"
-          android:textColor="@color/greentitle"
-          android:textSize="@dimen/textview_middle_size"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/guideline_horiz_footer"
-          android:layout_marginRight="@dimen/_20sdp"
-          android:drawableLeft="@drawable/ic_arrow_back_black_24dp" />
-
-      <Button
-          android:id="@+id/next_btn"
-          android:layout_width="150dp"
-          android:layout_height="wrap_content"
-          android:layout_margin="8dp"
-          android:layout_marginEnd="@dimen/_20sdp"
-          android:background="@drawable/confirm_btn"
-          android:text="@string/save"
-          android:textColor="@color/white"
-          android:textSize="@dimen/textview_middle_size"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/guideline_horiz_footer"
-          android:layout_marginRight="@dimen/_20sdp" />
-  -->
     <include layout="@layout/custom_progressbar" />
 
 </android.support.constraint.ConstraintLayout>
