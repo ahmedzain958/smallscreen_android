@@ -11,4 +11,14 @@
     <color name="Orange">#F8A51C</color>
     <color name="alpha_color">#9000000F</color>
     <color name="grey1">#363636</color>
+
+
+    <color name="greentitle">#83bc5c</color>
+    <color name="subHeader1">#a6a6a6</color>
+    <color name="header">#83bc5c</color>
+    <color name="subHeader2">#bfbfbf</color>
+    <color name="background">#4da4df</color>
+    <color name="hintColor">#a6d2ef</color>
+
+
 </resources>

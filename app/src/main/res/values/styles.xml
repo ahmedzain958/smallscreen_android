@@ -6,7 +6,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="android:fontFamily">@font/Segoe_wp_Semibold</item>-->
     </style>
+
     <style name="CustomStyle">
         <item name="android:bottomBright">#083044</item>
         <item name="android:bottomDark">#083044</item>
@@ -19,8 +21,30 @@
         <item name="android:topBright">#083044</item>
         <item name="android:topDark">#083044</item>
     </style>
+
     <style name="StyledDialog" parent="android:Theme.Holo.Dialog">
         <item name="android:background">@android:color/transparent</item>
         <item name="android:alertDialogStyle">@style/CustomStyle</item>
     </style>
+
+        <style name="spinner_style">
+            <item name="android:layout_width">600dp</item>
+            <item name="android:layout_height">wrap_content</item>
+            <item name="android:background">@drawable/gradient_spinner</item>
+            <item name="android:layout_margin">10dp</item>
+            <item name="android:paddingLeft">8dp</item>
+            <item name="android:paddingRight">20dp</item>
+            <item name="android:paddingTop">5dp</item>
+            <item name="android:paddingBottom">5dp</item>
+            <item name="android:popupBackground">#DFFFFFFF</item>
+        </style>
+
+        <style name="button_style">
+            <item name="android:gravity">center</item>
+            <item name="android:layout_width">250dp</item>
+            <item name="android:layout_height">wrap_content</item>
+            <item name="android:textSize">@dimen/textview_middle_size</item>
+            <item name="android:background">@drawable/meeting_btn</item>
+
+        </style>
 </resources>

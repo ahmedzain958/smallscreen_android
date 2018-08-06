@@ -16,6 +16,7 @@ import com.techsignage.techsignmeetings.MeetingAttendees;
 import com.techsignage.techsignmeetings.Models.MeetingModel;
 import com.techsignage.techsignmeetings.Models.UserMeetingModel;
 import com.techsignage.techsignmeetings.R;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,8 +25,7 @@ import java.util.List;
  * Created by heat on 3/12/2017.
  */
 
-public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.ListViewHolder>
-{
+public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.ListViewHolder> {
     class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tv_meetingdate;
         TextView tv_meetingtitle;
@@ -62,8 +62,8 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.ListVi
             intent.putExtra("MEETING_ID", userMeetingModel.meeting.MEETING_ID);
             intent.putExtra("UNIT_NAME", userMeetingModel.unit.UNIT_NAME);
             intent.putExtra("UNIT_ID", userMeetingModel.unit.UNIT_ID);
-            intent.putExtra("activityName", ((CoreActivity)context).getLocalClassName());
-           //intent.putExtra("Status", userMeetingModel.meeting.ACTUAL_START_DATETIME != null);
+            intent.putExtra("activityName", ((CoreActivity) context).getLocalClassName());
+            //intent.putExtra("Status", userMeetingModel.meeting.ACTUAL_START_DATETIME != null);
             intent.putExtra("Status", userMeetingModel.meeting.CanCheckin);
             intent.putExtra("StatusOut", userMeetingModel.meeting.CanCheckOut);
             context.startActivity(intent);
@@ -88,13 +88,11 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.ListVi
         inflater = LayoutInflater.from(context);
     }
 
-    public void setLst(List<UserMeetingModel> lst)
-    {
+    public void setLst(List<UserMeetingModel> lst) {
         this.dataList = lst;
     }
 
-    public List<UserMeetingModel> getLst()
-    {
+    public List<UserMeetingModel> getLst() {
         return this.dataList;
     }
 
@@ -107,15 +105,20 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.ListVi
     }
 
     int itemHeight;
+
     @Override
     public void onBindViewHolder(final MeetingsAdapter.ListViewHolder holder, final int position) {
-        try
-        {
+        try {
             Date startdate = Globals.format.parse(dataList.get(position).meeting.START_DATETIME);
             Date enddate = Globals.format.parse(dataList.get(position).meeting.END_DATETIME);
-            String MeetingDate = String.format("%s - %s", Globals.format1.format(startdate), Globals.format1.format(enddate));
-            String date_details = String.format("%s \n %s", Globals.format3.format(startdate), MeetingDate);
-            holder.tv_meetingdate.setText(date_details);
+            if (Globals.lang.equals("ar")){
+                String MeetingDate = String.format("%s - %s", Globals.format1_ar.format(startdate), Globals.format1_ar.format(enddate));
+                holder.tv_meetingdate.setText(MeetingDate);
+            }else {
+                String MeetingDate = String.format("%s - %s", Globals.format1.format(startdate), Globals.format1.format(enddate));
+                holder.tv_meetingdate.setText(MeetingDate);
+            }
+
 //            holder.tv_meetingdate.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View view) {
@@ -126,23 +129,19 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.ListVi
 //            });
             holder.tv_meetingtitle.setText(dataList.get(position).meeting.MEETING_TITLE);
             holder.tv_meetingorganizer.setText(String.format("%s %s", dataList.get(position).user.FIRST_NAME
-                    , dataList.get(position).user.LAST_NAME));
-            if (holder.tv_meetingroom != null)
-            {
+                    , dataList.get(position).user.LAST_NAME ));
+            if (holder.tv_meetingroom != null) {
                 holder.tv_meetingroom.setText(dataList.get(position).unit.UNIT_NAME);
             }
             Utilities.setFadeAnimation(holder.itemView);
             holder.itemView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
             itemHeight = holder.itemView.getMeasuredHeight();
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
         }
 
     }
 
-    public int getItemHeight()
-    {
+    public int getItemHeight() {
         return itemHeight;
     }
 

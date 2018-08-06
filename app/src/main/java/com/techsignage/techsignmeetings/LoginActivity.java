@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
+import android.support.constraint.ConstraintLayout;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -42,18 +43,20 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+import static com.techsignage.techsignmeetings.Helpers.KeyboardUtils.hidKeyboard;
+
 public class LoginActivity extends CoreActivity {
 
     Timer tclose;
 
-    @BindView(R.id.container1_lin)
+    /*@BindView(R.id.container1_lin)
     RelativeLayout container1_lin;
 
     @BindView(R.id.container2_lin)
     RelativeLayout container2_lin;
 
     @BindView(R.id.container3_lin)
-    RelativeLayout container3_lin;
+    RelativeLayout container3_lin;*/
 
     @BindView(R.id.next_btn1)
     Button next_btn1;
@@ -73,7 +76,7 @@ public class LoginActivity extends CoreActivity {
     @BindView(R.id.tv_UnitName)
     TextView tv_UnitName;
 
-    @BindView(R.id.txt_holder1)
+  /*  @BindView(R.id.txt_holder1)
     TextView txt_holder1;
 
     @BindView(R.id.txt_holder2)
@@ -83,10 +86,12 @@ public class LoginActivity extends CoreActivity {
     TextView txt_holder3;
 
     @BindView(R.id.txt_holder4)
-    TextView txt_holder4;
+    TextView txt_holder4;*/
 
     @BindView(R.id.progress_rel)
     RelativeLayout progress_rel;
+    @BindView(R.id.constraintParent)
+    ConstraintLayout constraintParent;
 
     //ProgressDialog dialog;
     //SweetAlertDialog sweetAlertDialog;
@@ -100,13 +105,17 @@ public class LoginActivity extends CoreActivity {
             | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-
+        constraintParent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hidKeyboard(LoginActivity.this);
+            }
+        });
         userName_txt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -143,7 +152,7 @@ public class LoginActivity extends CoreActivity {
         progress_rel.setVisibility(View.GONE);
         final String activityName = getIntent().getExtras().getString("activityName");
         //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        KeyboardUtils.addKeyboardToggleListener(this, new KeyboardUtils.SoftKeyboardToggleListener()
+       KeyboardUtils.addKeyboardToggleListener(this, new KeyboardUtils.SoftKeyboardToggleListener()
         {
             @Override
             public void onToggleSoftKeyboard(boolean isVisible)
@@ -154,18 +163,10 @@ public class LoginActivity extends CoreActivity {
                 getWindow().getDecorView().setSystemUiVisibility(flags2);
                 if (isVisible)
                 {
-                    txt_holder1.setVisibility(View.VISIBLE);
-                    txt_holder2.setVisibility(View.VISIBLE);
-                    txt_holder3.setVisibility(View.VISIBLE);
-                    txt_holder4.setVisibility(View.VISIBLE);
                     //getWindow().getDecorView().setSystemUiVisibility(flags);
                 }
                 else
                 {
-                    txt_holder1.setVisibility(View.GONE);
-                    txt_holder2.setVisibility(View.GONE);
-                    txt_holder3.setVisibility(View.GONE);
-                    txt_holder4.setVisibility(View.GONE);
                     //getWindow().getDecorView().setSystemUiVisibility(flags2);
                 }
             }
@@ -224,7 +225,7 @@ public class LoginActivity extends CoreActivity {
         next_btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                hidKeyboard(LoginActivity.this);
                 userName_txt.setError(null);
                 password_txt.setError(null);
                 final String userName = userName_txt.getText().toString();
@@ -281,14 +282,10 @@ public class LoginActivity extends CoreActivity {
                             public void onNext(AuthResponse authResponse) {
                                 progress_rel.setVisibility(View.GONE);
 
-                                if (!authResponse.ResponseStatus)
-                                {
-                                    if (Globals.lang.equals("ar"))
-                                    {
+                                if (!authResponse.ResponseStatus) {
+                                    if (Globals.lang.equals("ar")) {
                                         Toast.makeText(getApplicationContext(), authResponse.ArabicMessage, Toast.LENGTH_LONG).show();
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         Toast.makeText(getApplicationContext(), authResponse.Message, Toast.LENGTH_LONG).show();
                                     }
                                     return;
@@ -297,42 +294,33 @@ public class LoginActivity extends CoreActivity {
                                 Globals.hours = authResponse.authElements.hours;
                                 Globals.loggedUser = authResponse.authElements.loggeduser;
                                 Boolean loggedCheck = false;
-                                for (UnitModel unitModel : authResponse.authElements.rooms)
-                                {
-                                    if(unitModel.UNIT_ID.toLowerCase().equals(Globals.unitId.toLowerCase()))
-                                    {
+                                for (UnitModel unitModel : authResponse.authElements.rooms) {
+                                    if (unitModel.UNIT_ID.toLowerCase().equals(Globals.unitId.toLowerCase())) {
                                         Globals.loggedUnit = unitModel;
                                         loggedCheck = true;
                                         break;
                                     }
                                 }
-                                if (activityName.equals("MainActivity"))
-                                {
-                                    if (loggedCheck)
-                                    {
+                                if (activityName.equals("MainActivity")) {
+                                    if (loggedCheck) {
                                         //Toast.makeText(LoginActivity.this, authResponse.Message, Toast.LENGTH_SHORT).show();
-                                        if (Globals.lang.equals("ar"))
-                                        {
+                                        if (Globals.lang.equals("ar")) {
                                             Toast.makeText(getApplicationContext(), authResponse.ArabicMessage, Toast.LENGTH_LONG).show();
-                                        }
-                                        else
-                                        {
+                                        } else {
                                             Toast.makeText(getApplicationContext(), authResponse.Message, Toast.LENGTH_LONG).show();
                                         }
                                         Intent intent = new Intent(LoginActivity.this, BookActivity.class);
                                         intent.putExtra("activityName", activityName);
                                         startActivity(intent);
-                                    }
-                                    else
-                                    {
+                                        hidKeyboard(LoginActivity.this);
+                                    } else {
                                         Toast.makeText(LoginActivity.this, R.string.nopermission, Toast.LENGTH_SHORT).show();
                                     }
-                                }
-                                else
-                                {
+                                } else {
                                     Intent intent = new Intent(LoginActivity.this, BookActivity.class);
                                     intent.putExtra("activityName", activityName);
                                     startActivity(intent);
+                                    hidKeyboard(LoginActivity.this);
                                 }
                             }
                         });
@@ -347,11 +335,7 @@ public class LoginActivity extends CoreActivity {
         });
 
         setTimer();
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
     @Override
@@ -395,10 +379,8 @@ public class LoginActivity extends CoreActivity {
         return false;
     }
 
-    private void setTimer()
-    {
-        if (tclose != null)
-        {
+    private void setTimer() {
+        if (tclose != null) {
             //Toast.makeText(getApplicationContext(), "aloh", Toast.LENGTH_SHORT).show();
             tclose.cancel();
         }
@@ -411,9 +393,10 @@ public class LoginActivity extends CoreActivity {
                     @Override
                     public void run() {
                         //finish();
-                        Intent intent = new Intent(LoginActivity.this, AllListActivity.class);
-                        //Intent intent = new Intent(LoginActivity.this, MainNewActivity.class);
+                        //Intent intent = new Intent(LoginActivity.this, AllListActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, MainNewActivity.class);
                         startActivity(intent);
+                        hidKeyboard(LoginActivity.this);
                         finish();
                     }
                 });
@@ -421,7 +404,17 @@ public class LoginActivity extends CoreActivity {
             }
         }, 180000);
     }
-
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+    }
     //
 //    @Override
 //    public void onConfigurationChanged(Configuration newConfig) {

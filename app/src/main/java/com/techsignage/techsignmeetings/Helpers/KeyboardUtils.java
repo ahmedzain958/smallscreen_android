@@ -88,7 +88,17 @@ public class KeyboardUtils implements ViewTreeObserver.OnGlobalLayoutListener
         InputMethodManager inputMethodManager = (InputMethodManager) activeView.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(activeView.getWindowToken(), 0);
     }
+    public static void hidKeyboard(Activity activity) {
+        try {
+            InputMethodManager inputManager = (InputMethodManager) activity
+                    .getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(activity.getCurrentFocus()
+                    .getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
+        } catch (Exception e) {
+
+        }
+    }
     private void removeListener()
     {
         mCallback = null;

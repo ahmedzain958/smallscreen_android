@@ -1,34 +1,24 @@
 package com.techsignage.techsignmeetings;
 
-import android.annotation.SuppressLint;
 import android.app.smdt.SmdtManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkError;
-import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
-import com.android.volley.ServerError;
-import com.android.volley.TimeoutError;
 import com.google.gson.Gson;
 import com.techsignage.techsignmeetings.Activities.CoreActivityNew;
 import com.techsignage.techsignmeetings.Applications.TechApp;
 import com.techsignage.techsignmeetings.Helpers.Globals;
 import com.techsignage.techsignmeetings.Helpers.Utilities;
-import com.techsignage.techsignmeetings.Models.Interfaces.retrofitInterface;
 import com.techsignage.techsignmeetings.Models.MeetingModel;
 import com.techsignage.techsignmeetings.Models.ServiceResponses.RoomMeetingsResponse;
-import com.techsignage.techsignmeetings.Models.ServiceResponses.RoomsResponse;
 import com.techsignage.techsignmeetings.Models.UnitModel;
 import com.techsignage.techsignmeetings.Network.ContentTypes;
 import com.techsignage.techsignmeetings.Network.VolleyCallbackString;
@@ -40,6 +30,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -52,6 +43,8 @@ import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+
+import static com.techsignage.techsignmeetings.Helpers.Utilities.convertEnglishNumbersToArabic;
 
 public class MainNewActivity extends CoreActivityNew {
 
@@ -77,16 +70,32 @@ public class MainNewActivity extends CoreActivityNew {
     TextView tv_UnitName;
 
     @BindView(R.id.startmeeting_btn)
-    TextView startmeeting_btn;
+    Button startmeeting_btn;
 
     @BindView(R.id.tv_Hour)
     TextView tv_Hour;
 
     @BindView(R.id.meetingslist_btn)
-    TextView meetingslist_btn;
+    Button meetingslist_btn;
+
 
     @BindView(R.id.book_btn)
-    TextView book_btn;
+    Button book_btn;
+    @BindView(R.id.tv_MeetingHeld)
+    TextView tv_MeetingHeld;
+    @BindView(R.id.container2_lin)
+    View container2_lin;
+
+
+   /* @BindView(R.id.rel3lin2)
+    LinearLayout rel3lin2;
+
+    @BindView(R.id.lin2)
+    LinearLayout lin2;
+
+    @BindView(R.id.rel3lin3)
+    LinearLayout rel3lin3;
+*/
 
     private Handler handler = new Handler();
     private int value;
@@ -104,11 +113,11 @@ public class MainNewActivity extends CoreActivityNew {
     Gson gson;
 
     private Runnable task = new Runnable() {
-        @SuppressLint("DefaultLocale")
+        //        @SuppressLint("DefaultLocale")
         public void run() {
             // TODO Auto-generated method stub
 
-            String cmd = String.format("echo %d > /sys/class/gpio/gpio%s/value\n", value, gpio_num);
+            String cmd = String.format("echo " + value + " > /sys/class/gpio/gpio%s/value\n", gpio_num);
             try {
                 Process exeEcho = Runtime.getRuntime().exec("sh");
                 exeEcho.getOutputStream().write(cmd.getBytes());
@@ -126,6 +135,7 @@ public class MainNewActivity extends CoreActivityNew {
         }
     };
     private SmdtManager smdtManager;
+
     //TextView tv_nextMeetingDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,32 +149,27 @@ public class MainNewActivity extends CoreActivityNew {
 
         if (Utilities.checkConfigurationFile(this)) return;
 
-        try
-        {
+        try {
             new LiscenceTask(this).execute(Utilities.getSharedValue("licensekey", getApplicationContext()));
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
 
         }
 
-        if (Utilities.getSharedValue("licensed", this).equals(""))
-        {
+        /*if (Utilities.getSharedValue("licensed", this).equals("")) {
             Intent intent = new Intent(MainNewActivity.this, LicenseNewActivity.class);
             intent.putExtra("activityName", "MainActivity");
             startActivity(intent);
             finish();
-        }
+        }*/
 
         setGreenOn();
 
         smdtManager = SmdtManager.create(this);
 
-        if(smdtManager != null)
-        {
-            smdtManager.smdtSetExtrnalGpioValue (1,false);
-            smdtManager.smdtSetExtrnalGpioValue (2,false);
-            smdtManager.smdtSetExtrnalGpioValue (1,true);
+        if (smdtManager != null) {
+            smdtManager.smdtSetExtrnalGpioValue(1, false);
+            smdtManager.smdtSetExtrnalGpioValue(2, false);
+            smdtManager.smdtSetExtrnalGpioValue(1, true);
         }
 
         meetingslist_btn.setOnClickListener(new View.OnClickListener() {
@@ -174,18 +179,21 @@ public class MainNewActivity extends CoreActivityNew {
                 MainNewActivity.this.startActivity(intent);
             }
         });
+       /* rel3lin2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainNewActivity.this, MeetingsListActivity.class);
+                MainNewActivity.this.startActivity(intent);
+            }
+        });*/
 
         getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
-        try
-        {
-            if (!(Utilities.getSharedValue("licensed", this).equals("")))
-            {
-                progress_rel.setVisibility(View.VISIBLE);
-                callWithToken();
-            }
-        }
-        catch (Exception ex)
-        {
+        try {
+//            if (!(Utilities.getSharedValue("licensed", this).equals(""))) {
+            progress_rel.setVisibility(View.VISIBLE);
+            callWithToken();
+//            }
+        } catch (Exception ex) {
 
         }
 
@@ -193,66 +201,17 @@ public class MainNewActivity extends CoreActivityNew {
             @Override
             public void onClick(View view) {
 
-                getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
-                if(smdtManager != null)
-                {
-                    smdtManager.smdtSetExtrnalGpioValue (1,false);
-                    smdtManager.smdtSetExtrnalGpioValue (2,false);
-                    smdtManager.smdtSetExtrnalGpioValue (3,false);
-                }
-
-//                if (isRed)
-//                    setRedOff();
-//                else
-//                    setGreenOff();
-//                setGreenOn();
-
-                progress_rel.setVisibility(View.VISIBLE);
-                //sweetAlertDialog = Utilities.showProgressPrettyDialog(MainActivity.this, getResources().getString(R.string.processing));
-                //sweetAlertDialog.show();
-                MeetingModel meetingModel = new MeetingModel();
-                meetingModel.MEETING_ID = firstMeeting.MEETING_ID;
-                meetingModel.UNIT_ID = Globals.unitId;
-
-                if (startmeeting_btn.getText().toString().equals(getResources().getString(R.string.startmeeting)))
-                {
-                    setRedOn();
-                    meetingModel.IsStarting = 1;
-                    startmeeting_btn.setText(R.string.endmeeting);
-                }
-                else {
-                    startmeeting_btn.setText(R.string.startmeeting);
-                    setRedOff();
-                    meetingModel.IsStarting = 0;
-                }
-
-                Observable<RoomMeetingsResponse> callforstart = retrofitInterface.startmeeting(meetingModel);
-                subscription = callforstart.observeOn(AndroidSchedulers.mainThread())
-                        .subscribeOn(Schedulers.newThread())
-                        .subscribe(new Subscriber<RoomMeetingsResponse>() {
-                            @Override
-                            public void onCompleted() {
-
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                e.printStackTrace();
-                            }
-
-                            @Override
-                            public void onNext(final RoomMeetingsResponse serviceResponse) {
-
-                                OngoingReactAsync(serviceResponse);
-
-                                getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
-
-                                progress_rel.setVisibility(View.GONE);
-                            }
-                        });
+                startmeetingClicked();
             }
         });
+        /*lin2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                startmeetingClicked();
+            }
+        });
+*/
         book_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -261,10 +220,75 @@ public class MainNewActivity extends CoreActivityNew {
                 MainNewActivity.this.startActivity(intent);
             }
         });
+      /*  rel3lin3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainNewActivity.this, LoginActivity.class);
+                intent.putExtra("activityName", "MainActivity");
+                MainNewActivity.this.startActivity(intent);
+            }
+        });*/
+    }
+
+    private void startmeetingClicked() {
+        getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
+        if (smdtManager != null) {
+            smdtManager.smdtSetExtrnalGpioValue(1, false);
+            smdtManager.smdtSetExtrnalGpioValue(2, false);
+            smdtManager.smdtSetExtrnalGpioValue(3, false);
+        }
+
+//                if (isRed)
+//                    setRedOff();
+//                else
+//                    setGreenOff();
+//                setGreenOn();
+
+        progress_rel.setVisibility(View.VISIBLE);
+        //sweetAlertDialog = Utilities.showProgressPrettyDialog(MainActivity.this, getResources().getString(R.string.processing));
+        //sweetAlertDialog.show();
+        MeetingModel meetingModel = new MeetingModel();
+        meetingModel.MEETING_ID = firstMeeting.MEETING_ID;
+        meetingModel.UNIT_ID = Globals.unitId;
+
+        if (startmeeting_btn.getText().toString().equals(getResources().getString(R.string.startmeeting))) {
+            setRedOn();
+            meetingModel.IsStarting = 1;
+            startmeeting_btn.setText(R.string.endmeeting);
+        } else {
+            startmeeting_btn.setText(R.string.startmeeting);
+            setRedOff();
+            meetingModel.IsStarting = 0;
+        }
+
+        Observable<RoomMeetingsResponse> callforstart = retrofitInterface.startmeeting(meetingModel);
+        subscription = callforstart.observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.newThread())
+                .subscribe(new Subscriber<RoomMeetingsResponse>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onNext(final RoomMeetingsResponse serviceResponse) {
+
+                        OngoingReactAsync(serviceResponse);
+
+                        getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
+
+                        progress_rel.setVisibility(View.GONE);
+                    }
+                });
     }
 
     private void callWithToken() {
-        if(t != null)
+        if (t != null)
             t.cancel();
 
 //        if (Utilities.getSharedValue("token", MainNewActivity.this).equals(""))
@@ -332,7 +356,7 @@ public class MainNewActivity extends CoreActivityNew {
     }
 
     private void loadMeetings() {
-        ((TechApp)getApplication()).setNetComponent();
+        ((TechApp) getApplication()).setNetComponent();
         ((TechApp) getApplication()).getNetComponent().inject(MainNewActivity.this);
 //        Observable<RoomsResponse> allRooms = retrofitInterface.allrooms();
 //        subscription = allRooms.observeOn(AndroidSchedulers.mainThread())
@@ -373,9 +397,15 @@ public class MainNewActivity extends CoreActivityNew {
 //                    }
 //                });
 
+        if (Globals.lang.equals("ar")) {
+            tv_NowDate.setText(new SimpleDateFormat("EEEE, yyyy/MM/dd", new Locale("ar")).format(new Date()));
+            tv_Hour.setText(new SimpleDateFormat("hh:mm", new Locale("ar")).format(new Date()));
 
-        tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy").format(new Date()));
-        tv_Hour.setText(new SimpleDateFormat("HH:mm").format(new Date()));
+        } else {
+            tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy").format(new Date()));
+            tv_Hour.setText(new SimpleDateFormat("hh:mm", new Locale("ar")).format(new Date()));
+
+        }
 
         t = new Timer();
         t.scheduleAtFixedRate(new TimerTask() {
@@ -385,8 +415,8 @@ public class MainNewActivity extends CoreActivityNew {
                                       runOnUiThread(new Runnable() {
                                           @Override
                                           public void run() {
-                                              if (!(Utilities.getSharedValue("licensed", MainNewActivity.this).equals("")))
-                                                  startChecking();
+//                                              if (!(Utilities.getSharedValue("licensed", MainNewActivity.this).equals("")))
+                                              startChecking();
                                           }
                                       });
 
@@ -394,12 +424,11 @@ public class MainNewActivity extends CoreActivityNew {
 
                               },
                 0,
-                30000);
+                5000);
     }
 
     //start the async call to get the meetings
-    void startChecking()
-    {
+    void startChecking() {
         UnitModel model = new UnitModel();
         model.UNIT_ID = Globals.unitId;
         Observable<RoomMeetingsResponse> data = retrofitInterface.roomreservations(model);
@@ -440,6 +469,7 @@ public class MainNewActivity extends CoreActivityNew {
         tv_MeetingDate.setText("");
         tv_Hour.setText("");
         tv_MeetingName.setText(getResources().getString(R.string.firstmeeting_title));
+        startmeeting_btn.setVisibility(View.INVISIBLE);
         tv_nextMeetingDate.setText("");
         tv_nextMeeting.setText("");
         startmeeting_btn.setEnabled(false);
@@ -448,111 +478,127 @@ public class MainNewActivity extends CoreActivityNew {
 
         tv_UnitName.setText(serviceResponse.RoomMeetings.Room.UNIT_NAME);
         long chkfirst_diff = 0;
-        if(serviceResponse.RoomMeetings.Meetings.size() > 0)
-        {
+        if (serviceResponse.RoomMeetings.Meetings.size() > 0) {
             firstMeeting = serviceResponse.RoomMeetings.Meetings.get(0).meeting;
-            try
-            {
+            try {
                 Date startdate = Globals.format.parse(firstMeeting.START_DATETIME);
                 Date enddate = Globals.format.parse(firstMeeting.END_DATETIME);
                 chkfirst_diff = getDifference(new Date(), startdate);
-                if(chkfirst_diff <= 1)
-                {
+                if (chkfirst_diff <= 1) {
                     startmeeting_btn.setEnabled(true);
-                    String MeetingDate = String.format("%s - %s", Globals.format1.format(startdate), Globals.format1.format(enddate));
-                    tv_MeetingDate.setText(MeetingDate);
+                    String MeetingDate="";
+                    if (Globals.lang.equals("ar")) {
+                         MeetingDate = String.format("%s - %s", Globals.format1_ar.format(startdate), Globals.format1_ar.format(enddate));
+                        tv_MeetingDate.setText(MeetingDate);
+                    } else {
+                         MeetingDate = String.format("%s - %s", Globals.format1.format(startdate), Globals.format1.format(enddate));
+                        tv_MeetingDate.setText(MeetingDate);
+                    }
+
 
                     tv_MeetingName.setText(firstMeeting.MEETING_TITLE);
+                    startmeeting_btn.setVisibility(View.VISIBLE);
 
-                    if (firstMeeting.ACTUAL_START_DATETIME != null)
-                    {
+                    if (firstMeeting.ACTUAL_START_DATETIME != null) {
                         setRedOn();
 
-                        //container2_lin.setBackgroundColor(Color.RED);
-                        getWindow().setBackgroundDrawableResource(R.drawable.mainpage_bgred);
+//                        container2_lin.setBackgroundColor(Color.RED);
+                        container2_lin.setBackground(ContextCompat.getDrawable(this, R.drawable.red));
+//                        getWindow().setBackgroundDrawableResource(R.drawable.red);
                         startmeeting_btn.setText(R.string.endmeeting);
+                        if (Globals.lang.equals("ar")){
+                            startmeeting_btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_pause_circle_outline_black_24dp, 0);
+                        }else {
+                            startmeeting_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_pause_circle_outline_black_24dp, 0, 0, 0);
+                        }
+                        tv_MeetingHeld.setVisibility(View.VISIBLE);
                         setChinaColor(3);
-                    }
-                    else
-                    {
+                    } else {
                         setRedOff();
-
+                        tv_MeetingHeld.setVisibility(View.GONE);
                         startmeeting_btn.setText(R.string.startmeeting);
-                        //container2_lin.setBackgroundColor(Color.WHITE);
-                        getWindow().setBackgroundDrawableResource(R.drawable.mainpage_bg);
+//                        container2_lin.setBackgroundColor(getResources().getColor(R.color.background));
+                        container2_lin.setBackground(ContextCompat.getDrawable(this, R.drawable.blue));
 
+//                        getWindow().setBackgroundDrawableResource(R.drawable.blue);
                         if (chkfirst_diff < -4)
-                            tv_MeetingDate.setText(String.format(("Delayed\n%s"), MeetingDate));
+                            tv_MeetingDate.setText(String.format(("\n%s"), MeetingDate));
                         setChinaColor(2);
                     }
-                }
-                else {
+                } else {
 
                     setRedOff();
-
-                    //container2_lin.setBackgroundColor(getResources().getColor(R.color.green));
+                    tv_MeetingHeld.setVisibility(View.GONE);
+                    container2_lin.setBackground(ContextCompat.getDrawable(this, R.drawable.green));
+                 /*   container2_lin.setBackgroundColor(getResources().getColor(R.color.green));
                     getWindow().setBackgroundDrawableResource(R.drawable.mainpage_bggreen);
-                    String MeetingDate2 = String.format("%s - %s", Globals.format1.format(startdate), Globals.format1.format(enddate));
-                    tv_nextMeetingDate.setText(MeetingDate2);
+                   */ if (Globals.lang.equals("ar")) {
+                        String MeetingDate2 = String.format("%s - %s", Globals.format1_ar.format(startdate), Globals.format1_ar.format(enddate));
+                        tv_nextMeetingDate.setText(MeetingDate2);
+                    } else {
+                        String MeetingDate2 = String.format("%s - %s", Globals.format1.format(startdate), Globals.format1.format(enddate));
+                        tv_nextMeetingDate.setText(MeetingDate2);
+                    }
                     tv_nextMeeting.setText(firstMeeting.MEETING_TITLE);
 
                     setChinaColor(2);
                 }
-            }
-            catch(Exception ex)
-            {
+            } catch (Exception ex) {
 
             }
         }
-        if(serviceResponse.RoomMeetings.Meetings.size() > 1) {
-            try
-            {
+        if (serviceResponse.RoomMeetings.Meetings.size() > 1) {
+            try {
                 secondMeeting = serviceResponse.RoomMeetings.Meetings.get(1).meeting;
 
                 Date startdate2 = Globals.format.parse(secondMeeting.START_DATETIME);
                 Date enddate2 = Globals.format.parse(secondMeeting.END_DATETIME);
-                String MeetingDate2 = String.format("%s - %s", Globals.format1.format(startdate2), Globals.format1.format(enddate2));
+                String MeetingDate2;
+                if (Globals.lang.equals("ar")) {
+                     MeetingDate2 = String.format("%s - %s", Globals.format1_ar.format(startdate2), Globals.format1_ar.format(enddate2));
 
-                if(chkfirst_diff <= 1) {
+                } else {
+                     MeetingDate2 = String.format("%s - %s", Globals.format1.format(startdate2), Globals.format1.format(enddate2));
+                }
+
+                if (chkfirst_diff <= 1) {
                     tv_nextMeeting.setText(secondMeeting.MEETING_TITLE);
                     tv_nextMeetingDate.setText(MeetingDate2);
                 }
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
 
             }
         }
-        if(serviceResponse.RoomMeetings.Meetings.size() == 0)
-        {
-            //container2_lin.setBackgroundColor(getResources().getColor(R.color.green));
-            getWindow().setBackgroundDrawableResource(R.drawable.mainpage_bggreen);
+        if (serviceResponse.RoomMeetings.Meetings.size() == 0) {
+            container2_lin.setBackground(ContextCompat.getDrawable(this, R.drawable.green));
+//            getWindow().setBackgroundDrawableResource(R.drawable.green);
             setChinaColor(2);
             setRedOff();
+            tv_MeetingHeld.setVisibility(View.GONE);
         }
     }
 
     //set colors for china devices
     private void setChinaColor(int color) {
         //2 for green, 1 for blue, 3 for red
-        if(smdtManager != null)
-        {   smdtManager.smdtSetExtrnalGpioValue (1,false);
-            smdtManager.smdtSetExtrnalGpioValue (2,false);
-            smdtManager.smdtSetExtrnalGpioValue (3,false);
+        if (smdtManager != null) {
+            smdtManager.smdtSetExtrnalGpioValue(1, false);
+            smdtManager.smdtSetExtrnalGpioValue(2, false);
+            smdtManager.smdtSetExtrnalGpioValue(3, false);
 
-            smdtManager.smdtSetExtrnalGpioValue (color,true);
+            smdtManager.smdtSetExtrnalGpioValue(color, true);
         }
     }
 
 
     //get difference between two dates
-    public long getDifference(Date startDate, Date endDate){
+    public long getDifference(Date startDate, Date endDate) {
 
         //milliseconds
         long different = endDate.getTime() - startDate.getTime();
 
         System.out.println("startDate : " + startDate);
-        System.out.println("endDate : "+ endDate);
+        System.out.println("endDate : " + endDate);
         System.out.println("different : " + different);
 
         long secondsInMilli = 1000;
@@ -579,8 +625,7 @@ public class MainNewActivity extends CoreActivityNew {
         return elapsedMinutes;
     }
 
-    private void setRedOn()
-    {
+    private void setRedOn() {
         value = 0;
         gpio_num = 42;
         handler.post(task);

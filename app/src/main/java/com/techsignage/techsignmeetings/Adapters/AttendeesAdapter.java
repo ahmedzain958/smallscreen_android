@@ -42,8 +42,8 @@ public class AttendeesAdapter extends RecyclerView.Adapter<AttendeesAdapter.List
         TextView tv_attendeedate2;
         LinearLayout lincontainer_1;
         LinearLayout lincontainer_2;
-        CheckBox chk_attend1;
-        CheckBox chk_attend2;
+        /*CheckBox chk_attend1;
+        CheckBox chk_attend2;*/
         Button btn_swapcheck;
         Button btn_swapcheck2;
 
@@ -52,8 +52,8 @@ public class AttendeesAdapter extends RecyclerView.Adapter<AttendeesAdapter.List
 
             tv_attendeedate = (TextView) itemView.findViewById(R.id.tv_attendeedate);
             tv_attendeedate2 = (TextView) itemView.findViewById(R.id.tv_attendeedate2);
-            chk_attend1 = (CheckBox) itemView.findViewById(R.id.chk_attend1);
-            chk_attend2 = (CheckBox) itemView.findViewById(R.id.chk_attend2);
+//            chk_attend1 = (CheckBox) itemView.findViewById(R.id.chk_attend1);
+//            chk_attend2 = (CheckBox) itemView.findViewById(R.id.chk_attend2);
             btn_swapcheck = (Button) itemView.findViewById(R.id.btn_swapcheck);
             btn_swapcheck2 = (Button) itemView.findViewById(R.id.btn_swapcheck2);
             lincontainer_1 = (LinearLayout) itemView.findViewById(R.id.lincontainer_1);
@@ -112,7 +112,7 @@ public class AttendeesAdapter extends RecyclerView.Adapter<AttendeesAdapter.List
                     dataList.get(position).ATTENDTEE_LAST_NAME));
             if (dataList.get(position).CHECK_IN != null)
             {
-                holder.chk_attend1.setChecked(true);
+//                holder.chk_attend1.setChecked(true);
                 holder.btn_swapcheck.setText(context.getResources().getString(R.string.checkout));
             }
             if (dataList.get(position).CHECK_OUT != null) {
@@ -175,7 +175,7 @@ public class AttendeesAdapter extends RecyclerView.Adapter<AttendeesAdapter.List
                                         holder.btn_swapcheck.setText(context.getResources().getString(R.string.checkout));
                                     }
                                     holder.btn_swapcheck.setText(context.getResources().getString(R.string.checkout));
-                                    holder.chk_attend1.setChecked(true);
+//                                    holder.chk_attend1.setChecked(true);
                                     if (dialog.isShowing()) {
                                         dialog.dismiss();
                                     }
@@ -194,7 +194,7 @@ public class AttendeesAdapter extends RecyclerView.Adapter<AttendeesAdapter.List
                 if (dataList.get(position+1).CHECK_IN != null)
                 {
                     holder.btn_swapcheck2.setText(context.getResources().getString(R.string.checkout));
-                    holder.chk_attend2.setChecked(true);
+//                    holder.chk_attend2.setChecked(true);
                 }
                 if (dataList.get(position+1).CHECK_OUT != null) {
                     holder.btn_swapcheck2.setEnabled(false);
@@ -255,7 +255,7 @@ public class AttendeesAdapter extends RecyclerView.Adapter<AttendeesAdapter.List
                                             dataList.get(position+1).CHECK_IN = attendeeResponse.attendeeModel.CHECK_IN;
                                             holder.btn_swapcheck2.setText(context.getResources().getString(R.string.checkout));
                                         }
-                                        holder.chk_attend2.setChecked(true);
+//                                        holder.chk_attend2.setChecked(true);
                                         if (dialog.isShowing()) {
                                             dialog.dismiss();
                                         }

@@ -1,6 +1,7 @@
 package com.techsignage.techsignmeetings.Adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,11 +46,6 @@ public class RoomsAdapter extends ArrayAdapter<UnitModel> {
         View row=inflater.inflate(R.layout.spinner_item, parent, false);
         TextView label = (TextView)row.findViewById(R.id.txt1);
         label.setText(objects.get(position).UNIT_NAME);
-
-        if (position == 0) {//Special style for dropdown header
-            label.setTextColor(context.getResources().getColor(R.color.black));
-        }
-
         return row;
     }
 }

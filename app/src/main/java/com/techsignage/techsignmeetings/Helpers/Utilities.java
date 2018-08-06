@@ -20,10 +20,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.techsignage.techsignmeetings.Activities.CoreActivity;
@@ -78,29 +82,28 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 public class Utilities {
     private final static int FADE_DURATION = 1000;
 
-    public static String getLanguage(Context context){
+    public static String getLanguage(Context context) {
         return context.getResources().getConfiguration().locale.toString();
     }
 
     @SuppressWarnings("deprecation")
-    public static void setSystemLocaleLegacy(Configuration config, Locale locale){
+    public static void setSystemLocaleLegacy(Configuration config, Locale locale) {
         config.locale = locale;
     }
 
     @TargetApi(Build.VERSION_CODES.N)
-    public static void setSystemLocale(Configuration config, Locale locale){
+    public static void setSystemLocale(Configuration config, Locale locale) {
         config.setLocale(locale);
     }
 
     @SuppressWarnings("deprecation")
-    public static void setLanguage(Context context, String lang)
-    {
+    public static void setLanguage(Context context, String lang) {
         Locale locale = new Locale(lang);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             setSystemLocale(config, locale);
-        }else{
+        } else {
             setSystemLocaleLegacy(config, locale);
         }
         context.getApplicationContext().getResources().updateConfiguration(config,
@@ -113,14 +116,20 @@ public class Utilities {
         view.startAnimation(anim);
     }
 
+    public static void hideNavBar(Activity activity) {
+        View decorView = activity.getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+    }
+
     public static void setScaleAnimation(View view) {
         ScaleAnimation anim = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         anim.setDuration(FADE_DURATION);
         view.startAnimation(anim);
     }
 
-    public static retrofitInterface liveAPI(final String token)
-    {
+    public static retrofitInterface liveAPI(final String token) {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(45, TimeUnit.SECONDS)
                 .writeTimeout(45, TimeUnit.SECONDS)
@@ -149,25 +158,22 @@ public class Utilities {
         return retrofit.create(retrofitInterface.class);
     }
 
-    public static ProgressDialog showDialog(CoreActivity coreActivity)
-    {
+    public static ProgressDialog showDialog(CoreActivity coreActivity) {
         ProgressDialog dialog = new ProgressDialog(coreActivity, R.style.StyledDialog);
         dialog.setMessage(coreActivity.getResources().getString(R.string.processing));
         dialog.show();
         return dialog;
     }
 
-    public static ProgressDialog showDialog(Context context)
-    {
+    public static ProgressDialog showDialog(Context context) {
         ProgressDialog dialog = new ProgressDialog(context, R.style.StyledDialog);
         dialog.setMessage(context.getResources().getString(R.string.processing));
         dialog.show();
         return dialog;
     }
 
-    public static void RedFlashLight(CoreActivity activity)
-    {
-        NotificationManager nm = ( NotificationManager)activity.getSystemService(NOTIFICATION_SERVICE);
+    public static void RedFlashLight(CoreActivity activity) {
+        NotificationManager nm = (NotificationManager) activity.getSystemService(NOTIFICATION_SERVICE);
         Notification notif = new Notification();
         notif.ledARGB = 0xFFff00e4;
         notif.flags = Notification.FLAG_SHOW_LIGHTS;
@@ -176,28 +182,52 @@ public class Utilities {
         nm.notify(1, notif);
     }
 
-    public static String getSharedValue(String key, Context context)
-    {
+    public static String getSharedValue(String key, Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         return sharedPreferences.getString(key, "");
     }
 
-    public static void setSharedValue(String key, String value, Context context)
-    {
+    public static void setSharedValue(String key, String value, Context context) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         sharedPreferences.edit().putString(key, value).apply();
     }
 
-    public static String getDeviceId(Context context)
-    {
+    public static String getDeviceId(Context context) {
         return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
-    public static void getFileContent(DataOutputStream dos, final String name, final File file, String contentType)
-    {
-        try
-        {
-            String contentDisposition = "Content-Disposition: form-data; name=\""+name+"\"; filename=\"" + file.getName() + "\"";
+    public static void hideSoftKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(
+                activity.getCurrentFocus().getWindowToken(), 0);
+    }
+
+    public static void setupUI(View view, final Activity activity) {
+
+        // Set up touch listener for non-text box views to hide keyboard.
+        if (!(view instanceof EditText)) {
+            view.setOnTouchListener(new View.OnTouchListener() {
+                public boolean onTouch(View v, MotionEvent event) {
+                    hideSoftKeyboard(activity);
+                    return false;
+                }
+            });
+        }
+
+        //If a layout container, iterate over children and seed recursion.
+        if (view instanceof ViewGroup) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                View innerView = ((ViewGroup) view).getChildAt(i);
+                setupUI(innerView, activity);
+            }
+        }
+    }
+
+    public static void getFileContent(DataOutputStream dos, final String name, final File file, String contentType) {
+        try {
+            String contentDisposition = "Content-Disposition: form-data; name=\"" + name + "\"; filename=\"" + file.getName() + "\"";
             dos.writeBytes(Globals.SPACER + Globals.BOUNDARY + Globals.NEW_LINE);
             dos.writeBytes(contentDisposition
                     + Globals.NEW_LINE);
@@ -216,27 +246,21 @@ public class Utilities {
             }
             dos.writeBytes(Globals.NEW_LINE);
 
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             Log.v("err", ex.getMessage());
         }
     }
 
-    public static String formedStream(Map<String,Object> params)
-    {
+    public static String formedStream(Map<String, Object> params) {
         StringBuilder sb = new StringBuilder();
-        try
-        {
-            for (Map.Entry<String,Object> param : params.entrySet()) {
+        try {
+            for (Map.Entry<String, Object> param : params.entrySet()) {
                 if (sb.length() != 0) sb.append('&');
                 sb.append(URLEncoder.encode(param.getKey(), "UTF-8"));
                 sb.append('=');
                 sb.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
             }
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
 
         }
         return sb.toString();
@@ -246,18 +270,14 @@ public class Utilities {
         //File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_ALARMS);
         File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
         File file = new File(dir, Globals.filename + ".txt");
-        if (!file.exists())
-        {
+        if (!file.exists()) {
             Log.v("file", "non existing");
             NotAuthorizedDialog dialog = new NotAuthorizedDialog();
             dialog.setCancelable(false);
             dialog.show(coreActivity.getSupportFragmentManager(), "NotAuth_Dialog");
             return true;
-        }
-        else
-        {
-            try
-            {
+        } else {
+            try {
                 BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
                 String line;
                 StringBuilder stringBuilder = new StringBuilder();
@@ -271,17 +291,14 @@ public class Utilities {
                 Globals.coreUrl = jsonObject.get("IP").toString();
                 Globals.tokenUrl = String.format("%s/token", jsonObject.get("IP").toString());
                 Globals.lang = jsonObject.get("Lang").toString();
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
 
             }
         }
         return false;
     }
 
-    public static Document LoadDocument(String xmlFragment)
-    {
+    public static Document LoadDocument(String xmlFragment) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setNamespaceAware(true);
         DocumentBuilder db = null;
@@ -310,12 +327,10 @@ public class Utilities {
         return doc;
     }
 
-    public static Boolean Open_PKey_Values(Context context) throws QlmLicense.QlmPrivateKeyException
-    {
+    public static Boolean Open_PKey_Values(Context context) throws QlmLicense.QlmPrivateKeyException {
         Boolean ret = false;
 
-        try
-        {
+        try {
             InputStream istr = context.getAssets().open("QlmPublicKey.xml");
             String keys_string = readTextFile(istr);
             Log.i("XML", keys_string.toString());
@@ -323,62 +338,48 @@ public class Utilities {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = null;
 
-            try
-            {
+            try {
                 db = factory.newDocumentBuilder();
 
                 InputSource inStream = new InputSource();
                 inStream.setCharacterStream(new StringReader(keys_string));
                 Document doc = null;
 
-                try
-                {
+                try {
                     doc = db.parse(inStream);
-                }
-                catch (SAXException e)
-                {
+                } catch (SAXException e) {
 
-                }
-                catch (IOException e)
-                {
+                } catch (IOException e) {
 
                 }
 
                 NodeList nl = doc.getElementsByTagName("RSAKeyValue");
-                if (nl != null)
-                {
+                if (nl != null) {
                     for (int i = 0; i < nl.getLength(); i++) {
                         Element element = (Element) nl.item(i);
                         try {
                             NodeList name = element.getElementsByTagName("Modulus");
-                            if (name != null)
-                            {
+                            if (name != null) {
                                 Element line = (Element) name.item(0);
                                 Globals.modulusKey = getCharacterDataFromElement(line).toString();
 
                                 name = element.getElementsByTagName("Exponent");
-                                if (name != null)
-                                {
+                                if (name != null) {
                                     line = (Element) name.item(0);
                                     Globals.exponentKey = getCharacterDataFromElement(line).toString();
 
                                     ret = true;
                                 }
                             }
-                        }
-                        catch (Exception e)
-                        {
+                        } catch (Exception e) {
 
                         }
                     }
                 }
-            }
-            catch (ParserConfigurationException e)
-            {
+            } catch (ParserConfigurationException e) {
             }
 
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
         }
 
         return ret;
@@ -442,13 +443,10 @@ public class Utilities {
         NodeList nodes;
         nodes = doc.getElementsByTagName("status");
         int val = Integer.valueOf(nodes.item(0).getChildNodes().item(0).getNodeValue());
-        if (val == 2 || val == 4)
-        {
+        if (val == 2 || val == 4) {
             //Toast.makeText(context, "Valid license", Toast.LENGTH_LONG).show();
             return true;
-        }
-        else
-        {
+        } else {
             Toast.makeText(context, "Not a valid license", Toast.LENGTH_LONG).show();
             return false;
         }
@@ -463,8 +461,8 @@ public class Utilities {
 //    }
 
     static int REQUEST_ID_MULTIPLE_PERMISSIONS;
-    public static void getPermissions(Activity activity)
-    {
+
+    public static void getPermissions(Activity activity) {
         List<String> listPermissionsNeeded = new ArrayList<>();
 
         int permissionCamera = ContextCompat.checkSelfPermission(activity,
@@ -494,7 +492,32 @@ public class Utilities {
             listPermissionsNeeded.add(Manifest.permission.SYSTEM_ALERT_WINDOW);
         }
         if (!listPermissionsNeeded.isEmpty()) {
-            ActivityCompat.requestPermissions(activity, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]),REQUEST_ID_MULTIPLE_PERMISSIONS);
+            ActivityCompat.requestPermissions(activity, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), REQUEST_ID_MULTIPLE_PERMISSIONS);
         }
+    }
+
+    public static String convertEnglishNumbersToArabic(String englishNumberAsString) {
+        try {
+
+            char[] arabicChars = {'٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'};
+            StringBuilder builder = new StringBuilder();
+            try {
+                for (int i = 0; i < englishNumberAsString.length(); i++) {
+                    if (Character.isDigit(englishNumberAsString.charAt(i))) {
+                        builder.append(arabicChars[(int) (englishNumberAsString.charAt(i)) - 48]);
+                    } else {
+                        builder.append(englishNumberAsString.charAt(i));
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+//            Toast.makeText(context, context.getString(R.string.something_wrong_happened), Toast.LENGTH_SHORT).show();
+
+            }
+            return builder.toString();
+        } catch (Exception e) {
+
+        }
+        return englishNumberAsString;
     }
 }

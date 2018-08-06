@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="subHeader1">#bfbfbf</color>
+    <color name="header">#a6a6a6</color>
+    <color name="subHeader2">#bfbfbf</color>
+    <color name="background">#4da4df</color>
+    <color name="hintColor">#a6d2ef</color>
+</resources>

@@ -1,9 +1,13 @@
 package com.techsignage.techsignmeetings;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -54,16 +58,20 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+import static com.techsignage.techsignmeetings.Helpers.KeyboardUtils.hidKeyboard;
+
 public class BookActivity extends CoreActivity {
 
     @BindView(R.id.tv_MeetingDate)
     TextView tv_MeetingDate;
+    @BindView(R.id.tv_MeetingTime)
+    TextView tv_MeetingTime;
 
     @BindView(R.id.tv_NowDate)
     TextView tv_NowDate;
 
-    @BindView(R.id.date_picker)
-    DatePicker date_picker;
+ /*   @BindView(R.id.date_picker)
+    DatePicker date_picker;*/
 
     Calendar selectedDate;
 
@@ -76,20 +84,19 @@ public class BookActivity extends CoreActivity {
 //    @BindView(R.id.tv_rightBtn)
 //    TextView tv_rightBtn;
 
-    @BindView(R.id.next_btn)
+    @BindView(R.id.book_btn)
     TextView next_btn;
 
     @BindView(R.id.tv_MeetingTitle)
     TextView tv_MeetingTitle;
 
-    @BindView(R.id.lin2)
-    LinearLayout lin2;
-
     @BindView(R.id.progress_rel)
     RelativeLayout progress_rel;
+    @BindView(R.id.book_main)
+    ConstraintLayout book_main;
 
-//    @BindView(R.id.rooms_spinner)
-    Spinner rooms_spinner;
+    @BindView(R.id.rooms_spinner)
+    TextView rooms_spinner;
 
     LinearLayoutManager llm;
 
@@ -105,6 +112,7 @@ public class BookActivity extends CoreActivity {
     String firstHour;
     String lastHour;
     Timer tclose;
+    private DatePickerDialog.OnDateSetListener mDateSetListener;
 
     final int flags = View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
     final int flags2 = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -118,10 +126,16 @@ public class BookActivity extends CoreActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
-        //this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
         ButterKnife.bind(this);
+        book_main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hidKeyboard(BookActivity.this);
+            }
+        });
+
         progress_rel.setVisibility(View.GONE);
-        rooms_spinner = (Spinner)findViewById(R.id.rooms_spinner);
 
         tv_MeetingTitle.setImeOptions(EditorInfo.IME_ACTION_DONE);
         tv_MeetingTitle.addTextChangedListener(new TextWatcher() {
@@ -143,12 +157,10 @@ public class BookActivity extends CoreActivity {
 
 
         //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        KeyboardUtils.addKeyboardToggleListener(this, new KeyboardUtils.SoftKeyboardToggleListener()
-        {
+        KeyboardUtils.addKeyboardToggleListener(this, new KeyboardUtils.SoftKeyboardToggleListener() {
             @Override
-            public void onToggleSoftKeyboard(boolean isVisible)
-            {
-                Log.d("keyboard", "keyboard visible: "+isVisible);
+            public void onToggleSoftKeyboard(boolean isVisible) {
+                Log.d("keyboard", "keyboard visible: " + isVisible);
                 //Toast.makeText(LoginActivity.this, "keyboard visible: "+isVisible, Toast.LENGTH_SHORT).show();
                 getWindow().getDecorView().setSystemUiVisibility(flags2);
 //                if (isVisible)
@@ -169,42 +181,44 @@ public class BookActivity extends CoreActivity {
         final hourCallback callback = new hourCallback() {
             @Override
             public void selectedItem(HourModel selectedModel, final List<HourModel> lst) {
-                if (selectedModel.IsEnabled && !selectedModel.IsBooked)
-                {
+                if (selectedModel.IsEnabled && !selectedModel.IsBooked) {
                     hourModel = selectedModel;
-                    for (int i=0; i < lst.size(); i++)
-                    {
-                        if(i == 0)
+                    for (int i = 0; i < lst.size(); i++) {
+                        if (i == 0)
                             //selectedModel.StartHour = lst.get(i).StartHour;
-                        firstHour = lst.get(i).StartHour;
+                            firstHour = lst.get(i).StartHour;
 
-                        if (i == lst.size()-1)
+                        if (i == lst.size() - 1)
                             //selectedModel.EndHour = lst.get(i).EndHour;
-                        lastHour = lst.get(i).EndHour;
+                            lastHour = lst.get(i).EndHour;
                     }
                     //selectedModel.CombinedHours = String.format("%s | %s", selectedModel.StartHour, selectedModel.EndHour);
                     //String ss = "";
                     tv_MeetingDate.setText(
-                            String.format("%s %s", new SimpleDateFormat("dd/MM/yyyy").format(selectedDate.getTime())
-                                    , String.format("%s | %s", firstHour, lastHour))
+                            String.format("%s", new SimpleDateFormat("dd/MM/yyyy").format(selectedDate.getTime())
+                            )
                     );
+                    tv_MeetingTime.setText(
+
+                            String.format("%s", String.format("%s | %s", firstHour, lastHour))
+                    );
+
                 }
-                if (!selectedModel.IsSelected && lst.size() == 0)
-                {
+                if (!selectedModel.IsSelected && lst.size() == 0) {
                     tv_MeetingDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(selectedDate.getTime()));
                 }
 
 
             }
         };
-        if (rooms_spinner != null)
-        {
+        tv_UnitName.setText(Globals.loggedUnit.UNIT_NAME);
+      /*  if (rooms_spinner != null) {
             rooms_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     MeetingModel meetingModel = new MeetingModel();
                     meetingModel.TheDate = new SimpleDateFormat("dd/MM/yyyy").format(selectedDate.getTime());
-                    meetingModel.UNIT_ID = ((UnitModel)rooms_spinner.getSelectedItem()).UNIT_ID;
+                    meetingModel.UNIT_ID = ((UnitModel) rooms_spinner.getSelectedItem()).UNIT_ID;
                     meetingModel.Lang = Globals.lang;
                     structCalendar(callback, mRecyclerView, meetingModel);
                 }
@@ -214,15 +228,12 @@ public class BookActivity extends CoreActivity {
 
                 }
             });
-        }
-        else
-        {
+        } else {
             tv_UnitName.setText(Globals.loggedUnit.UNIT_NAME);
-        }
+        }*/
 
         BookingAdapter adapter = new BookingAdapter(BookActivity.this, callback);
-        for (HourModel hourModel : Globals.hours)
-        {
+        for (HourModel hourModel : Globals.hours) {
             hourModel.IsSelected = false;
         }
         adapter.setLst(Globals.hours);
@@ -256,10 +267,9 @@ public class BookActivity extends CoreActivity {
                     @Override
                     public void onNext(final RoomsResponse roomsResponse) {
                         RoomsAdapter roomsAdapter = new RoomsAdapter(BookActivity.this, R.layout.spinner_item, roomsResponse.Rooms);
-                        rooms_spinner.setAdapter(roomsAdapter);
+//                        rooms_spinner.setAdapter(roomsAdapter);
 
-                        if (rooms_spinner != null)
-                        {
+                        if (rooms_spinner != null) {
                             MeetingModel meetingModel = new MeetingModel();
                             meetingModel.TheDate = new SimpleDateFormat("dd/MM/yyyy").format(selectedDate.getTime());
                             meetingModel.UNIT_ID = roomsResponse.Rooms.get(0).UNIT_ID;
@@ -270,7 +280,7 @@ public class BookActivity extends CoreActivity {
                 });
 
 
-        Calendar c = Calendar.getInstance();
+       /* Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
@@ -292,8 +302,42 @@ public class BookActivity extends CoreActivity {
                 structCalendar(callback, mRecyclerView, meetingModel);
 
             }
-        });
+        });*/
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                selectedDate = Calendar.getInstance();
+                selectedDate.set(Calendar.YEAR, year);
+                selectedDate.set(Calendar.MONTH, month);
+                selectedDate.set(Calendar.DAY_OF_MONTH, day);
+                tv_MeetingDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(selectedDate.getTime()));
 
+                MeetingModel meetingModel = new MeetingModel();
+                meetingModel.TheDate = new SimpleDateFormat("dd/MM/yyyy").format(selectedDate.getTime());
+                meetingModel.UNIT_ID = Globals.unitId;
+                meetingModel.Lang = Globals.lang;
+                structCalendar(callback, mRecyclerView, meetingModel);
+            }
+        };
+        tv_MeetingDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        BookActivity.this,
+                        android.R.style.Theme_Holo_Light,
+                        mDateSetListener,
+                        year, month, day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+
+
+            }
+        });
         mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -301,40 +345,32 @@ public class BookActivity extends CoreActivity {
 
                 setTimer();
 
-                for (int i = 0; i < Globals.hours.size(); i++)
-                {
+                for (int i = 0; i < Globals.hours.size(); i++) {
                     RecyclerView.ViewHolder v = mRecyclerView.findViewHolderForAdapterPosition(i);
-                    if(v != null)
-                    {
-                        RelativeLayout rel1 = (RelativeLayout)v.itemView.findViewById(R.id.rel1);
-                        TextView tv_container = (TextView)rel1.findViewById(R.id.tv_container);
+                    if (v != null) {
+                        LinearLayout rel1 = (LinearLayout) v.itemView.findViewById(R.id.rel1);
+                        TextView tv_container = (TextView) rel1.findViewById(R.id.tv_container);
                         tv_container.setBackgroundResource(R.drawable.white_bg);
 
-                        if (Globals.hours.get(i).IsSelected != null)
-                        {
-                            if (Globals.hours.get(i).IsSelected)
-                            {
-                                tv_container.setBackgroundResource(R.drawable.right_pic);
+                        if (Globals.hours.get(i).IsSelected != null) {
+                            if (Globals.hours.get(i).IsSelected) {
+                                tv_container.setBackgroundResource(R.drawable.ic_check_black_24dp);
                             }
                         }
 
-                        if (Globals.hours.get(i).IsEnabled != null)
-                        {
-                            if (!Globals.hours.get(i).IsEnabled)
-                            {
+                        if (Globals.hours.get(i).IsEnabled != null) {
+                            if (!Globals.hours.get(i).IsEnabled) {
                                 tv_container.setBackgroundResource(R.drawable.expired);
                             }
                         }
 
-                        if (Globals.hours.get(i).IsBooked)
-                        {
+                        if (Globals.hours.get(i).IsBooked) {
                             tv_container.setBackgroundResource(R.drawable.booked_pic);
                         }
                     }
                 }
             }
         });
-
 
 
 //        tv_leftbtn.setOnClickListener(new View.OnClickListener() {
@@ -390,27 +426,24 @@ public class BookActivity extends CoreActivity {
                     return;
                 }
 
-                if (hourModel == null)
-                {
+                if (hourModel == null) {
                     Toast.makeText(BookActivity.this, R.string.selectrange, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (rooms_spinner != null)
-                {
-                    if (rooms_spinner.getSelectedItem() == null)
-                    {
+               /* if (rooms_spinner != null) {
+                    if (rooms_spinner.getSelectedItem() == null) {
                         Toast.makeText(BookActivity.this, getResources().getString(R.string.chooseroom), Toast.LENGTH_LONG).show();
                         return;
                     }
-                }
+                }*/
 
                 progress_rel.setVisibility(View.VISIBLE);
 
                 MeetingModel meetingModel = new MeetingModel();
                 meetingModel.UNIT_ID = Globals.unitId;
-                if (rooms_spinner != null)
-                    meetingModel.UNIT_ID = ((UnitModel)rooms_spinner.getSelectedItem()).UNIT_ID;
-                meetingModel.CREATE_USER = Globals.loggedUser.USER_ID;
+                /*if (rooms_spinner != null)
+                    meetingModel.UNIT_ID = ((UnitModel) rooms_spinner.getSelectedItem()).UNIT_ID;
+               */ meetingModel.CREATE_USER = Globals.loggedUser.USER_ID;
                 meetingModel.MEETING_TITLE = title;
                 meetingModel.RECURRENCE_TYPE = "Single";
                 //meetingModel.MEETING_TITLE =
@@ -443,23 +476,18 @@ public class BookActivity extends CoreActivity {
                             @Override
                             public void onNext(CreateMeetingResponse authResponse) {
                                 progress_rel.setVisibility(View.GONE);
-                                if (Globals.lang.equals("ar"))
-                                {
+                                if (Globals.lang.equals("ar")) {
                                     Toast.makeText(BookActivity.this, authResponse.ArabicMessage, Toast.LENGTH_SHORT).show();
-                                }
-                                else
-                                {
+                                } else {
                                     Toast.makeText(BookActivity.this, authResponse.Message, Toast.LENGTH_SHORT).show();
                                 }
                                 Intent intent = null;
-                                if (rooms_spinner == null)
-                                {
-                                    intent = new Intent(BookActivity.this, MainNewActivity.class);
-                                }
-                                else
-                                {
+                                intent = new Intent(BookActivity.this, MainNewActivity.class);
+
+                               /* if (rooms_spinner == null) {
+                                } else {
                                     intent = new Intent(BookActivity.this, AllListActivity.class);
-                                }
+                                }*/
                                 //Intent intent = new Intent(BookActivity.this, AllListActivity.class);
                                 startActivity(intent);
                                 finish();
@@ -512,7 +540,17 @@ public class BookActivity extends CoreActivity {
 //
         setTimer();
     }
-
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+    }
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);
@@ -525,10 +563,8 @@ public class BookActivity extends CoreActivity {
         return false;
     }
 
-    public void setTimer()
-    {
-        if (tclose != null)
-        {
+    public void setTimer() {
+        if (tclose != null) {
             //Toast.makeText(getApplicationContext(), "aloh", Toast.LENGTH_SHORT).show();
             tclose.cancel();
         }
@@ -541,8 +577,8 @@ public class BookActivity extends CoreActivity {
                     @Override
                     public void run() {
                         //finish();
-                        //Intent intent = new Intent(BookActivity.this, MainNewActivity.class);
-                        Intent intent = new Intent(BookActivity.this, AllListActivity.class);
+                        Intent intent = new Intent(BookActivity.this, MainNewActivity.class);
+                        //Intent intent = new Intent(BookActivity.this, AllListActivity.class);
                         startActivity(intent);
                         finish();
                     }
@@ -553,7 +589,7 @@ public class BookActivity extends CoreActivity {
     }
 
     private void structCalendar(final hourCallback callback, final RecyclerView mRecyclerView
-    , MeetingModel meetingModel) {
+            , MeetingModel meetingModel) {
         //dialog = Utilities.showDialog(BookActivity.this);
 //        MeetingModel meetingModel = new MeetingModel();
 //        meetingModel.TheDate = new SimpleDateFormat("dd/MM/yyyy").format(selectedDate.getTime());
@@ -579,8 +615,7 @@ public class BookActivity extends CoreActivity {
 //                                    dialog.hide();
 //                                }
                         Globals.hours = authResponse.authElements.hours;
-                        for (HourModel hourModel : Globals.hours)
-                        {
+                        for (HourModel hourModel : Globals.hours) {
                             hourModel.IsSelected = false;
                         }
                         BookingAdapter adapter = new BookingAdapter(BookActivity.this, callback);

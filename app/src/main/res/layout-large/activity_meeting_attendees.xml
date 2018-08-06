@@ -1,247 +1,228 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    tools:context=".MeetingAttendees">
-<LinearLayout
+    android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_alignParentTop="true"
-    android:layout_alignParentRight="true"
-    android:layout_alignParentEnd="true">
+    tools:context=".MeetingAttendees">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0sp"
-        android:layout_weight=".12"
         android:id="@+id/container1_lin"
-        android:padding="5dp"
-        android:background="@drawable/borderframe"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+
+        android:background="@color/white">
 
         <TextView
-            android:text="@string/room_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:id="@+id/tv_UnitName"
-            android:textSize="35sp"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            android:gravity="start"
-
-            />
-
-        <TextView
-            android:text=""
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/tv_UnitName"
-            android:layout_marginTop="2dp"
-            android:textStyle="bold"
-            android:id="@+id/tv_NowDate"
-            android:gravity="start"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:textSize="17sp"
-            android:textColor="@android:color/black"
-            />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0sp"
-        android:layout_weight=".78"
-        android:id="@+id/container2_lin">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/topcontainer_lin">
-            <TextView
-                android:text="@string/meeting_title"
-                android:layout_width="0sp"
-                android:layout_weight=".3"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/black"
-                android:gravity="start"
-                android:background="@color/dWhite"
-                android:padding="5dp"
-                />
-            <TextView
-                android:text="@string/room_name"
-                android:layout_width="0sp"
-                android:layout_weight=".7"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_MeetingTitle"
-                android:textSize="20sp"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="4dp"
-                android:textStyle="bold"
-                android:textColor="@android:color/black"
-                android:gravity="start"
-                android:padding="5dp"
-
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/topcontainer2_lin"
-            android:layout_below="@+id/topcontainer_lin">
-            <TextView
-                android:text="@string/meeting_datetime"
-                android:layout_width="0sp"
-                android:layout_weight=".3"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/black"
-                android:gravity="start"
-                android:background="@color/dWhite"
-                android:padding="5dp"
-                />
-            <TextView
-                android:text="@string/room_name"
-                android:layout_width="0sp"
-                android:layout_weight=".7"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_MeetingDate"
-                android:textSize="20sp"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="4dp"
-                android:textStyle="bold"
-                android:textColor="@android:color/black"
-                android:gravity="start"
-                android:padding="5dp"
-
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/topcontainer3_lin"
-            android:layout_below="@+id/topcontainer2_lin">
-            <TextView
-                android:text="@string/meeting_organizer"
-                android:layout_width="0sp"
-                android:layout_weight=".3"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/black"
-                android:gravity="start"
-                android:background="@color/dWhite"
-                android:padding="5dp"
-                />
-            <TextView
-                android:text="@string/room_name"
-                android:layout_width="0sp"
-                android:layout_weight=".7"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_MeetingOrganizer"
-                android:textSize="20sp"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="4dp"
-                android:textStyle="bold"
-                android:textColor="@android:color/black"
-                android:gravity="start"
-                android:padding="5dp"
-
-                />
-        </LinearLayout>
-        <TextView
-            android:text="@string/meeting_attendees"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_Attendees"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"
-            android:gravity="center"
-            android:padding="5dp"
-            android:background="@color/dWhite"
-            android:layout_below="@+id/topcontainer3_lin"
-            />
-        <android.support.v7.widget.RecyclerView android:id="@+id/attendees_list"
-            android:layout_marginTop="1dp"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_below="@+id/tv_Attendees"
-            android:padding="10dp"
-            />
+            android:layout_alignParentStart="true"
+            android:background="@color/white"
+            android:elevation="@dimen/_10sdp"
+            android:gravity="center_vertical"
+            android:paddingEnd="@dimen/_8sdp"
+            android:paddingStart="@dimen/_8sdp"
+            android:text="@string/room_name"
+            android:textColor="@color/header"
+            android:textSize="@dimen/_20ssp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:elevation="@dimen/_10sdp"
+            app:srcCompat="@drawable/sharewinds" />
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/meetingdetails"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/subHeader1"
+            android:elevation="@dimen/_10sdp"
+            android:gravity="center_vertical"
+            android:paddingEnd="@dimen/_8sdp"
+            android:paddingStart="@dimen/_8sdp"
+            android:text="@string/meeting_details"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_NowDate"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/subHeader2"
+            android:elevation="@dimen/_10sdp"
+            android:gravity="center_vertical"
+            android:paddingEnd="@dimen/_8sdp"
+            android:paddingStart="@dimen/_8sdp"
+            android:text="@string/date"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_weight=".05"
+            android:background="@drawable/ic_people_black_24dp" />
+
+        <TextView
+            android:id="@+id/tv_MeetingTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/_10sdp"
+            android:text="@string/meeting_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textview_middle_size"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_weight=".05"
+            android:background="@drawable/ic_person_black_24dp" />
+
+
+        <TextView
+            android:id="@+id/tv_MeetingOrganizer"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/_10sdp"
+            android:text="@string/meeting_organizer"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textview_middle_size"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_weight=".05"
+            android:background="@drawable/ic_reserve_black_24dp" />
+
+        <TextView
+            android:id="@+id/tv_MeetingDate"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|start"
+            android:paddingStart="@dimen/_10sdp"
+            android:text="@string/meetingfulldatenew"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textview_middle_size"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_weight=".05"
+            android:background="@drawable/ic_meeting_time_black_24dp" />
+
+
+        <TextView
+            android:id="@+id/tv_MeetingTime"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|start"
+            android:paddingStart="@dimen/_10sdp"
+            android:text="@string/meetingdatenew"
+            android:textColor="@color/white"
+            android:textSize="@dimen/textview_middle_size"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_Attendees"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/white"
+        android:elevation="@dimen/_10sdp"
+        android:gravity="center_vertical|center_horizontal"
+        android:paddingEnd="@dimen/_8sdp"
+        android:paddingStart="@dimen/_8sdp"
+        android:text="@string/meeting_attendees"
+        android:textColor="@color/greentitle"
+        android:textSize="@dimen/textview_middle_size"
+        android:textStyle="bold" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/attendees_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@+id/tv_Attendees"
+        android:layout_marginTop="1dp"
+        android:layout_weight="8"
+        android:padding="10dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0sp"
-        android:layout_weight=".1"
-        android:padding="5dp"
-        android:id="@+id/container3_lin"
-        android:background="@drawable/borderframe"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1.6"
+        android:background="@color/white">
 
-            <android.support.percent.PercentRelativeLayout
-                android:layout_width="0sp"
-                android:layout_weight=".65"
-                android:layout_height="match_parent">
-                <Button
-                    app:layout_widthPercent="25%"
-                    android:id="@+id/back_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/back" />
-            </android.support.percent.PercentRelativeLayout>
+        <Button
+            android:id="@+id/back_btn"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/_30sdp"
+            android:background="@drawable/back_btn"
+            android:text="@string/back"
+            android:textColor="#83bc5c"
+            android:textSize="@dimen/textview_big_0_size"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-            <RelativeLayout
-                android:layout_width="0sp"
-                android:layout_weight=".35"
-                android:layout_height="match_parent">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <Button
-                        android:id="@+id/prev_btn"
-                        android:layout_width="0sp"
-                        android:layout_weight=".5"
-                        android:layout_height="match_parent"
-                        android:text="@string/previous"
-                        android:enabled="false"/>
-                    <Button
-                        android:id="@+id/next_btn"
-                        android:layout_width="0sp"
-                        android:layout_weight=".5"
-                        android:layout_height="match_parent"
-                        android:text="@string/next"
-                        android:textStyle="bold"
-
-                        android:enabled="false"/>
-                </LinearLayout>
-            </RelativeLayout>
-
-        </LinearLayout>
     </RelativeLayout>
-</LinearLayout>
-    <WebView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:id="@+id/webview_main"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="100dp"
-        />
     <include layout="@layout/custom_progressbar" />
-</RelativeLayout>
+
+</LinearLayout>

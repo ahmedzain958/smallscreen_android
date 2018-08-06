@@ -48,4 +48,11 @@
     <string name="date">Date</string>
     <string name="from">From</string>
     <string name="to">to</string>
+    <string name="enter_username">Enter User Name</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="meeting_held">Meeting is held ..</string>
+    <string name="meeting_details">Meeting Details</string>
+    <string name="book_meeting">Book Meeting</string>
+    <string name="time">Time</string>
+    <string name="Cance">cancel</string>
 </resources>

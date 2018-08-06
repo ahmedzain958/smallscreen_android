@@ -45,6 +45,8 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+import static com.techsignage.techsignmeetings.Helpers.Utilities.hideNavBar;
+
 public class MeetingsListActivity extends CoreActivity {
 
     @BindView(R.id.tv_UnitName)
@@ -53,11 +55,13 @@ public class MeetingsListActivity extends CoreActivity {
     @BindView(R.id.tv_NowDate)
     TextView tv_NowDate;
 
-    @BindView(R.id.next_btn)
-    Button next_btn;
+    /* @BindView(R.id.next_btn)
+     Button next_btn;*/
+    @BindView(R.id.book_btn)
+    Button book_btn;
 
-    @BindView(R.id.prev_btn)
-    Button prev_btn;
+    /*@BindView(R.id.prev_btn)
+    Button prev_btn;*/
 
     @BindView(R.id.back_btn)
     Button back_btn;
@@ -65,15 +69,15 @@ public class MeetingsListActivity extends CoreActivity {
     @BindView(R.id.meetings_list)
     RecyclerView activerequestslist;
 
-    @BindView(R.id.container1_lin)
-    RelativeLayout container1_lin;
+    /*@BindView(R.id.container1_lin)
+  RelativeLayout container1_lin;
 
-    @BindView(R.id.container2_lin)
-    RelativeLayout container2_lin;
+ /*ndView(R.id.container2_lin)
+  RelativeLayout container2_lin;
 
-    @BindView(R.id.container3_lin)
-    RelativeLayout container3_lin;
-
+  @BindView(R.id.container3_lin)
+  RelativeLayout container3_lin;
+*/
     @BindView(R.id.progress_rel)
     RelativeLayout progress_rel;
 
@@ -90,39 +94,38 @@ public class MeetingsListActivity extends CoreActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meetings_list);
         ButterKnife.bind(this);
-
+        hideNavBar(this);
         VolleyRequest request = new VolleyRequest();
         request.getString(new VolleyCallbackString() {
-            @Override
-            public void onSuccess(String result) {
-                try
-                {
-                    progress_rel.setVisibility(View.GONE);
-                    JSONObject object = new JSONObject(result);
-                    final String token = object.getString("access_token");
+                              @Override
+                              public void onSuccess(String result) {
+                                  try {
+                                      progress_rel.setVisibility(View.GONE);
+                                      JSONObject object = new JSONObject(result);
+                                      final String token = object.getString("access_token");
 
-                    retrofitInterface = Utilities.liveAPI(token);
-                    tv_UnitName = (TextView)findViewById(R.id.tv_UnitName);
-                    tv_NowDate = (TextView)findViewById(R.id.tv_NowDate);
-                    tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy | HH:mm aaa").format(new Date()));
+                                      retrofitInterface = Utilities.liveAPI(token);
+                                      tv_UnitName = (TextView) findViewById(R.id.tv_UnitName);
+                                      tv_NowDate = (TextView) findViewById(R.id.tv_NowDate);
+                                      tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy | HH:mm aaa").format(new Date()));
 
-                    t = new Timer();
-                    t.scheduleAtFixedRate(new TimerTask() {
+                                      t = new Timer();
+                                      t.scheduleAtFixedRate(new TimerTask() {
 
-                                              @Override
-                                              public void run() {
-                                                  runOnUiThread(new Runnable() {
-                                                      @Override
-                                                      public void run() {
-                                                          getMeetingsList();
-                                                      }
-                                                  });
+                                                                @Override
+                                                                public void run() {
+                                                                    runOnUiThread(new Runnable() {
+                                                                        @Override
+                                                                        public void run() {
+                                                                            getMeetingsList();
+                                                                        }
+                                                                    });
 
-                                              }
+                                                                }
 
-                                          },
-                            0,
-                            30000);
+                                                            },
+                                              0,
+                                              30000);
 
 //                    new Timer().schedule(new TimerTask() {
 //                        @Override
@@ -160,46 +163,47 @@ public class MeetingsListActivity extends CoreActivity {
 //
 //                        }
 //                    }, 180000);
-                }
-                catch (Exception ex)
-                {
+                                  } catch (Exception ex) {
 
-                }
-            }
+                                  }
+                              }
 
-            @Override
-            public void onError(String result) {
+                              @Override
+                              public void onError(String result) {
 
-            }
-        }, MeetingsListActivity.this, getApplicationContext(), Globals.tokenUrl, "",
+                              }
+                          }, MeetingsListActivity.this, getApplicationContext(), Globals.tokenUrl, "",
                 String.format("grant_type=password&username=%s&password=%s", "Admin", "P@ssw0rd"), ContentTypes.FormEncoded.toString());
 
         Globals.pageSize = 5;
-
-        next_btn.setOnClickListener(new View.OnClickListener() {
+        book_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Globals.skipCount < Meetings.size() && (Meetings.size() - (Globals.skipCount+Globals.pageSize)) > 0)
-                {
+                Intent intent = new Intent(MeetingsListActivity.this, LoginActivity.class);
+                intent.putExtra("activityName", getClass().getSimpleName());
+                MeetingsListActivity.this.startActivity(intent);
+            }
+        });
+       /* next_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                *//*if (Globals.skipCount < Meetings.size() && (Meetings.size() - (Globals.skipCount + Globals.pageSize)) > 0) {
                     Globals.skipCount += Globals.pageSize;
                 }
 
                 setButtons();
 
                 List<UserMeetingModel> meetingModels = new ArrayList<UserMeetingModel>();
-                for (int i = 0; i < Meetings.size(); i++)
-                {
-                    if ((i+1) > Globals.skipCount)
-                    {
-                        if(meetingModels.size() < Globals.pageSize)
-                        {
+                for (int i = 0; i < Meetings.size(); i++) {
+                    if ((i + 1) > Globals.skipCount) {
+                        if (meetingModels.size() < Globals.pageSize) {
                             meetingModels.add(Meetings.get(i));
                         }
                     }
-                }
+                }*//*
 
                 adapter = new MeetingsAdapter(MeetingsListActivity.this, R.layout.meeting_item);
-                adapter.setLst(meetingModels);
+                adapter.setLst(Meetings);
                 activerequestslist.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
 
@@ -209,18 +213,15 @@ public class MeetingsListActivity extends CoreActivity {
         prev_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Globals.skipCount > 0)
+                if (Globals.skipCount > 0)
                     Globals.skipCount -= Globals.pageSize;
 
-                setButtons();
+//                setButtons();
 
                 List<UserMeetingModel> meetingModels = new ArrayList<UserMeetingModel>();
-                for (int i = 0; i < Meetings.size(); i++)
-                {
-                    if ((i+1) > Globals.skipCount)
-                    {
-                        if(meetingModels.size() < Globals.pageSize)
-                        {
+                for (int i = 0; i < Meetings.size(); i++) {
+                    if ((i + 1) > Globals.skipCount) {
+                        if (meetingModels.size() < Globals.pageSize) {
                             meetingModels.add(Meetings.get(i));
                         }
                     }
@@ -233,7 +234,7 @@ public class MeetingsListActivity extends CoreActivity {
 
 
             }
-        });
+        });*/
 
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -246,19 +247,13 @@ public class MeetingsListActivity extends CoreActivity {
         connector = new IConnector() {
             @Override
             public void getConnectionStatus(Boolean currentStatus) {
-                if (currentStatus)
-                {
-                    try
-                    {
+                if (currentStatus) {
+                    try {
                         getMeetingsList();
-                    }
-                    catch (Exception ex)
-                    {
+                    } catch (Exception ex) {
 
                     }
-                }
-                else
-                {
+                } else {
                     Toast.makeText(getApplicationContext(), "Please connect to the Internet", Toast.LENGTH_LONG).show();
                 }
             }
@@ -283,10 +278,8 @@ public class MeetingsListActivity extends CoreActivity {
     }
 
 
-    private void setTimer()
-    {
-        if (tclose != null)
-        {
+    private void setTimer() {
+        if (tclose != null) {
             //Toast.makeText(getApplicationContext(), "aloh", Toast.LENGTH_SHORT).show();
             tclose.cancel();
         }
@@ -309,25 +302,19 @@ public class MeetingsListActivity extends CoreActivity {
         }, 180000);
     }
 
-    void setButtons()
-    {
-        if(Globals.skipCount < Meetings.size() && (Meetings.size() - (Globals.skipCount+Globals.pageSize)) > 0)
-        {
+   /* void setButtons() {
+        if (Globals.skipCount < Meetings.size() && (Meetings.size() - (Globals.skipCount + Globals.pageSize)) > 0) {
             next_btn.setEnabled(true);
-        }
-        else
+        } else
             next_btn.setEnabled(false);
 
-        if(Globals.skipCount > 0)
-        {
+        if (Globals.skipCount > 0) {
             prev_btn.setEnabled(true);
-        }
-        else
+        } else
             prev_btn.setEnabled(false);
-    }
+    }*/
 
-    void getMeetingsList()
-    {
+    void getMeetingsList() {
         UnitModel model = new UnitModel();
         model.UNIT_ID = Globals.unitId;
         Observable<RoomMeetingsResponse> data = retrofitInterface.roomreservations(model);
@@ -350,25 +337,22 @@ public class MeetingsListActivity extends CoreActivity {
                     @Override
                     public void onNext(RoomMeetingsResponse serviceResponse) {
                         tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy | HH:mm aaa").format(new Date()));
-                        next_btn.setEnabled(true);
-                        prev_btn.setEnabled(true);
+                    /*    next_btn.setEnabled(true);
+                        prev_btn.setEnabled(true);*/
                         //Meetings = serviceResponse.RoomMeetingsResponse.Meetings;
                         Meetings = serviceResponse.RoomMeetings.MeetingsAll;
-                        setButtons();
+//                        setButtons();
                         assert activerequestslist != null;
-                        adapter = new MeetingsAdapter(MeetingsListActivity.this, R.layout.meeting_item) ;
-                        List<UserMeetingModel> meetingModels = new ArrayList<UserMeetingModel>();
-                        for (int i = 0; i < Meetings.size(); i++)
-                        {
-                            if ((i+1) > Globals.skipCount)
-                            {
-                                if(meetingModels.size() < Globals.pageSize)
-                                {
+                        adapter = new MeetingsAdapter(MeetingsListActivity.this, R.layout.meeting_item);
+                       /* List<UserMeetingModel> meetingModels = new ArrayList<UserMeetingModel>();
+                        for (int i = 0; i < Meetings.size(); i++) {
+                            if ((i + 1) > Globals.skipCount) {
+                                if (meetingModels.size() < Globals.pageSize) {
                                     meetingModels.add(Meetings.get(i));
                                 }
                             }
-                        }
-                        adapter.setLst(meetingModels);
+                        }*/
+                        adapter.setLst(Meetings);
                         activerequestslist.setAdapter(adapter);
                         tv_UnitName.setText(serviceResponse.RoomMeetings.Room.UNIT_NAME);
 
@@ -383,34 +367,32 @@ public class MeetingsListActivity extends CoreActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+       /* if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
             setLandscape();
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
             setPortrait();
-        }
+        }*/
     }
 
-    void setLandscape()
-    {
-        container1_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .19f));
-        container2_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .64f));
-        container3_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .17f));
-    }
+    /*  void setLandscape() {
+          container1_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .19f));
+          container2_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .64f));
+          container3_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .17f));
+      }
 
-    void setPortrait()
-    {
-        container1_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .15f));
-        container2_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .70f));
-        container3_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .15f));
-    }
-
+      void setPortrait() {
+          container1_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .15f));
+          container2_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .70f));
+          container3_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .15f));
+      }
+  */
     @Override
     protected void onDestroy() {
         super.onDestroy();
         super.networkStateReceiver.connector = null;
-        if(t != null)
+        if (t != null)
             t.cancel();
         if (tclose != null)
             tclose.cancel();

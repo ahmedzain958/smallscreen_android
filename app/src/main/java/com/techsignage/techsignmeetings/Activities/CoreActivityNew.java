@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -27,7 +28,9 @@ public class CoreActivityNew extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //Toast.makeText(this, "onCreate", Toast.LENGTH_LONG).show();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        getWindow().setBackgroundDrawableResource(R.drawable.mainpage_bg);
+        if (Build.VERSION.SDK_INT >= 19) {
+//            getWindow().setBackgroundDrawableResource(R.drawable.mainpage_bg);
+        }
 
         Utilities.getPermissions(this);
         AppLocal.checkConfigurationFile(this);
@@ -36,8 +39,7 @@ public class CoreActivityNew extends AppCompatActivity {
 //        Intent intent = new Intent("com.android.action.hide_navigationbar");
 //        sendBroadcast(intent);
 
-        networkStateReceiver = new CustomReceiver()
-        {
+        networkStateReceiver = new CustomReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 try {
@@ -47,9 +49,7 @@ public class CoreActivityNew extends AppCompatActivity {
                     if (ni != null) {
                         currentStatus = true;
                         //Toast.makeText(context, "Connected", Toast.LENGTH_SHORT).show();
-                    }
-                    else
-                    {
+                    } else {
                         currentStatus = false;
                         //Toast.makeText(context, "Disconnected", Toast.LENGTH_SHORT).show();
                     }
@@ -161,9 +161,7 @@ public class CoreActivityNew extends AppCompatActivity {
     protected void onPause() {
         try {
             unregisterReceiver(networkStateReceiver);
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         super.onPause();

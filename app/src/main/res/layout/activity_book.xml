@@ -161,7 +161,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="start"
-                                android:text="@string/room"
+                                android:text="@string/room_name"
                                 android:textColor="@android:color/black"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
@@ -183,7 +183,7 @@
                             android:background="@color/dWhite"
                             >
                             <TextView
-                                android:text="@string/room"
+                                android:text="@string/room_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textSize="14sp"

@@ -1,13 +1,13 @@
 <resources>
-    <string name="app_name">نظام إدارة الغرف</string>
-    <string name="room_name">الغرفة</string>
+    <string name="app_name">نظام إدارة القاعات </string>
+    <string name="room_name">القاعة</string>
     <string name="firstmeeting_title">لا يوجد اجتماعات</string>
     <string name="firstmeeting_date"> </string>
     <string name="next">التالى</string>
     <string name="secondmeeting_title">لا يوجد اجتماعات</string>
     <string name="secondmeeting_date"> </string>
     <string name="startmeeting">بدء الاجتماع</string>
-    <string name="endmeeting">إنهاء الاجتماع</string>
+    <string name="endmeeting">إيقاف الاجتماع</string>
     <string name="processing">جاري المعالجة</string>
     <string name="meetingslist">قائمة الاجتماعات</string>
     <string name="meeting_title">عنوان الاجتماع</string>
@@ -16,7 +16,7 @@
     <string name="meeting_attendees">الحاضرون</string>
     <string name="checkin">تسجيل الدخول</string>
     <string name="checkout">تسجيل الخروج</string>
-    <string name="signin">الدخول</string>
+    <string name="signin">تسجيل الدخول</string>
     <string name="error_field_required">هذا الحقل مطلوب</string>
     <string name="back">رجوع</string>
     <string name="previous">السابق</string>
@@ -34,13 +34,21 @@
     <string name="licenseinformation">معلومات الرخصة</string>
     <string name="error_network_timeout">خطأ في اتصال الشبكة</string>
     <string name="todays">اجتماعات اليوم</string>
-    <string name="room">غرفة</string>
+    <string name="room">قاعة</string>
     <string name="username">اسم المستخدم</string>
     <string name="password">كلمة المرور</string>
     <string name="selectadjacentslots">رجاء اختيار فترات زمنية متجاورة</string>
-    <string name="chooseroom">اختر الغرفة</string>
+    <string name="chooseroom">اختر القاعة  </string>
     <string name="date">التاريخ</string>
     <string name="from">من</string>
     <string name="to">إلى</string>
     <string name="unselectadjacentslots">رجاء ازالة الاختيار من فترات زمنية متجاورة</string>
+    <string name="enter_username">أدخل اسم المستخدم</string>
+    <string name="enter_password">أدخل كلمة الـسـر</string>
+    <string name="meeting_held">(الإجتماع منعقد)</string>
+    <string name="meeting_details">تفاصيل الإجتماع</string>
+    <string name="book_meeting">حجز إجتماع</string>
+    <string name="timeline">حدد الوقت باستخدام التايم لاين</string>
+    <string name="time">الوقت</string>
+    <string name="Cance">إلغاء</string>
 </resources>

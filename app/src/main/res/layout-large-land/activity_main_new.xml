@@ -1,316 +1,240 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/loginmain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:baselineAligned="false"
-    tools:context="com.techsignage.techsignmeetings.MainNewActivity">
-<RelativeLayout
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_weight=".32" android:padding="10dp">
-    <!--<Button-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content" android:text="alo4" />-->
+    android:background="@drawable/ic_defense">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <View
+        android:id="@+id/container2_lin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.85"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/white_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/sharewinds" />
+
+
     <TextView
-        android:text="@string/orangeroom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="25sp"
-        android:textColor="@color/grey1"
         android:id="@+id/tv_UnitName"
-        android:padding="2dp"/>
-    <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_UnitName"
-        android:layout_marginTop="50dp"
-        android:gravity="center"
-        android:orientation="vertical">
-        <TextView
-            android:text="@string/meetingdatenew"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="75sp"
-            android:textColor="@color/grey1"
-            android:id="@+id/tv_Hour"
-            android:padding="2dp"/>
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/room_name"
+        android:textSize="@dimen/textview_big_1_size"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/logo"
+        tools:text="قاعة الرستاق" />
 
-        <TextView
-            android:text="@string/meetingfulldatenew"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="25sp"
-            android:textColor="@color/grey1"
-            android:id="@+id/tv_NowDate"
-            android:padding="2dp"/>
-    </LinearLayout>
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:layout_alignParentBottom="true">
-        <TextView
-        android:text="@string/next"
+    <TextView
+        android:id="@+id/tv_Hour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="25sp"
-        android:textColor="@color/grey1"
+        android:text="@string/meetingdatenew"
+        android:textSize="@dimen/textview_big_2_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tv_NowDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/tv_NowDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/meetingfulldatenew"
+        android:textSize="@dimen/textview_big_0_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/tv_Hour"
+        app:layout_constraintStart_toStartOf="@id/tv_Hour"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Hour" />
+
+    <TextView
         android:id="@+id/tv_next"
-        android:padding="2dp"/>
-        <TextView
-            android:text="@string/meeting_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="22sp"
-            android:textColor="@color/grey1"
-            android:id="@+id/tv_nextMeeting"
-            android:layout_below="@+id/tv_next"
-            android:padding="2dp"
-            android:layout_marginTop="30dp"/>
-        <TextView
-            android:text="@string/meetingfulldatenew"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="22sp"
-            android:textColor="@color/grey1"
-            android:id="@+id/tv_nextMeetingDate"
-            android:layout_below="@+id/tv_nextMeeting"
-            android:padding="2dp"/>
-    </RelativeLayout>
-</RelativeLayout>
-    <RelativeLayout
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/next"
+        android:textSize="@dimen/textview_big_0_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tv_nextMeeting"
+        app:layout_constraintStart_toStartOf="@id/tv_nextMeeting" />
+
+    <TextView
+        android:id="@+id/tv_nextMeeting"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight=".68"
-        android:padding="10dp">
-        <!--<Button-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content" android:text="alo24" />-->
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@id/lin1"
-            >
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/lin1_rel1"
-                android:paddingTop="60dp"
-                >
-                <TextView
-                    android:text="@string/firstmeeting_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_MeetingName"
-                    android:textSize="65sp"
-                    android:gravity="center"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold"
-                    android:layout_marginTop="30dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
+        android:layout_marginBottom="5dp"
+        android:text="@string/meeting_title"
+        android:textSize="@dimen/textview_middle_size"
+        app:layout_constraintBottom_toTopOf="@id/tv_nextMeetingDate"
+        app:layout_constraintStart_toStartOf="@id/tv_nextMeetingDate" />
 
-                <TextView
-                    android:text="@string/firstmeeting_datenew"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:textSize="35sp"
-                    android:textColor="@android:color/white"
-                    android:id="@+id/tv_MeetingDate"
-                    android:layout_below="@+id/tv_MeetingName"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
-            </RelativeLayout>
-        </LinearLayout>
+    <TextView
+        android:id="@+id/tv_nextMeetingDate"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="20dp"
+        android:text="@string/meeting_datetime"
+        android:textSize="@dimen/textview_middle_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        tools:text="@string/meetingfulldatenew" />
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@id/lin2"
-            android:layout_marginTop="50dp"
-            android:layout_below="@id/lin1"
-            >
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/lin2_rel1"
+    <android.support.constraint.Guideline
+        android:id="@+id/horizontal_guidline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.45"
+        app:layout_constraintStart_toEndOf="@id/guideline" />
 
-                >
-               <LinearLayout
-                   android:layout_width="230dp"
-                   android:layout_height="wrap_content"
-                   android:orientation="horizontal"
-                   android:background="@drawable/rounded_corner"
-                   android:padding="10dp"
-                   android:layout_centerHorizontal="true"
-                   android:gravity="center">
-
-                   <ImageView
-                       android:id="@+id/imageView"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       app:srcCompat="@drawable/play"
-                       android:padding="2dp" />
-                   <TextView
-                       android:text="@string/startmeeting"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:textStyle="bold"
-                       android:gravity="center"
-                       android:textSize="25sp"
-                       android:textColor="@android:color/white"
-                       android:id="@+id/startmeeting_btn"
-                       android:padding="2dp"/>
-
-               </LinearLayout>
-
-            </RelativeLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/rel3"
-            android:layout_marginBottom="20dp"
-            android:layout_below="@id/lin2"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_alignParentBottom="true"
-            >
+    <TextView
+        android:id="@+id/tv_MeetingName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/meeting_title"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textview_big_2_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/tv_MeetingDate"
+        app:layout_constraintEnd_toEndOf="@id/tv_MeetingDate"
+        app:layout_constraintStart_toStartOf="@id/tv_MeetingDate" />
 
 
+    <TextView
+        android:id="@+id/tv_MeetingDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_MeetingName"
+        android:text="@string/firstmeeting_datenew"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textview_big_0_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/horizontal_guidline"
+        app:layout_constraintEnd_toStartOf="@id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
-            <!--<LinearLayout-->
-                <!--android:orientation="vertical"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:id="@+id/rel3lin1"-->
-                <!--&gt;-->
-                <!--<RelativeLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/rel3lin3_rel1"-->
+    <Button
+        android:id="@+id/startmeeting_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_MeetingDate"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/meeting_btn"
+        android:drawablePadding="10dp"
+        android:drawableStart="@drawable/ic_pause_circle_outline_black_24dp"
+        android:gravity="center"
+        android:paddingBottom="5dp"
+        android:paddingEnd="35dp"
+        android:paddingStart="35dp"
+        android:paddingTop="5dp"
+        android:text="@string/startmeeting"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textview_big_0_size"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_guidline" />
 
-                    <!--&gt;-->
-                    <!--<LinearLayout-->
-                        <!--android:layout_width="230dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:orientation="horizontal"-->
-                        <!--android:background="@drawable/rounded_corner"-->
-                        <!--android:padding="10dp"-->
-                        <!--android:layout_centerHorizontal="true"-->
-                        <!--android:gravity="center">-->
-
-                        <!--<ImageView-->
-                            <!--android:id="@+id/bookIv"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--app:srcCompat="@drawable/list"-->
-                            <!--android:padding="2dp" />-->
-                        <!--<TextView-->
-                            <!--android:text="@string/list"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:textStyle="bold"-->
-                            <!--android:gravity="center"-->
-                            <!--android:textSize="25sp"-->
-                            <!--android:textColor="@android:color/white"-->
-                            <!--android:id="@+id/tv_mettingList"-->
-                            <!--android:padding="2dp"/>-->
-
-                    <!--</LinearLayout>-->
-
-                <!--</RelativeLayout>-->
-            <!--</LinearLayout>-->
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/rel3lin2"
-                android:gravity="center"
-                android:layout_margin="15dp"
-                >
-                <LinearLayout
-                    android:layout_width="230dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="@drawable/rounded_corner"
-                    android:padding="10dp"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:id="@+id/listIv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/list"
-                        android:padding="2dp" />
-                    <TextView
-                        android:text="@string/meetingslist"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        android:textSize="25sp"
-                        android:textColor="@android:color/white"
-                        android:id="@+id/meetingslist_btn"
-                        android:padding="2dp"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/rel3lin3"
-                android:gravity="center"
-                android:layout_margin="15dp"
-                >
-                <LinearLayout
-                    android:layout_width="230dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="@drawable/rounded_corner"
-                    android:padding="10dp"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:id="@+id/listIv2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/book"
-                        android:padding="2dp" />
-                    <TextView
-                        android:text="@string/book"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        android:textSize="25sp"
-                        android:textColor="@android:color/white"
-                        android:id="@+id/book_btn"
-                        android:padding="2dp"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
+    <TextView
+        android:id="@+id/tv_MeetingHeld"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/meeting_held"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textview_big_1_size"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/startmeeting_btn"
+        app:layout_constraintStart_toStartOf="@+id/startmeeting_btn"
+        app:layout_constraintTop_toBottomOf="@+id/startmeeting_btn" />
 
 
-        </LinearLayout>
+    <Button
+        android:id="@+id/book_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_MeetingDate"
+        android:layout_margin="@dimen/_15sdp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/meeting_btn"
+        android:drawablePadding="10dp"
+        android:drawableStart="@drawable/ic_reserve_black_24dp"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:paddingEnd="60dp"
+        android:paddingStart="60dp"
+        android:paddingTop="10dp"
+        android:text="@string/book"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textview_big_0_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    </RelativeLayout>
+    <Button
+        android:id="@+id/meetingslist_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_MeetingDate"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/_15sdp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/meeting_btn"
+        android:drawablePadding="10dp"
+        android:drawableStart="@drawable/ic_meetings_list_black_24dp"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:text="@string/meetingslist"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textview_big_0_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guideline" />
+
     <include layout="@layout/custom_progressbar" />
-</LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

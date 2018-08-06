@@ -17,6 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dexOptions {
+        incremental = true;
+        preDexLibraries = false
+        javaMaxHeapSize "4g" // 2g should be also OK
+    }
 }
 
 dependencies {
@@ -27,7 +32,7 @@ dependencies {
     compile files('libs/smdt.jar')
 
 
- //   apply plugin: 'com.neenbedankt.android-apt'
+    //   apply plugin: 'com.neenbedankt.android-apt'
 
     //dagger 2
 
@@ -41,6 +46,8 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.android.volley:volley:1.0.0'
     compile 'com.android.support:appcompat-v7:25.3.1'
+    implementation 'com.intuit.sdp:sdp-android:1.0.5'
+    implementation 'com.intuit.ssp:ssp-android:1.0.5'
     compile 'com.android.support:design:25.3.1'
     compile 'com.squareup.okhttp:okhttp:2.5.0'
     compile 'io.reactivex:rxandroid:1.2.1'
@@ -50,7 +57,7 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.picasso:picasso:2.3.3'
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.2.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support.constraint:constraint-layout:1.1.2'
     compile 'com.android.support:percent:25.3.1'
     compile 'joda-time:joda-time:2.1'
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'

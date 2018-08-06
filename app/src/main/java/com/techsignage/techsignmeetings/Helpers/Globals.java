@@ -28,7 +28,9 @@ public class Globals {
     public static int skipCount = 0;
     public static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
     public static SimpleDateFormat format1 = new SimpleDateFormat("h:mm a");
+    public static SimpleDateFormat format1_ar = new SimpleDateFormat("h:mm a", new Locale("ar"));
     public static SimpleDateFormat format3 = new SimpleDateFormat("dd/MM/yyyy");
+    public static SimpleDateFormat format3_ar = new SimpleDateFormat("dd/MM/yyyy", new Locale("ar"));
     public static String timeStamp = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss aaa").format(new Date());
     //public static String timeStamp2 = new SimpleDateFormat("EEEE, dd/MM/yyyy | HH:mm aaa").format(new Date());
     public static SimpleDateFormat format4 = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss aaa");

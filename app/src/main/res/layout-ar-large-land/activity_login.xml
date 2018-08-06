@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintParent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_horiz1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.12" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/tv_UnitName"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_UnitName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@color/white"
+        android:elevation="30dp"
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        android:text="@string/room_name"
+        android:textColor="@color/header"
+        android:textSize="@dimen/textview_big_1_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/guideline_horiz1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="230dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:elevation="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_UnitName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_UnitName"
+        app:srcCompat="@drawable/sharewinds" />
+
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/subHeader2"
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/loginText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view1" />
+
+    <View
+        android:id="@+id/view_login"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/subHeader1"
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/loginText"
+        app:layout_constraintEnd_toStartOf="@id/guideline1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view1" />
+
+    <TextView
+        android:id="@+id/loginText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/subHeader1"
+        android:elevation="@dimen/_5sdp"
+        android:gravity="start"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="@string/signin"
+        android:textAlignment="textStart"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textview_middle_size"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/tv_UnitName"
+        app:layout_constraintTop_toBottomOf="@id/view1" />
+
+
+    <TextView
+        android:id="@+id/tv_NowDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/_5sdp"
+        android:gravity="start"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="@string/date"
+        android:textAlignment="textStart"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textview_middle_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/loginText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline1"
+        app:layout_constraintTop_toTopOf="@+id/loginText" />
+
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/username"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textview_middle_size"
+        app:layout_constraintBottom_toTopOf="@id/userName_txt"
+        app:layout_constraintStart_toStartOf="@id/userName_txt" />
+
+    <EditText
+        android:id="@+id/userName_txt"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/border"
+        android:drawableLeft="@drawable/ic_prfile_black_24dp"
+        android:drawablePadding="20dp"
+        android:drawableStart="@drawable/ic_prfile_black_24dp"
+        android:hint="@string/enter_username"
+        android:imeOptions="flagNoExtractUi|flagNavigateNext"
+        android:inputType="text"
+        android:paddingBottom="10dp"
+        android:paddingLeft="@dimen/_15sdp"
+        android:paddingStart="@dimen/_15sdp"
+        android:paddingTop="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/hintColor"
+        android:textSize="@dimen/textview_middle_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/passwoord"
+        app:layout_constraintStart_toStartOf="@id/passwoord" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/vertical_guidline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <TextView
+        android:id="@+id/passwoord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/password"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textview_middle_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/vertical_guidline"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <EditText
+        android:id="@+id/password_txt"
+
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/border"
+        android:drawableLeft="@drawable/ic_lock_outline_black_24dp"
+        android:drawablePadding="20dp"
+        android:drawableStart="@drawable/ic_lock_outline_black_24dp"
+        android:gravity="start"
+        android:hint="@string/enter_password"
+        android:imeOptions="flagNoExtractUi|flagNavigateNext"
+        android:inputType="textPassword"
+        android:paddingBottom="10dp"
+        android:paddingLeft="@dimen/_15sdp"
+        android:paddingStart="@dimen/_15sdp"
+        android:paddingTop="10dp"
+        android:textAlignment="viewStart"
+        android:textColor="@color/white"
+        android:textColorHint="@color/hintColor"
+        android:textSize="@dimen/textview_middle_size"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/userName_txt"
+        app:layout_constraintStart_toStartOf="@id/passwoord"
+        app:layout_constraintTop_toBottomOf="@id/passwoord" />
+
+    <Button
+        android:id="@+id/next_btn1"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/login_btn"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:paddingEnd="70dp"
+        android:paddingStart="70dp"
+        android:text="@string/signin"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textview_middle_size"
+        app:layout_constraintEnd_toEndOf="@id/password_txt"
+        app:layout_constraintStart_toStartOf="@id/password_txt"
+        app:layout_constraintTop_toBottomOf="@+id/password_txt" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/next_btn"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/confirm_btn"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:text="@string/next"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- <Button
+         android:id="@+id/back_btn"
+         android:layout_width="@dimen/_120sdp"
+         android:layout_height="@dimen/_30sdp"
+         android:layout_marginBottom="10dp"
+         android:layout_marginEnd="30dp"
+         android:layout_marginTop="30dp"
+         android:background="@drawable/back_btn"
+         android:text="@string/back"
+         android:textColor="#83bc5c"
+         android:textSize="25sp"
+         android:textStyle="bold"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent" />
+
+     <View
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:background="@color/white"
+         app:layout_constraintTop_toBottomOf="@+id/guideline_horiz2" />
+ -->
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/footer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/footer_hight"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/back_btn"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:background="@drawable/cancel_btn"
+                android:text="@string/back"
+                android:textColor="@color/green"
+                android:textSize="@dimen/textview_middle_size" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline_horiz2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.85" />
+
+
+    <include layout="@layout/custom_progressbar" />
+
+</android.support.constraint.ConstraintLayout>

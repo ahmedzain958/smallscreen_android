@@ -66,6 +66,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -80,20 +81,24 @@ public class MainActivity extends CoreActivity {
 
     private Subscription subscription;
 
-    @BindView(R.id.container1_lin)
-    RelativeLayout container1_lin;
+   /* @BindView(R.id.container1_lin)
+    RelativeLayout container1_lin;*/
 
     @BindView(R.id.container2_lin)
     RelativeLayout container2_lin;
 
-    @BindView(R.id.container3_lin)
-    RelativeLayout container3_lin;
+  /*  @BindView(R.id.container3_lin)
+    RelativeLayout container3_lin;*/
 
     @BindView(R.id.tv_UnitName)
     TextView tv_UnitName;
 
     @BindView(R.id.tv_NowDate)
     TextView tv_NowDate;
+    @BindView(R.id.date_txt)
+    TextView date;
+    @BindView(R.id.tv_MeetingHeld)
+    TextView tv_MeetingHeld;
 
     @BindView(R.id.startmeeting_btn)
     Button startmeeting_btn;
@@ -177,8 +182,7 @@ public class MainActivity extends CoreActivity {
         //new LiscenceTask(this).execute("AGKA0S0H00AXNGZ78XM35J1I4M");
         new LiscenceTask(this).execute(Utilities.getSharedValue("licensekey", getApplicationContext()));
 
-        if (Utilities.getSharedValue("licensed", this).equals(""))
-        {
+        if (Utilities.getSharedValue("licensed", this).equals("")) {
             Intent intent = new Intent(MainActivity.this, LicenseNewActivity.class);
             startActivity(intent);
             finish();
@@ -186,11 +190,10 @@ public class MainActivity extends CoreActivity {
 
         smdtManager = SmdtManager.create(this);
 
-        if(smdtManager != null)
-        {
-            smdtManager.smdtSetExtrnalGpioValue (1,false);
-            smdtManager.smdtSetExtrnalGpioValue (2,false);
-            smdtManager.smdtSetExtrnalGpioValue (1,true);
+        if (smdtManager != null) {
+            smdtManager.smdtSetExtrnalGpioValue(1, false);
+            smdtManager.smdtSetExtrnalGpioValue(2, false);
+            smdtManager.smdtSetExtrnalGpioValue(1, true);
         }
 
         meetingslist_btn.setOnClickListener(new View.OnClickListener() {
@@ -203,18 +206,14 @@ public class MainActivity extends CoreActivity {
 
         //dialog = Utilities.showDialog(MainActivity.this);
         getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
-        try
-        {
-            if (!(Utilities.getSharedValue("licensed", this).equals("")))
-            {
+        try {
+            if (!(Utilities.getSharedValue("licensed", this).equals(""))) {
                 progress_rel.setVisibility(View.VISIBLE);
                 //sweetAlertDialog = Utilities.showProgressPrettyDialog(this, getResources().getString(R.string.processing));
                 //sweetAlertDialog.show();
                 callWithToken();
             }
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
 
         }
 
@@ -223,11 +222,10 @@ public class MainActivity extends CoreActivity {
             public void onClick(View view) {
 
                 getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
-                if(smdtManager != null)
-                {
-                    smdtManager.smdtSetExtrnalGpioValue (1,false);
-                    smdtManager.smdtSetExtrnalGpioValue (2,false);
-                    smdtManager.smdtSetExtrnalGpioValue (3,false);
+                if (smdtManager != null) {
+                    smdtManager.smdtSetExtrnalGpioValue(1, false);
+                    smdtManager.smdtSetExtrnalGpioValue(2, false);
+                    smdtManager.smdtSetExtrnalGpioValue(3, false);
                 }
 
                 progress_rel.setVisibility(View.VISIBLE);
@@ -237,40 +235,37 @@ public class MainActivity extends CoreActivity {
                 meetingModel.MEETING_ID = firstMeeting.MEETING_ID;
                 meetingModel.UNIT_ID = Globals.unitId;
 
-                if (startmeeting_btn.getText().toString().equals(getResources().getString(R.string.startmeeting)))
-                {
+                if (startmeeting_btn.getText().toString().equals(getResources().getString(R.string.startmeeting))) {
                     meetingModel.IsStarting = 1;
-                }
-                else
-                {
+                } else {
                     meetingModel.IsStarting = 0;
                 }
 
                 Observable<RoomMeetingsResponse> callforstart = retrofitInterface.startmeeting(meetingModel);
                 subscription = callforstart.observeOn(AndroidSchedulers.mainThread())
-                                .subscribeOn(Schedulers.newThread())
-                                .subscribe(new Subscriber<RoomMeetingsResponse>() {
-                                @Override
-                                public void onCompleted() {
+                        .subscribeOn(Schedulers.newThread())
+                        .subscribe(new Subscriber<RoomMeetingsResponse>() {
+                            @Override
+                            public void onCompleted() {
 
-                                }
+                            }
 
-                                @Override
-                                public void onError(Throwable e) {
-                                    e.printStackTrace();
-                                }
+                            @Override
+                            public void onError(Throwable e) {
+                                e.printStackTrace();
+                            }
 
-                                @Override
-                                public void onNext(final RoomMeetingsResponse serviceResponse) {
+                            @Override
+                            public void onNext(final RoomMeetingsResponse serviceResponse) {
 
-                                    OngoingReactAsync(serviceResponse);
+                                OngoingReactAsync(serviceResponse);
 
-                                    getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
+                                getWindow().getDecorView().setSystemUiVisibility(Globals.flags2);
 
-                                    //sweetAlertDialog.hide();
-                                    progress_rel.setVisibility(View.GONE);
-                                }
-                            });
+                                //sweetAlertDialog.hide();
+                                progress_rel.setVisibility(View.GONE);
+                            }
+                        });
             }
         });
 
@@ -286,20 +281,14 @@ public class MainActivity extends CoreActivity {
         connector = new IConnector() {
             @Override
             public void getConnectionStatus(Boolean currentStatus) {
-                if (currentStatus)
-                {
-                    try
-                    {
+                if (currentStatus) {
+                    try {
                         if (!(Utilities.getSharedValue("licensed", MainActivity.this).equals("")))
                             callWithToken();
-                    }
-                    catch (Exception ex)
-                    {
+                    } catch (Exception ex) {
 
                     }
-                }
-                else
-                {
+                } else {
                     Toast.makeText(getApplicationContext(), "Please connect to the Internet", Toast.LENGTH_LONG).show();
                 }
             }
@@ -346,11 +335,10 @@ public class MainActivity extends CoreActivity {
 //    }
 
     private void callWithToken() {
-        if(t != null)
+        if (t != null)
             t.cancel();
 
-        if (Utilities.getSharedValue("token", MainActivity.this).equals(""))
-        {
+        if (Utilities.getSharedValue("token", MainActivity.this).equals("")) {
             VolleyRequest request = new VolleyRequest();
             request.getString(new VolleyCallbackString() {
                                   @Override
@@ -379,16 +367,14 @@ public class MainActivity extends CoreActivity {
                                   }
                               }, MainActivity.this, getApplicationContext(), Globals.tokenUrl, "",
                     String.format("grant_type=password&username=%s&password=%s", "Admin", "P@ssw0rd"), ContentTypes.FormEncoded.toString());
-        }
-        else
-        {
+        } else {
             loadMeetings();
         }
 
     }
 
     private void loadMeetings() {
-        ((TechApp)getApplication()).setNetComponent();
+        ((TechApp) getApplication()).setNetComponent();
         ((TechApp) getApplication()).getNetComponent().inject(MainActivity.this);
         Observable<RoomsResponse> allRooms = retrofitInterface.allrooms();
         subscription = allRooms.observeOn(AndroidSchedulers.mainThread())
@@ -430,7 +416,8 @@ public class MainActivity extends CoreActivity {
                 });
 
 
-        tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy | HH:mm aaa").format(new Date()));
+        date.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy").format(new Date()));
+        tv_NowDate.setText(new SimpleDateFormat("HH:mm aaa").format(new Date()));
 
         t = new Timer();
         t.scheduleAtFixedRate(new TimerTask() {
@@ -455,12 +442,12 @@ public class MainActivity extends CoreActivity {
     //set colors for china devices
     private void setChinaColor(int color) {
         //2 for green, 1 for blue, 3 for red
-        if(smdtManager != null)
-        {   smdtManager.smdtSetExtrnalGpioValue (1,false);
-            smdtManager.smdtSetExtrnalGpioValue (2,false);
-            smdtManager.smdtSetExtrnalGpioValue (3,false);
+        if (smdtManager != null) {
+            smdtManager.smdtSetExtrnalGpioValue(1, false);
+            smdtManager.smdtSetExtrnalGpioValue(2, false);
+            smdtManager.smdtSetExtrnalGpioValue(3, false);
 
-            smdtManager.smdtSetExtrnalGpioValue (color,true);
+            smdtManager.smdtSetExtrnalGpioValue(color, true);
         }
     }
 
@@ -470,8 +457,7 @@ public class MainActivity extends CoreActivity {
     }
 
     //start the async call to get the meetings
-    void startChecking()
-    {
+    void startChecking() {
         UnitModel model = new UnitModel();
         model.UNIT_ID = Globals.unitId;
         Observable<RoomMeetingsResponse> data = retrofitInterface.roomreservations(model);
@@ -510,29 +496,26 @@ public class MainActivity extends CoreActivity {
         tv_nextMeeting.setText("");
         startmeeting_btn.setEnabled(false);
         //inMeeting = false;
-        tv_NowDate.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy | HH:mm aaa").format(new Date()));
+        date.setText(new SimpleDateFormat("EEEE, dd/MM/yyyy").format(new Date()));
+        tv_NowDate.setText(new SimpleDateFormat("HH:mm aaa").format(new Date()));
 
 
         tv_UnitName.setText(serviceResponse.RoomMeetings.Room.UNIT_NAME);
         long chkfirst_diff = 0;
-        if(serviceResponse.RoomMeetings.Meetings.size() > 0)
-        {
+        if (serviceResponse.RoomMeetings.Meetings.size() > 0) {
             firstMeeting = serviceResponse.RoomMeetings.Meetings.get(0).meeting;
-            try
-            {
+            try {
                 Date startdate = Globals.format.parse(firstMeeting.START_DATETIME);
                 Date enddate = Globals.format.parse(firstMeeting.END_DATETIME);
                 chkfirst_diff = getDifference(new Date(), startdate);
-                if(chkfirst_diff <= 1)
-                {
+                if (chkfirst_diff <= 1) {
                     startmeeting_btn.setEnabled(true);
                     String MeetingDate = String.format("%s - %s", Globals.format1.format(startdate), Globals.format1.format(enddate));
                     tv_MeetingDate.setText(MeetingDate);
                     tv_MeetingName.setText(firstMeeting.MEETING_TITLE);
                     //inMeeting = false;
 
-                    if (firstMeeting.ACTUAL_START_DATETIME != null)
-                    {
+                    if (firstMeeting.ACTUAL_START_DATETIME != null) {
                         value = 1;
                         gpio_num = 42;
                         handler.post(task);
@@ -545,12 +528,12 @@ public class MainActivity extends CoreActivity {
                         gpio_num = 42;
                         handler.post(task);
 
-                        container2_lin.setBackgroundColor(Color.RED);
+                        container2_lin.setBackgroundColor(Color.parseColor("#ff4f4f"));
                         startmeeting_btn.setText(R.string.endmeeting);
+                        tv_MeetingHeld.setVisibility(View.VISIBLE);
                         setChinaColor(3);
 
-                    }
-                    else {
+                    } else {
                         value = 1;
                         gpio_num = 42;
                         handler.post(task);
@@ -561,13 +544,13 @@ public class MainActivity extends CoreActivity {
 
                         startmeeting_btn.setText(R.string.startmeeting);
                         container2_lin.setBackgroundColor(Color.WHITE);
+                        tv_MeetingHeld.setVisibility(View.GONE);
 
                         if (chkfirst_diff < -4)
                             tv_MeetingDate.setText(String.format(("Delayed\n%s"), MeetingDate));
                         setChinaColor(2);
                     }
-                }
-                else {
+                } else {
                     value = 1;
                     gpio_num = 43;
                     handler.post(task);
@@ -581,40 +564,35 @@ public class MainActivity extends CoreActivity {
                     handler.post(task);
 
                     //inMeeting = false;
-                    container2_lin.setBackgroundColor(getResources().getColor(R.color.green));
+                    container2_lin.setBackgroundColor(Color.parseColor("#83bc5c"));
+                    tv_MeetingHeld.setVisibility(View.GONE);
                     String MeetingDate2 = String.format("%s - %s", Globals.format1.format(startdate), Globals.format1.format(enddate));
                     tv_nextMeetingDate.setText(MeetingDate2);
                     tv_nextMeeting.setText(firstMeeting.MEETING_TITLE);
 
                     setChinaColor(2);
                 }
-            }
-            catch(Exception ex)
-            {
+            } catch (Exception ex) {
 
             }
         }
-        if(serviceResponse.RoomMeetings.Meetings.size() > 1) {
-            try
-            {
+        if (serviceResponse.RoomMeetings.Meetings.size() > 1) {
+            try {
                 secondMeeting = serviceResponse.RoomMeetings.Meetings.get(1).meeting;
 
                 Date startdate2 = Globals.format.parse(secondMeeting.START_DATETIME);
                 Date enddate2 = Globals.format.parse(secondMeeting.END_DATETIME);
                 String MeetingDate2 = String.format("%s - %s", Globals.format1.format(startdate2), Globals.format1.format(enddate2));
 
-                if(chkfirst_diff <= 1) {
+                if (chkfirst_diff <= 1) {
                     tv_nextMeeting.setText(secondMeeting.MEETING_TITLE);
                     tv_nextMeetingDate.setText(MeetingDate2);
                 }
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
 
             }
         }
-        if(serviceResponse.RoomMeetings.Meetings.size() == 0)
-        {
+        if (serviceResponse.RoomMeetings.Meetings.size() == 0) {
             value = 1;
             gpio_num = 42;
             handler.post(task);
@@ -627,20 +605,21 @@ public class MainActivity extends CoreActivity {
             gpio_num = 43;
             handler.post(task);
 
-            container2_lin.setBackgroundColor(getResources().getColor(R.color.green));
+            container2_lin.setBackgroundColor(Color.parseColor("#83bc5c"));
+            tv_MeetingHeld.setVisibility(View.GONE);
             setChinaColor(2);
 
         }
     }
 
     //get difference between two dates
-    public long getDifference(Date startDate, Date endDate){
+    public long getDifference(Date startDate, Date endDate) {
 
         //milliseconds
         long different = endDate.getTime() - startDate.getTime();
 
         System.out.println("startDate : " + startDate);
-        System.out.println("endDate : "+ endDate);
+        System.out.println("endDate : " + endDate);
         System.out.println("different : " + different);
 
         long secondsInMilli = 1000;
@@ -667,32 +646,30 @@ public class MainActivity extends CoreActivity {
         return elapsedMinutes;
     }
 
-    void setLandscape()
-    {
+  /*  void setLandscape() {
         container1_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .18f));
         container2_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .64f));
         container3_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .18f));
     }
 
-    void setPortrait()
-    {
+    void setPortrait() {
         container1_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .15f));
         container2_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .70f));
         container3_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .15f));
-    }
+    }*/
 
-    @Override
+   /* @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+      if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
             setLandscape();
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
             Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
             setPortrait();
         }
-    }
+    }*/
 
     @Override
     public Object onRetainCustomNonConfigurationInstance() {
@@ -703,7 +680,7 @@ public class MainActivity extends CoreActivity {
     protected void onDestroy() {
         super.onDestroy();
         super.networkStateReceiver.connector = null;
-        if(t != null)
+        if (t != null)
             t.cancel();
     }
 }

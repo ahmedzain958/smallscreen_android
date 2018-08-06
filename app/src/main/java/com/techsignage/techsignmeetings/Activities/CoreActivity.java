@@ -30,7 +30,7 @@ public class CoreActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Toast.makeText(this, "onCreate", Toast.LENGTH_LONG).show();
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         AppLocal.checkConfigurationFile(this);
         Globals.setAppLocal(this, Globals.lang);

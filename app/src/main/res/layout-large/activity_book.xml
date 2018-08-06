@@ -183,7 +183,7 @@
                             android:background="@color/dWhite"
                             >
                             <TextView
-                                android:text="@string/room"
+                                android:text="@string/room_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textSize="14sp"
@@ -202,7 +202,7 @@
                             android:padding="5dp">
 
                             <Spinner
-                                android:id="@+id/rooms_spinner"
+                                android:id= "@+id/rooms_spinner"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:spinnerMode="dropdown"

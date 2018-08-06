@@ -31,6 +31,7 @@ import com.techsignage.techsignmeetings.Network.ContentTypes;
 import com.techsignage.techsignmeetings.Helpers.Globals;
 import com.techsignage.techsignmeetings.Network.VolleyCallbackString;
 import com.techsignage.techsignmeetings.Network.VolleyRequest;
+
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
@@ -54,6 +55,7 @@ public class MeetingAttendees extends CoreActivity {
     TextView tv_NowDate;
     TextView tv_MeetingTitle;
     TextView tv_MeetingDate;
+    TextView tv_MeetingTime;
     TextView tv_MeetingOrganizer;
     RelativeLayout container1_lin;
     RelativeLayout container2_lin;
@@ -74,10 +76,8 @@ public class MeetingAttendees extends CoreActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meeting_attendees);
 
-        if (getIntent() != null)
-        {
-            if (getIntent().getExtras() != null)
-            {
+        if (getIntent() != null) {
+            if (getIntent().getExtras() != null) {
                 final String MEETING_ID = getIntent().getExtras().getString("MEETING_ID");
                 final String UNIT_NAME = getIntent().getExtras().getString("UNIT_NAME");
                 final String UNIT_ID = getIntent().getExtras().getString("UNIT_ID");
@@ -87,17 +87,18 @@ public class MeetingAttendees extends CoreActivity {
                 //final Boolean Status = getIntent().getExtras().getBoolean("Status");
                 //final Boolean StatusOut = getIntent().getExtras().getBoolean("StatusOut");
 
-                container1_lin = (RelativeLayout)findViewById(R.id.container1_lin);
-                container2_lin = (RelativeLayout)findViewById(R.id.container2_lin);
-                container3_lin = (RelativeLayout)findViewById(R.id.container3_lin);
-                tv_UnitName = (TextView)findViewById(R.id.tv_UnitName);
-                tv_NowDate = (TextView)findViewById(R.id.tv_NowDate);
-                tv_MeetingTitle = (TextView)findViewById(R.id.tv_MeetingTitle);
-                tv_MeetingDate = (TextView)findViewById(R.id.tv_MeetingDate);
-                tv_MeetingOrganizer = (TextView)findViewById(R.id.tv_MeetingOrganizer);
+                container1_lin = (RelativeLayout) findViewById(R.id.container1_lin);
+                container2_lin = (RelativeLayout) findViewById(R.id.container2_lin);
+                container3_lin = (RelativeLayout) findViewById(R.id.container3_lin);
+                tv_UnitName = (TextView) findViewById(R.id.tv_UnitName);
+                tv_NowDate = (TextView) findViewById(R.id.tv_NowDate);
+                tv_MeetingTitle = (TextView) findViewById(R.id.tv_MeetingTitle);
+                tv_MeetingDate = (TextView) findViewById(R.id.tv_MeetingDate);
+                tv_MeetingTime = (TextView) findViewById(R.id.tv_MeetingTime);
+                tv_MeetingOrganizer = (TextView) findViewById(R.id.tv_MeetingOrganizer);
                 next_btn = (Button) findViewById(R.id.next_btn);
-                prev_btn = (Button)findViewById(R.id.prev_btn);
-                back_btn = (Button)findViewById(R.id.back_btn);
+                prev_btn = (Button) findViewById(R.id.prev_btn);
+                back_btn = (Button) findViewById(R.id.back_btn);
                 progress_rel = (RelativeLayout) findViewById(R.id.progress_rel);
 
                 tv_UnitName.setText(UNIT_NAME);
@@ -251,24 +252,20 @@ public class MeetingAttendees extends CoreActivity {
                                                               public void onNext(RoomMeetingsResponse serviceResponse) {
                                                                   progress_rel.setVisibility(View.GONE);
 
-                                                                  for (UserMeetingModel userMeetingModel : serviceResponse.RoomMeetings.MeetingsAll)
-                                                                  {
-                                                                      if (userMeetingModel.meeting.MEETING_ID.equals(MEETING_ID))
-                                                                      {
+                                                                  for (UserMeetingModel userMeetingModel : serviceResponse.RoomMeetings.MeetingsAll) {
+                                                                      if (userMeetingModel.meeting.MEETING_ID.equals(MEETING_ID)) {
                                                                           meetingModel = userMeetingModel;
                                                                           break;
                                                                       }
                                                                   }
 
-                                                                  final WebView webview = (WebView)findViewById(R.id.webview_main);
-                                                                  if (webview != null)
-                                                                  {
-                                                                      try
-                                                                      {
-                                                                          webview.setWebViewClient(new WebViewClient(){
+                                                                  final WebView webview = (WebView) findViewById(R.id.webview_main);
+                                                                  if (webview != null) {
+                                                                      try {
+                                                                          webview.setWebViewClient(new WebViewClient() {
 
                                                                               @Override
-                                                                              public boolean shouldOverrideUrlLoading(WebView view, String url){
+                                                                              public boolean shouldOverrideUrlLoading(WebView view, String url) {
                                                                                   view.loadUrl(url);
                                                                                   return true;
                                                                               }
@@ -291,15 +288,13 @@ public class MeetingAttendees extends CoreActivity {
                                                                           webview.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
                                                                           webview.setWebChromeClient(new WebChromeClient());
                                                                           webview.loadUrl(String.format("%s/main.html?poi=%s", Globals.coreUrl, meetingModel.unit.WF_POI.ROOM_NO));
-                                                                      }
-                                                                      catch(Exception ex)
-                                                                      {
+                                                                      } catch (Exception ex) {
 
                                                                       }
 
                                                                   }
 
-                                                                  adapter = new AttendeesAdapter(MeetingAttendees.this, meetingModel.meeting.CanCheckin, meetingModel.meeting.CanCheckOut, showbtns_check) ;
+                                                                  adapter = new AttendeesAdapter(MeetingAttendees.this, meetingModel.meeting.CanCheckin, meetingModel.meeting.CanCheckOut, showbtns_check);
 //                                                                  List<ATTENDEEModel> meetingModels = new ArrayList<ATTENDEEModel>();
 //                                                                  for (int i = 0; i < meetingModel.meeting.ATTENDEES.size(); i++)
 //                                                                  {
@@ -320,19 +315,26 @@ public class MeetingAttendees extends CoreActivity {
                                                                           meetingModel.user.LAST_NAME));
                                                                   //tv_MeetingDate.setText(serviceResponse.RoomMeetingsResponse.Meetings.get(0).meeting.START_DATETIME);
 
-                                                                  try
-                                                                  {
+                                                                  try {
                                                                       Date startdate = Globals.format.parse(meetingModel.meeting.START_DATETIME);
                                                                       Date enddate = Globals.format.parse(meetingModel.meeting.END_DATETIME);
-                                                                      String MeetingDate = String.format("%s | %s - %s", Globals.format3.format(startdate), Globals.format1.format(startdate), Globals.format1.format(enddate));
+
+                                                                      String MeetingDate="";
+                                                                      String MeetingTime="";
+                                                                      if (Globals.lang.equals("ar")){
+                                                                           MeetingDate = String.format("%s", Globals.format3_ar.format(startdate));
+                                                                           MeetingTime = String.format("%s - %s", Globals.format1_ar.format(startdate), Globals.format1_ar.format(enddate));
+                                                                      }else {
+                                                                           MeetingDate = String.format("%s", Globals.format3.format(startdate));
+                                                                           MeetingTime = String.format("%s - %s", Globals.format1.format(startdate), Globals.format1.format(enddate));
+                                                                      }
                                                                       tv_MeetingDate.setText(MeetingDate);
-                                                                  }
-                                                                  catch(Exception ex)
-                                                                  {
+                                                                      tv_MeetingTime.setText(MeetingTime);
+                                                                  } catch (Exception ex) {
 
                                                                   }
 
-                                                                  activerequestslist = (RecyclerView)findViewById(R.id.attendees_list);
+                                                                  activerequestslist = (RecyclerView) findViewById(R.id.attendees_list);
                                                                   assert activerequestslist != null;
                                                                   adapter = new AttendeesAdapter(MeetingAttendees.this, meetingModel.meeting.CanCheckin, meetingModel.meeting.CanCheckOut, showbtns_check);
                                                                   //adapter.setLst(meetingModels);
@@ -366,13 +368,22 @@ public class MeetingAttendees extends CoreActivity {
         }
 
 
-
     }
-
-    public void setTimer()
-    {
-        if (tclose != null)
-        {
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        }
+    }
+    public void setTimer() {
+        if (tclose != null) {
             //Toast.makeText(getApplicationContext(), "aloh", Toast.LENGTH_SHORT).show();
             tclose.cancel();
         }
@@ -385,8 +396,8 @@ public class MeetingAttendees extends CoreActivity {
                     @Override
                     public void run() {
                         //finish();
-                        //Intent intent = new Intent(MeetingAttendees.this, MainNewActivity.class);
-                        Intent intent = new Intent(MeetingAttendees.this, AllListActivity.class);
+                        Intent intent = new Intent(MeetingAttendees.this, MainNewActivity.class);
+                        //Intent intent = new Intent(MeetingAttendees.this, AllListActivity.class);
                         startActivity(intent);
                         finish();
                     }
@@ -403,7 +414,7 @@ public class MeetingAttendees extends CoreActivity {
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
             setLandscape();
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
             setPortrait();
         }
@@ -427,15 +438,13 @@ public class MeetingAttendees extends CoreActivity {
 //            prev_btn.setEnabled(false);
 //    }
 
-    void setLandscape()
-    {
+    void setLandscape() {
         container1_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .19f));
         container2_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .64f));
         container3_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .17f));
     }
 
-    void setPortrait()
-    {
+    void setPortrait() {
         container1_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .15f));
         container2_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .70f));
         container3_lin.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0, .15f));
