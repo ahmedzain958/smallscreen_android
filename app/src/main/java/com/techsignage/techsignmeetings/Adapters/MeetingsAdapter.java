@@ -97,7 +97,6 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.ListVi
     @Override
     public MeetingsAdapter.ListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        //View convertView = inflater.inflate(R.layout.meeting_item, parent, false);
         View convertView = inflater.inflate(layout, parent, false);
         return new MeetingsAdapter.ListViewHolder(convertView);
     }
