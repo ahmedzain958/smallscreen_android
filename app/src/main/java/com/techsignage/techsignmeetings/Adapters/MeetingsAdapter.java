@@ -30,7 +30,6 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.ListVi
         TextView tv_meetingdate;
         TextView tv_meetingtitle;
         TextView tv_meetingorganizer;
-        TextView tv_meetingroom;
 
         public ListViewHolder(View itemView) {
             super(itemView);
@@ -38,7 +37,6 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.ListVi
             tv_meetingdate = (TextView) itemView.findViewById(R.id.tv_meetingdate);
             tv_meetingtitle = (TextView) itemView.findViewById(R.id.tv_meetingtitle);
             tv_meetingorganizer = (TextView) itemView.findViewById(R.id.tv_meetingorganizer);
-            tv_meetingroom = (TextView) itemView.findViewById(R.id.tv_meetingroom);
 
             itemView.setOnClickListener(this);
         }
@@ -130,9 +128,6 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.ListVi
             holder.tv_meetingtitle.setText(dataList.get(position).meeting.MEETING_TITLE);
             holder.tv_meetingorganizer.setText(String.format("%s %s", dataList.get(position).user.FIRST_NAME
                     , dataList.get(position).user.LAST_NAME ));
-            if (holder.tv_meetingroom != null) {
-                holder.tv_meetingroom.setText(dataList.get(position).unit.UNIT_NAME);
-            }
             Utilities.setFadeAnimation(holder.itemView);
             holder.itemView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
             itemHeight = holder.itemView.getMeasuredHeight();
