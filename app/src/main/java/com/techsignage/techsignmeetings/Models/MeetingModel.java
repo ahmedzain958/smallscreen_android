@@ -69,4 +69,6 @@ public class MeetingModel {
 
     @SerializedName("Lang")
     public String Lang;
+    @SerializedName("MEETING_DESCRIPTION")
+    public String MEETING_DESCRIPTION;
 }
