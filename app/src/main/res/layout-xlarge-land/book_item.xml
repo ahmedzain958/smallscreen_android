@@ -1,40 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rel1"
-    android:layout_width="wrap_content"
+    android:layout_width="110dp"
     android:layout_height="match_parent"
     android:layout_marginEnd="-1dp"
-    android:layout_marginRight="-1dp"
-    android:orientation="horizontal">
+    android:layout_marginRight="-1dp">
+
+
+    <TextView
+        android:id="@+id/tv_hour"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="start"
+        android:text="9:00"
+        android:textAlignment="textStart"
+        android:textColor="#a6d2ef" />
+
+    <TextView
+        android:id="@+id/tv_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tv_hour"
+        android:background="@drawable/white_bg"
+        android:text=" " />
 
     <View
-        android:layout_width="1dp"
+        android:layout_width="@dimen/_1sdp"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:background="@color/background" />
-
-    <LinearLayout
-        android:layout_width="110dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tv_hour"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:textColor="#a6d2ef"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:gravity="start"
-            android:text="9:00"
-            android:textAlignment="textStart" />
-
-        <TextView
-            android:id="@+id/tv_container"
-            android:layout_width="110dp"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/tv_hour"
-            android:background="@drawable/white_bg"
-            android:text=" " />
-    </LinearLayout>
-</LinearLayout>
+        android:layout_alignParentEnd="true"
+        android:background="#85c1e8"
+        android:layout_alignParentRight="true" />
+</RelativeLayout>

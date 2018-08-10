@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,14 +25,14 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ListView
 
 
     class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        LinearLayout rel1;
+        RelativeLayout rel1;
         TextView tv_hour;
         TextView tv_container;
 
         public ListViewHolder(View itemView) {
             super(itemView);
 
-            rel1 = (LinearLayout) itemView.findViewById(R.id.rel1);
+            rel1 = (RelativeLayout) itemView.findViewById(R.id.rel1);
             tv_hour = (TextView) itemView.findViewById(R.id.tv_hour);
             tv_container = (TextView) itemView.findViewById(R.id.tv_container);
             itemView.setOnClickListener(this);

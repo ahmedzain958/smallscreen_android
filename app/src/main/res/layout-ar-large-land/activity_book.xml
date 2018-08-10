@@ -210,7 +210,7 @@
         app:layout_constraintTop_toBottomOf="@+id/meeting_datetime" />
 
 
-    <EditText
+    <TextView
         android:id="@+id/tv_MeetingOrganizer"
         android:layout_width="500dp"
         android:layout_height="wrap_content"
