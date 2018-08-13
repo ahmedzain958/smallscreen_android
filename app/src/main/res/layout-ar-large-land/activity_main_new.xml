@@ -5,7 +5,7 @@
     android:id="@+id/loginmain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/meeting_room" >
+    android:background="@drawable/blue" >
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -18,8 +18,6 @@
         android:id="@+id/container2_lin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:alpha="0.85"
-        android:background="@color/background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/guideline"

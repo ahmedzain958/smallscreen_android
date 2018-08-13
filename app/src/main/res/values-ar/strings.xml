@@ -12,7 +12,7 @@
     <string name="meetingslist">قائمة الاجتماعات</string>
     <string name="meeting_title">عنوان الاجتماع</string>
     <string name="meeting_datetime">الوقت</string>
-    <string name="meeting_organizer">المنظم</string>
+    <string name="meeting_organizer">القاعة</string>
     <string name="meeting_attendees">الحاضرون</string>
     <string name="checkin">تسجيل الدخول</string>
     <string name="checkout">تسجيل الخروج</string>

@@ -311,22 +311,22 @@ public class MeetingAttendees extends CoreActivity {
 
                                                                   tv_UnitName.setText(serviceResponse.RoomMeetings.Room.UNIT_NAME);
                                                                   tv_MeetingTitle.setText(meetingModel.meeting.MEETING_TITLE);
-                                                                  tv_MeetingOrganizer.setText(String.format("%s %s", meetingModel.user.FIRST_NAME,
-                                                                          meetingModel.user.LAST_NAME));
+                                                                  tv_MeetingOrganizer.setText(meetingModel.meeting.MEETING_DESCRIPTION);
+
                                                                   //tv_MeetingDate.setText(serviceResponse.RoomMeetingsResponse.Meetings.get(0).meeting.START_DATETIME);
 
                                                                   try {
                                                                       Date startdate = Globals.format.parse(meetingModel.meeting.START_DATETIME);
                                                                       Date enddate = Globals.format.parse(meetingModel.meeting.END_DATETIME);
 
-                                                                      String MeetingDate="";
-                                                                      String MeetingTime="";
-                                                                      if (Globals.lang.equals("ar")){
-                                                                           MeetingDate = String.format("%s", Globals.format3_ar.format(startdate));
-                                                                           MeetingTime = String.format("%s - %s", Globals.format1_ar.format(startdate), Globals.format1_ar.format(enddate));
-                                                                      }else {
-                                                                           MeetingDate = String.format("%s", Globals.format3.format(startdate));
-                                                                           MeetingTime = String.format("%s - %s", Globals.format1.format(startdate), Globals.format1.format(enddate));
+                                                                      String MeetingDate = "";
+                                                                      String MeetingTime = "";
+                                                                      if (Globals.lang.equals("ar")) {
+                                                                          MeetingDate = String.format("%s", Globals.format3_ar.format(startdate));
+                                                                          MeetingTime = String.format("%s - %s", Globals.format1_ar.format(startdate), Globals.format1_ar.format(enddate));
+                                                                      } else {
+                                                                          MeetingDate = String.format("%s", Globals.format3.format(startdate));
+                                                                          MeetingTime = String.format("%s - %s", Globals.format1.format(startdate), Globals.format1.format(enddate));
                                                                       }
                                                                       tv_MeetingDate.setText(MeetingDate);
                                                                       tv_MeetingTime.setText(MeetingTime);
@@ -369,6 +369,7 @@ public class MeetingAttendees extends CoreActivity {
 
 
     }
+
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -382,6 +383,7 @@ public class MeetingAttendees extends CoreActivity {
                             | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         }
     }
+
     public void setTimer() {
         if (tclose != null) {
             //Toast.makeText(getApplicationContext(), "aloh", Toast.LENGTH_SHORT).show();

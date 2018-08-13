@@ -135,8 +135,7 @@ public class MeetingsAllAdapter extends RecyclerView.Adapter<MeetingsAllAdapter.
 //                }
 //            });
             holder.tv_meetingtitle.setText(dataList.get(position).meeting.MEETING_TITLE);
-            holder.tv_meetingorganizer.setText(String.format("%s %s", dataList.get(position).user.FIRST_NAME
-                    , dataList.get(position).user.LAST_NAME));
+            holder.tv_meetingorganizer.setText(dataList.get(position).meeting.MEETING_DESCRIPTION);
             if (holder.tv_meetingroom != null)
             {
                 holder.tv_meetingroom.setText(dataList.get(position).unit.UNIT_NAME);
