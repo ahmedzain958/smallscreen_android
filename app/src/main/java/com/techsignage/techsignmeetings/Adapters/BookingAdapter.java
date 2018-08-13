@@ -95,18 +95,6 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ListView
             if (selected_all.size() == 1) {
                 IsValid = true;
             }
-
-//            int cnt = 0;
-//            for (int i = 0; i<dataList.size(); i++)
-//            {
-//                if(dataList.get(i).IsSelected && !selected_all.contains(dataList.get(i)))
-//                {
-//                    cnt++;
-//                }
-//            }
-//
-//            if (cnt == 0)
-//                IsValid = true;
             if (!IsValid) {
                 selected.IsSelected = false;
                 selected_all.remove(dataList.get(getAdapterPosition()));

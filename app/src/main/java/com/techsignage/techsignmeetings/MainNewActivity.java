@@ -503,8 +503,8 @@ public class MainNewActivity extends CoreActivityNew {
                     if (firstMeeting.ACTUAL_START_DATETIME != null) {
                         setRedOn();
 
-                        container2_lin.setBackgroundResource(R.drawable.red);
-//                        container2_lin.setBackground(ContextCompat.getDrawable(this, R.drawable.red));
+                        container2_lin.setBackgroundColor(Color.RED);
+                        getWindow().setBackgroundDrawableResource(R.drawable.mainpage_bgred);
                         startmeeting_btn.setText(R.string.endmeeting);
                         if (Globals.lang.equals("ar")) {
                             startmeeting_btn.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_pause_circle_outline_black_24dp, 0);
@@ -517,8 +517,9 @@ public class MainNewActivity extends CoreActivityNew {
                         setRedOff();
                         tv_MeetingHeld.setVisibility(View.GONE);
                         startmeeting_btn.setText(R.string.startmeeting);
-                        container2_lin.setBackgroundResource(R.drawable.blue);
-//                        container2_lin.setBackground(ContextCompat.getDrawable(this, R.drawable.blue));
+                        container2_lin.setBackgroundColor(getResources().getColor(R.color.background));
+                        getWindow().setBackgroundDrawableResource(R.drawable.mainpage_bg);
+
                         if (chkfirst_diff < -4)
                             tv_MeetingDate.setText(String.format(("\n%s"), MeetingDate));
                         setChinaColor(2);
@@ -527,7 +528,9 @@ public class MainNewActivity extends CoreActivityNew {
 
                     setRedOff();
                     tv_MeetingHeld.setVisibility(View.GONE);
-                    container2_lin.setBackgroundResource(R.drawable.green);
+                    container2_lin.setBackgroundColor(getResources().getColor(R.color.green));
+                    getWindow().setBackgroundDrawableResource(R.drawable.mainpage_bggreen);
+
                     if (Globals.lang.equals("ar")) {
                         String MeetingDate2 = String.format("%s - %s", Globals.format1_ar.format(startdate), Globals.format1_ar.format(enddate));
                         tv_nextMeetingDate.setText(MeetingDate2);
@@ -566,7 +569,9 @@ public class MainNewActivity extends CoreActivityNew {
             }
         }
         if (serviceResponse.RoomMeetings.Meetings.size() == 0) {
-            container2_lin.setBackgroundResource(R.drawable.green);
+            container2_lin.setBackgroundColor(getResources().getColor(R.color.green));
+            getWindow().setBackgroundDrawableResource(R.drawable.mainpage_bggreen);
+
             setChinaColor(2);
             setRedOff();
             tv_MeetingHeld.setVisibility(View.GONE);

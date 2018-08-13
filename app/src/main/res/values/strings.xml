@@ -54,5 +54,6 @@
     <string name="meeting_details">Meeting Details</string>
     <string name="book_meeting">Book Meeting</string>
     <string name="time">Time</string>
+    <string name="timeline">Enter time using timeline </string>
     <string name="Cance">cancel</string>
 </resources>

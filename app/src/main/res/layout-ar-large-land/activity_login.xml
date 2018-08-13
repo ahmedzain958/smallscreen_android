@@ -93,6 +93,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/subHeader1"
+       android:layout_marginStart="@dimen/_10sdp"
         android:elevation="@dimen/_5sdp"
         android:gravity="start"
         android:paddingBottom="10dp"
@@ -103,7 +104,8 @@
         android:textSize="@dimen/textview_middle_size"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/tv_UnitName"
-        app:layout_constraintTop_toBottomOf="@id/view1" />
+        app:layout_constraintTop_toBottomOf="@id/view1"
+        android:layout_marginLeft="@dimen/_10sdp" />
 
 
     <TextView

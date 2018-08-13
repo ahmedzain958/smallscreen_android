@@ -109,10 +109,10 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.ListVi
         try {
             Date startdate = Globals.format.parse(dataList.get(position).meeting.START_DATETIME);
             Date enddate = Globals.format.parse(dataList.get(position).meeting.END_DATETIME);
-            if (Globals.lang.equals("ar")){
+            if (Globals.lang.equals("ar")) {
                 String MeetingDate = String.format("%s - %s", Globals.format1_ar.format(startdate), Globals.format1_ar.format(enddate));
                 holder.tv_meetingdate.setText(MeetingDate);
-            }else {
+            } else {
                 String MeetingDate = String.format("%s - %s", Globals.format1.format(startdate), Globals.format1.format(enddate));
                 holder.tv_meetingdate.setText(MeetingDate);
             }
@@ -126,7 +126,8 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.ListVi
 //                }
 //            });
             holder.tv_meetingtitle.setText(dataList.get(position).meeting.MEETING_TITLE);
-            holder.tv_meetingorganizer.setText(String.format("%s", dataList.get(position).meeting.MEETING_DESCRIPTION ));
+            holder.tv_meetingorganizer.setText(String.format("%s %s", dataList.get(position).user.FIRST_NAME
+                    , dataList.get(position).user.LAST_NAME));
             Utilities.setFadeAnimation(holder.itemView);
             holder.itemView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
             itemHeight = holder.itemView.getMeasuredHeight();

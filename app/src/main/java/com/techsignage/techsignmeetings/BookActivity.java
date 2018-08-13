@@ -348,7 +348,39 @@ public class BookActivity extends CoreActivity {
                 for (int i = 0; i < Globals.hours.size(); i++) {
                     RecyclerView.ViewHolder v = mRecyclerView.findViewHolderForAdapterPosition(i);
                     if (v != null) {
-                        LinearLayout rel1 = (LinearLayout) v.itemView.findViewById(R.id.rel1);
+                        RelativeLayout rel1 = (RelativeLayout) v.itemView.findViewById(R.id.rel1);
+                        TextView tv_container = (TextView) rel1.findViewById(R.id.tv_container);
+                        tv_container.setBackgroundResource(R.drawable.white_bg);
+
+                        if (Globals.hours.get(i).IsSelected != null) {
+                            if (Globals.hours.get(i).IsSelected) {
+                                tv_container.setBackgroundResource(R.drawable.ic_check_black_24dp);
+                            }
+                        }
+
+                        if (Globals.hours.get(i).IsEnabled != null) {
+                            if (!Globals.hours.get(i).IsEnabled) {
+                                tv_container.setBackgroundResource(R.drawable.expired);
+                            }
+                        }
+
+                        if (Globals.hours.get(i).IsBooked) {
+                            tv_container.setBackgroundResource(R.drawable.booked_pic);
+                        }
+                    }
+                }
+            }
+        });
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                setTimer();
+
+                for (int i = 0; i < Globals.hours.size(); i++) {
+                    RecyclerView.ViewHolder v = mRecyclerView.findViewHolderForAdapterPosition(i);
+                    if (v != null) {
+                        RelativeLayout rel1 = (RelativeLayout) v.itemView.findViewById(R.id.rel1);
                         TextView tv_container = (TextView) rel1.findViewById(R.id.tv_container);
                         tv_container.setBackgroundResource(R.drawable.white_bg);
 
@@ -373,48 +405,6 @@ public class BookActivity extends CoreActivity {
         });
 
 
-//        tv_leftbtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//               // llm.scrollToPosition(Globals.hours.size());
-//                //mRecyclerView.getLayoutManager().scrollToPosition(llm.findFirstVisibleItemPosition() - 1);
-//                mRecyclerView.smoothScrollToPosition(llm.findFirstVisibleItemPosition() - 3);
-//            }
-//        });
-//
-//        tv_rightBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                // llm.scrollToPosition(Globals.hours.size());
-//                //mRecyclerView.getLayoutManager().scrollToPosition(llm.findLastVisibleItemPosition() + 1);
-//                mRecyclerView.smoothScrollToPosition(llm.findLastVisibleItemPosition() + 3);
-//            }
-//        });
-
-        //final LinearLayout layout = (LinearLayout)findViewById(R.id.lin2);
-//        ViewTreeObserver vto = lin2.getViewTreeObserver();
-//        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//            @Override
-//            public void onGlobalLayout() {
-//                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-//                    lin2.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-//                } else {
-//                    lin2.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-//                }
-//                int height = lin2.getMeasuredHeight();
-//                int width  = lin2.getMeasuredWidth();
-//
-////                if (height>100)
-////                {
-////                    LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(width,100);
-////                    lin2.setLayoutParams(parms);
-////
-////                    //lin2.getLayoutParams().height = 100;
-////                    //lin2.requestLayout();
-////                }
-//            }
-//        });
-
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -430,20 +420,11 @@ public class BookActivity extends CoreActivity {
                     Toast.makeText(BookActivity.this, R.string.selectrange, Toast.LENGTH_SHORT).show();
                     return;
                 }
-               /* if (rooms_spinner != null) {
-                    if (rooms_spinner.getSelectedItem() == null) {
-                        Toast.makeText(BookActivity.this, getResources().getString(R.string.chooseroom), Toast.LENGTH_LONG).show();
-                        return;
-                    }
-                }*/
-
                 progress_rel.setVisibility(View.VISIBLE);
 
                 MeetingModel meetingModel = new MeetingModel();
                 meetingModel.UNIT_ID = Globals.unitId;
-                /*if (rooms_spinner != null)
-                    meetingModel.UNIT_ID = ((UnitModel) rooms_spinner.getSelectedItem()).UNIT_ID;
-               */
+
                 meetingModel.CREATE_USER = Globals.loggedUser.USER_ID;
                 meetingModel.MEETING_TITLE = title;
                 meetingModel.RECURRENCE_TYPE = "Single";

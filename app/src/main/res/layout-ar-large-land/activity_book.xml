@@ -210,15 +210,17 @@
         app:layout_constraintTop_toBottomOf="@+id/meeting_datetime" />
 
 
-    <TextView
+    <EditText
         android:id="@+id/tv_MeetingOrganizer"
         android:layout_width="500dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
         android:background="@drawable/border"
+        android:focusable="false"
         android:gravity="start"
         android:hint="@string/meeting_organizer"
+        android:inputType="none"
         android:paddingBottom="10dp"
         android:paddingLeft="15dp"
         android:paddingStart="15dp"
@@ -267,6 +269,7 @@
             android:id="@+id/meeting_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_15sdp"
             android:layout_marginStart="@dimen/_15sdp"
             android:drawableLeft="@drawable/ic_meeting_time_black_24dp"
             android:drawablePadding="5dp"
