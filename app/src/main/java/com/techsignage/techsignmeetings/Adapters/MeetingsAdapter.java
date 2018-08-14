@@ -126,8 +126,7 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.ListVi
 //                }
 //            });
             holder.tv_meetingtitle.setText(dataList.get(position).meeting.MEETING_TITLE);
-            holder.tv_meetingorganizer.setText(String.format("%s %s", dataList.get(position).user.FIRST_NAME
-                    , dataList.get(position).user.LAST_NAME));
+            holder.tv_meetingorganizer.setText(dataList.get(position).meeting.MEETING_DESCRIPTION);
             Utilities.setFadeAnimation(holder.itemView);
             holder.itemView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
             itemHeight = holder.itemView.getMeasuredHeight();

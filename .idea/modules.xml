@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://E:\DEV\techrmsapp\TechSignMeetings_05112017.iml" filepath="E:\DEV\techrmsapp\TechSignMeetings_05112017.iml" />
-      <module fileurl="file://$PROJECT_DIR$/TechSignMeetings_19122017.iml" filepath="$PROJECT_DIR$/TechSignMeetings_19122017.iml" />
-      <module fileurl="file://E:\DEV\techrmsapp\TechSignMeetings_19122017.iml" filepath="E:\DEV\techrmsapp\TechSignMeetings_19122017.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://E:\TechSignMeetings_19122017\techrmsapp.iml" filepath="E:\TechSignMeetings_19122017\techrmsapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/smallscreen_android.iml" filepath="$PROJECT_DIR$/smallscreen_android.iml" />
     </modules>
   </component>
 </project>
