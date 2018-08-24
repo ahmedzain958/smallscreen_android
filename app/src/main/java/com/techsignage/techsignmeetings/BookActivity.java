@@ -163,20 +163,8 @@ public class BookActivity extends CoreActivity {
                 Log.d("keyboard", "keyboard visible: " + isVisible);
                 //Toast.makeText(LoginActivity.this, "keyboard visible: "+isVisible, Toast.LENGTH_SHORT).show();
                 getWindow().getDecorView().setSystemUiVisibility(flags2);
-//                if (isVisible)
-//                {
-//                    //getWindow().getDecorView().setSystemUiVisibility(flags);
-//                }
-//                else
-//                {
-//                    //getWindow().getDecorView().setSystemUiVisibility(flags2);
-//                }
             }
         });
-
-        //final String activityName = getIntent().getExtras().getString("activityName");
-        //final Boolean show_spinner = activityName.equals("AllListActivity");
-
         final RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.book_list);
         final hourCallback callback = new hourCallback() {
             @Override
@@ -212,26 +200,6 @@ public class BookActivity extends CoreActivity {
             }
         };
         tv_UnitName.setText(Globals.loggedUnit.UNIT_NAME);
-      /*  if (rooms_spinner != null) {
-            rooms_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    MeetingModel meetingModel = new MeetingModel();
-                    meetingModel.TheDate = new SimpleDateFormat("dd/MM/yyyy").format(selectedDate.getTime());
-                    meetingModel.UNIT_ID = ((UnitModel) rooms_spinner.getSelectedItem()).UNIT_ID;
-                    meetingModel.Lang = Globals.lang;
-                    structCalendar(callback, mRecyclerView, meetingModel);
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
-        } else {
-            tv_UnitName.setText(Globals.loggedUnit.UNIT_NAME);
-        }*/
-
         BookingAdapter adapter = new BookingAdapter(BookActivity.this, callback);
         for (HourModel hourModel : Globals.hours) {
             hourModel.IsSelected = false;
@@ -280,29 +248,6 @@ public class BookActivity extends CoreActivity {
                 });
 
 
-       /* Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
-
-        date_picker.init(year, month, day, new DatePicker.OnDateChangedListener() {
-            @Override
-            public void onDateChanged(DatePicker datePicker, int year, int month, int dayOfMonth) {
-
-                selectedDate = Calendar.getInstance();
-                selectedDate.set(Calendar.YEAR, year);
-                selectedDate.set(Calendar.MONTH, month);
-                selectedDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                tv_MeetingDate.setText(new SimpleDateFormat("dd/MM/yyyy").format(selectedDate.getTime()));
-
-                MeetingModel meetingModel = new MeetingModel();
-                meetingModel.TheDate = new SimpleDateFormat("dd/MM/yyyy").format(selectedDate.getTime());
-                meetingModel.UNIT_ID = Globals.unitId;
-                meetingModel.Lang = Globals.lang;
-                structCalendar(callback, mRecyclerView, meetingModel);
-
-            }
-        });*/
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
